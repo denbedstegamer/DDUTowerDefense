@@ -2,10 +2,32 @@ public int squaresX, squaresY, gameState = 0;  // 0 = MainMenu, 1 = SettingsMenu
 private MainMenu mm;
 private SettingsMenu sm;
 private Game game;
+private LevelCreator lc;
 
 public void setup() {
   fullScreen();
+  
+  /*
+  String[] lines = loadStrings("field1.txt");
   for (int i = 0; i<lines.length; i++) {
+    println(lines[i]);
+  }
+  */
+
+  squaresX = 1000;
+  squaresY = 700;
+
+  mm = new MainMenu();
+}
+
+public void draw() {
+  switch(gameState) {
+  case 0:
+    mm.update();
+    mm.render();
+    break;
+
+  case 1:
     sm.update();
     sm.render();
     break;

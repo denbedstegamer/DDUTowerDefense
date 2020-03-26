@@ -1,21 +1,21 @@
 // class that defines where the enemies go next
 public class Track {
-  private boolean[][] track;
+  private int[][] track;
 
   public Track() {
-    track = new boolean[squaresX][squaresY];
+    track = new int[squaresX][squaresY];
     for (int x = 0; x < squaresX; x++) {
       for (int y = 0; y < squaresY; y++) {
-        track[x][y] = false;
+        track[x][y] = 0;
       }
     }
   }
 
-  public Track(boolean[][] track) {
+  public Track(int[][] track) {
     this.track = track;
   }
 
-  public boolean[][] getTrack() {
+  public int[][] getTrack() {
     return track;
   }
 }

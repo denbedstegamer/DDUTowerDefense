@@ -103,5 +103,13 @@ public class Level {
       }
     }
     RenderTowers();
+    renderBackground();
+  }
+  
+  public void renderBackground(){
+    if(filePathToBackGround != null){
+      tint(255, 100);
+      image(loadImage(filePathToBackGround), 0, 0, squaresX, squaresY);
+    }
   }
 }

@@ -44,7 +44,7 @@ public void draw() {
   }
 }
 
-public void mouseClicked() {
+public void mousePressed() {
   switch(gameState) {
   case 0:
     //mm.clickEvent();
@@ -60,7 +60,7 @@ public void mouseClicked() {
     break;
     
   case 3:
-    // same as above
+    lc.clickEvent();
     break;
   }
 }

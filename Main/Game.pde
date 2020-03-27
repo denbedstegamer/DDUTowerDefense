@@ -1,21 +1,21 @@
 public class Game {
-  private Level currentLevel;
+  private Level level;
   
-  public Game() {
-    currentLevel = new Level();  // nope
+  public Game(File f) {
+    level = new Level(f);
   }
 
   public void update() {
-    currentLevel.update();
+    level.update();
   }
 
   public void render() {
-    currentLevel.render();  //flere render ting som liv osv
+    level.render(false);  //flere render ting som liv osv
   }
   
   public void mouseEvent(int x, int y){
     if(x < squaresX && y < squaresY) {
-      currentLevel.addTower(new Tower(x, y));
+      level.addTower(new Tower(x, y));
     } else {
       // logic med liv og sådan noget der og at købe ting osv
     }

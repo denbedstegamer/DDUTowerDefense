@@ -2,7 +2,8 @@ public class Level {
   private Track track;
   private FieldPiece[][] field;
   private ArrayList<Tower> towers;
-  private String filePathToBackGround;
+  private String filePathToBackground;
+  private PImage background;
 
   public Level() {
     track = new Track();
@@ -12,6 +13,43 @@ public class Level {
         field[x][y] = new FieldPiece(x, y, true);
       }
     }
+    towers = new ArrayList<Tower>();
+  }
+
+  public Level(File f) {
+    String[] contents = loadStrings(f);
+
+    if (contents[0].compareTo("null") != 0) {
+      filePathToBackground = contents[0];
+    } else {
+      filePathToBackground = null;
+    }
+
+    field = new FieldPiece[squaresX][squaresY];
+    for (int x = 0; x < squaresX; x++) {
+      for (int y = 0; y < squaresY; y++) {
+        field[x][y] = new FieldPiece(x, y, true);
+      }
+    }
+    for (int y = 0; y < squaresY; y++) {
+      for (int x = 0; x < contents[y].length(); x++) {
+        if (contents[y + 2].charAt(x) == '0') {
+          field[x][y].setEmpty(true);
+        } else {
+          field[x][y].setEmpty(false);
+        }
+      }
+    }
+
+    track = new Track();
+    for (int y = squaresY + 3; y < contents.length; y++) {
+      String[] coords = split(contents[y], ",");
+      float Px = parseFloat(coords[0]);
+      float Py = parseFloat(coords[1]);
+      PVector point = new PVector(Px, Py);
+      getTrack().getPoints().add(point);
+    }
+
     towers = new ArrayList<Tower>();
   }
 
@@ -32,10 +70,10 @@ public class Level {
     }
     for (int xTemp = xTemp2; xTemp < x+towerRadius; xTemp++) {
       for (int yTemp = yTemp2; yTemp < y+towerRadius; yTemp++) {
-        if(xTemp >= squaresX){
+        if (xTemp >= squaresX) {
           return false;
         }
-        if(yTemp >= squaresY){
+        if (yTemp >= squaresY) {
           return false;
         }
         for (int i = 0; i < 4; i++) {
@@ -88,28 +126,39 @@ public class Level {
       }
     }
   }
-  
+
   public void update() {
-    
   }
 
-  public void render() {
+  public void render(boolean toLevelCreator) {
     background(255);
-    rectMode(CORNER);
-    noStroke();
-    for (int x = 0; x < squaresX; x++) {
-      for (int y = 0; y < squaresY; y++) {
-        field[x][y].render();
-      }
+    if (!toLevelCreator) {
+      renderBackground(toLevelCreator);
     }
     RenderTowers();
-    renderBackground();
+    if (toLevelCreator) {
+      rectMode(CORNER);
+      noStroke();
+      for (int x = 0; x < squaresX; x++) {
+        for (int y = 0; y < squaresY; y++) {
+          field[x][y].render();
+        }
+      }
+      renderBackground(toLevelCreator);
+    }
   }
-  
-  public void renderBackground(){
-    if(filePathToBackGround != null){
-      tint(255, 100);
-      image(loadImage(filePathToBackGround), 0, 0, squaresX, squaresY);
+
+  public void renderBackground(boolean toLevelCreator) {
+    if (filePathToBackground != null) {
+      if (background == null) {
+        background = loadImage(filePathToBackground);
+      }
+    }
+    if (background != null) {
+      if (toLevelCreator) {
+        tint(255, 100);
+      }
+      image(background, 0, 0, squaresX, squaresY);
     }
   }
 }

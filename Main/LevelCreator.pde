@@ -1,24 +1,26 @@
 public class LevelCreator {
   //private TextField levelName;
   private Level level;
-  private Button createLevel, chooseBackground, createObstacle, createPath, clearPath, stopPath;
-  private boolean isSelectingFile, isSettingMarks, isSettingPath;
+  private Button createLevel, chooseBackground, createObstacle, createPath, clearPath, stopPath, chooseLevel, backToMM;
+  private boolean isSelectingFile, isSelectingBackgroundFile, isSelectingLevelFile, isSettingMarks, isSettingPath, changesToFeatures = true;
   private String toolTip;
   private PVector[] marks;
-  private ArrayList<PVector> path;
+  private PImage features;
 
   public LevelCreator() {
     level = new Level();
     marks = new PVector[4];
-    path = new ArrayList<PVector>();
+    features = new PImage();
 
     chooseBackground = new Button(1000, 0, width-1000, height/8, "Background") {
       @Override
         public void action() {
         if (!isSelectingFile) {
-          chooseBackground();
+          isSelectingBackgroundFile = true;
+          chooseFile();
         }
         isSelectingFile = true;
+        toolTip = null;
       }
     };
     createLevel = new Button(1000, height/8, width-1000, height/8, "Create Level") {
@@ -28,7 +30,7 @@ public class LevelCreator {
         toolTip = "Level saved";
       }
     };
-    createObstacle = new Button(1000, height/4-1, width-1000, height/8, "Obstacle") {
+    createObstacle = new Button(1000, height/4, width-1000, height/8, "Obstacle") {
       @Override
         public void action() {
         isSettingMarks = true;
@@ -37,7 +39,7 @@ public class LevelCreator {
         toolTip = "Click on the field in order to mark the 4 corners of the obstacle";
       }
     };
-    createPath = new Button(1000, height/4+height/8-1, width-1000, height/8, "Create Path") {
+    createPath = new Button(1000, height/4+height/8, width-1000, height/8, "Create Path") {
       @Override
         public void action() {
         isSettingPath = true;
@@ -45,26 +47,57 @@ public class LevelCreator {
         toolTip = "Click on the field in order to trace the path for the enemies";
       }
     };
-    stopPath = new Button(1000, height/2-2, width-1000, height/8, "Stop Path") {
+    stopPath = new Button(1000, height/2, width-1000, height/8, "Stop Path") {
       @Override
         public void action() {
         isSettingPath = false;
         toolTip = "You no longer place path";
       }
     };
-    clearPath = new Button(1000, height/2+height/8-2, width-1000, height/8, "Clear Path") {
+    clearPath = new Button(1000, height/2+height/8, width-1000, height/8, "Clear Path") {
       @Override
         public void action() {
         clearPath();
         toolTip = "Path cleared";
       }
     };
-    //levelName = new TextField("input level name");
-    //add(levelName);
+    chooseLevel = new Button(1000, height/2+height/4, width-1000, height/8, "Edit Level") {
+      @Override
+        public void action() {
+        if (!isSelectingFile) {
+          isSelectingLevelFile = true;
+          chooseFile();
+        }
+        isSelectingFile = true;
+        toolTip = null;
+      }
+    };
+    backToMM = new Button(1000, height/2+height/4+height/8, width-1000, height/8, "Main Menu") {
+      @Override
+        public void action() {
+        gameState = 0;
+      }
+    };
   }
 
-  public void chooseBackground() {
+  public void chooseFile() {
     selectInput("Select a file to process:", "fileSelected", dataFile("LevelCreator"), this);
+  }
+
+  public void fileSelected(File selection) {
+    if (selection == null) {
+      toolTip = "Something went wrong with choosing a file";
+    } else {
+      if (isSelectingBackgroundFile) {
+        level.filePathToBackground = selection.getAbsolutePath();
+      }
+      if (isSelectingLevelFile) {
+        level = new Level(selection);
+      }
+    }
+    isSelectingBackgroundFile = false;
+    isSelectingLevelFile = false;
+    isSelectingFile = false;
   }
 
   public void clickEvent() {
@@ -103,19 +136,13 @@ public class LevelCreator {
 
   public void makePath() {
     if (mouseX < squaresX && mouseY < squaresY) {
-      path.add(new PVector(round(mouseX), round(mouseY)));
-    }
-  }
-
-  public void setPath() {
-    for (int i = 0; i < path.size(); i++) {
-      level.track.getTrack()[round(path.get(i).x)][round(path.get(i).y)] = i;
+      level.track.getPoints().add(new PVector(round(mouseX), round(mouseY)));
     }
   }
 
   public void clearPath() {
-    for (int i = path.size()-1; i >= 0; i--) {
-      path.remove(i);
+    for (int i = level.track.getPoints().size()-1; i >= 0; i--) {
+      level.track.getPoints().remove(i);
     }
   }
 
@@ -149,35 +176,39 @@ public class LevelCreator {
         level.field[x][y].setEmpty(false);
       }
     }
-  }
-
-  public void fileSelected(File selection) {
-    if (selection == null) {
-      println("No file was selected");
-    } else {
-      level.filePathToBackGround = selection.getAbsolutePath();
-    }
-    isSelectingFile = false;
+    changesToFeatures = true;
   }
 
   public void createLevel() {
     PrintWriter output = createWriter("data/field.lvl");  // "data/field" + number + ".lvl"
-    output.println(level.filePathToBackGround);
-    String[][] data = new String[level.field[0].length][level.field[1].length];
-    for (int x = 0; x < level.field[0].length; x++) {
-      for (int y = 0; y < level.field[1].length; y++) {
+
+    output.println(level.filePathToBackground);
+
+    output.println("Field");
+    String[][] dataField = new String[squaresX][squaresY];
+    for (int y = 0; y < squaresY; y++) {
+      for (int x = 0; x < squaresX; x++) {
         if (level.field[x][y].isEmpty) {
-          data[x][y] = "0";
+          dataField[x][y] = "0";
         } else {
-          data[x][y] = "1";
+          dataField[x][y] = "1";
         }
       }
     }
-    for (int x = 0; x < level.field[0].length; x++) {
-      for (int y = 0; y < level.field[1].length; y++) {
-        output.print(data[x][y]);
+    for (int y = 0; y < squaresY; y++) {
+      for (int x = 0; x < squaresX; x++) {
+        output.print(dataField[x][y]);
       }
       output.println();
+    }
+
+    output.println("Track");
+    String[] dataTrack = new String[level.track.getPoints().size()];
+    for (int i = 1; i < dataTrack.length; i++) {
+      dataTrack[i] = level.track.getPoints().get(i).toString().substring(2, level.track.getPoints().get(i).toString().length()-2);
+    }
+    for (int i = 1; i < dataTrack.length; i++) {
+      output.println(dataTrack[i]);
     }
     output.flush();
     output.close();
@@ -190,17 +221,27 @@ public class LevelCreator {
     createPath.pressed();
     stopPath.pressed();
     clearPath.pressed();
+    chooseLevel.pressed();
+    backToMM.pressed();
   }
 
   public void render() {
     background(255);
-    level.render();
+    if (changesToFeatures) {
+      level.render(true);
+      features = get();
+      changesToFeatures = false;
+    }
+    image(features, 0, 0);
+    
     chooseBackground.render();
     createLevel.render();
     createObstacle.render();
     createPath.render();
     stopPath.render();
     clearPath.render();
+    chooseLevel.render();
+    backToMM.render();
 
     if (toolTip != null) {
       textSize(32);
@@ -219,9 +260,9 @@ public class LevelCreator {
       }
     }
     noStroke();
-    for (int i = 0; i < path.size(); i++) {
-      fill(255*i/path.size(), 0, 0);
-      ellipse(round(path.get(i).x), round(path.get(i).y), 3, 3);
+    for (int i = 0; i < level.track.getPoints().size(); i++) {
+      fill(127 + 128*i/level.track.getPoints().size(), 0, 0);
+      ellipse(round(level.track.getPoints().get(i).x), round(level.track.getPoints().get(i).y), 3, 3);
     }
   }
 }

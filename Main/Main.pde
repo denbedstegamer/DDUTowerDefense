@@ -6,6 +6,7 @@ private LevelCreator lc;
 
 public void setup() {
   fullScreen();
+  frameRate(60);
   
   /*
   String[] lines = loadStrings("field1.txt");
@@ -42,6 +43,8 @@ public void draw() {
     lc.render();
     break;
   }
+  fill(0);
+  text(frameRate, width/10, height-height/15);
 }
 
 public void mousePressed() {

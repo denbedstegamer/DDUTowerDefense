@@ -1,21 +1,12 @@
 // class that defines where the enemies go next
 public class Track {
-  private int[][] track;
+  private ArrayList<PVector> points;
 
   public Track() {
-    track = new int[squaresX][squaresY];
-    for (int x = 0; x < squaresX; x++) {
-      for (int y = 0; y < squaresY; y++) {
-        track[x][y] = 0;
-      }
-    }
+    points = new ArrayList<PVector>();
   }
 
-  public Track(int[][] track) {
-    this.track = track;
-  }
-
-  public int[][] getTrack() {
-    return track;
+  public ArrayList<PVector> getPoints() {
+    return points;
   }
 }

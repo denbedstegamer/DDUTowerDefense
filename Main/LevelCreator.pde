@@ -17,9 +17,9 @@ public class LevelCreator {
         public void action() {
         if (!isSelectingFile) {
           isSelectingBackgroundFile = true;
+          isSelectingFile = true;
           chooseFile();
         }
-        isSelectingFile = true;
         toolTip = null;
       }
     };
@@ -67,8 +67,8 @@ public class LevelCreator {
         if (!isSelectingFile) {
           isSelectingLevelFile = true;
           chooseFile();
+          isSelectingFile = true;
         }
-        isSelectingFile = true;
         toolTip = null;
       }
     };
@@ -88,16 +88,18 @@ public class LevelCreator {
     if (selection == null) {
       toolTip = "Something went wrong with choosing a file";
     } else {
+      changesToFeatures = true;
       if (isSelectingBackgroundFile) {
         level.filePathToBackground = selection.getAbsolutePath();
+        isSelectingBackgroundFile = false;
+        isSelectingFile = false;
       }
       if (isSelectingLevelFile) {
         level = new Level(selection);
+        isSelectingLevelFile = false;
+        isSelectingFile = false;
       }
     }
-    isSelectingBackgroundFile = false;
-    isSelectingLevelFile = false;
-    isSelectingFile = false;
   }
 
   public void clickEvent() {

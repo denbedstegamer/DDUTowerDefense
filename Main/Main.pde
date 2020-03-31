@@ -44,7 +44,6 @@ public void draw() {
     break;
   }
   fill(0);
-  text(frameRate, width/10, height-height/15);
 }
 
 public void mousePressed() {

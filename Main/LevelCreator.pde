@@ -1,8 +1,8 @@
 public class LevelCreator {
   //private TextField levelName;
   private Level level;
-  private Button createLevel, chooseBackground, createObstacle, createPath, clearPath, stopPath, chooseLevel, backToMM;
-  private boolean isSelectingFile, isSelectingBackgroundFile, isSelectingLevelFile, isSettingMarks, isSettingPath, changesToFeatures = true;
+  private Button createLevel, chooseBackground, createObstacle, createPath, clearPath, removeObstacle, chooseLevel, backToMM;
+  private boolean isSelectingFile, isSelectingBackgroundFile, isSelectingLevelFile, isSettingMarks, isSettingPath, changesToFeatures = true, isCreatingObstacle;
   private String toolTip;
   private PVector[] marks;
   private PImage features;
@@ -30,9 +30,10 @@ public class LevelCreator {
         toolTip = "Level saved";
       }
     };
-    createObstacle = new Button(1000, height/4, width-1000, height/8, "Obstacle") {
+    createObstacle = new Button(1000, height/4, width-1000, height/8, "Create Obstacle") {
       @Override
         public void action() {
+        isCreatingObstacle = true;
         isSettingMarks = true;
         isSettingPath = false;
         clearMarks();
@@ -47,11 +48,14 @@ public class LevelCreator {
         toolTip = "Click on the field in order to trace the path for the enemies";
       }
     };
-    stopPath = new Button(1000, height/2, width-1000, height/8, "Stop Path") {
+    removeObstacle = new Button(1000, height/2, width-1000, height/8, "Remove Obstacle") {
       @Override
         public void action() {
+        isCreatingObstacle = false;
+        isSettingMarks = true;
         isSettingPath = false;
-        toolTip = "You no longer place path";
+        clearMarks();
+        toolTip = "Click on the field in order to mark the 4 corners of the area you want to remove";
       }
     };
     clearPath = new Button(1000, height/2+height/8, width-1000, height/8, "Clear Path") {
@@ -123,7 +127,11 @@ public class LevelCreator {
         }
       }
       if (!(marks[3] == null)) {
-        createObstacle();
+        if(isCreatingObstacle){
+          createObstacle();
+        } else {
+          removeObstacle();
+        }
         isSettingMarks = false;
         clearMarks();
       }
@@ -180,6 +188,39 @@ public class LevelCreator {
     }
     changesToFeatures = true;
   }
+  
+  public void removeObstacle() {
+    int xMin = round(marks[0].x);
+    for (int i = 1; i < marks.length; i++) {
+      if (marks[i].x < xMin) {
+        xMin = round(marks[i].x);
+      }
+    }
+    int yMin = round(marks[0].y);
+    for (int i = 1; i < marks.length; i++) {
+      if (marks[i].y < yMin) {
+        yMin = round(marks[i].y);
+      }
+    }
+    int xMax = round(marks[0].x);
+    for (int i = 1; i < marks.length; i++) {
+      if (marks[i].x > xMax) {
+        xMax = round(marks[i].x);
+      }
+    }
+    int yMax = round(marks[0].y);
+    for (int i = 1; i < marks.length; i++) {
+      if (marks[i].y > yMax) {
+        yMax = round(marks[i].y);
+      }
+    }
+    for (int x = xMin; x < xMax; x++) {
+      for (int y = yMin; y < yMax; y++) {
+        level.field[x][y].setEmpty(true);
+      }
+    }
+    changesToFeatures = true;
+  }
 
   public void createLevel() {
     PrintWriter output = createWriter("data/field.lvl");  // "data/field" + number + ".lvl"
@@ -221,7 +262,7 @@ public class LevelCreator {
     createLevel.pressed();
     createObstacle.pressed();
     createPath.pressed();
-    stopPath.pressed();
+    removeObstacle.pressed();
     clearPath.pressed();
     chooseLevel.pressed();
     backToMM.pressed();
@@ -240,16 +281,16 @@ public class LevelCreator {
     createLevel.render();
     createObstacle.render();
     createPath.render();
-    stopPath.render();
+    removeObstacle.render();
     clearPath.render();
     chooseLevel.render();
     backToMM.render();
 
     if (toolTip != null) {
       textSize(32);
-      textAlign(CENTER);
+      textAlign(CORNER);
       fill(0);
-      text(toolTip, width/2, height-height/10);
+      text(toolTip, 5, height-height/10);
     }
 
     if (isSettingMarks) {

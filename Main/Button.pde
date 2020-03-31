@@ -10,7 +10,8 @@ public class Button {
   }
 
   public void render() {
-    stroke(1);
+    strokeWeight(1);
+    stroke(0);
     rectMode(CORNER);
     fill(200);
     rect(pos.x, pos.y, size.x, size.y);

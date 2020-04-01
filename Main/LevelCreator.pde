@@ -95,15 +95,14 @@ public class LevelCreator {
       changesToFeatures = true;
       if (isSelectingBackgroundFile) {
         level.filePathToBackground = selection.getAbsolutePath();
-        isSelectingBackgroundFile = false;
-        isSelectingFile = false;
       }
       if (isSelectingLevelFile) {
         level = new Level(selection);
-        isSelectingLevelFile = false;
-        isSelectingFile = false;
       }
     }
+    isSelectingLevelFile = false;
+    isSelectingBackgroundFile = false;
+    isSelectingFile = false;
   }
 
   public void clickEvent() {
@@ -127,7 +126,7 @@ public class LevelCreator {
         }
       }
       if (!(marks[3] == null)) {
-        if(isCreatingObstacle){
+        if (isCreatingObstacle) {
           createObstacle();
         } else {
           removeObstacle();
@@ -188,7 +187,7 @@ public class LevelCreator {
     }
     changesToFeatures = true;
   }
-  
+
   public void removeObstacle() {
     int xMin = round(marks[0].x);
     for (int i = 1; i < marks.length; i++) {
@@ -276,7 +275,7 @@ public class LevelCreator {
       changesToFeatures = false;
     }
     image(features, 0, 0);
-    
+
     chooseBackground.render();
     createLevel.render();
     createObstacle.render();

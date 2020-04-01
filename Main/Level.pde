@@ -3,7 +3,7 @@ public class Level {
   private FieldPiece[][] field;
   private ArrayList<Tower> towers;
   private String filePathToBackground;
-  private PImage background;
+  private PImage background, background2;  // background2 is to make the game not lag, because processing is terrible with images
 
   public Level() {
     track = new Track();
@@ -133,7 +133,7 @@ public class Level {
   public void render(boolean toLevelCreator) {
     background(255);
     if (!toLevelCreator) {
-      renderBackground(toLevelCreator);
+      renderBackground(false);
     }
     RenderTowers();
     if (toLevelCreator) {
@@ -149,16 +149,18 @@ public class Level {
   }
 
   public void renderBackground(boolean toLevelCreator) {
-    if (filePathToBackground != null) {
-      if (background == null) {
+    if (background == null) {
+      if (filePathToBackground != null) {
         background = loadImage(filePathToBackground);
+        image(background, 0, 0, squaresX, squaresY);
+        background2 = get();
       }
     }
     if (background != null) {
       if (toLevelCreator) {
         tint(255, 100);
       }
-      image(background, 0, 0, squaresX, squaresY);
+      image(background2, 0, 0);
     }
   }
 }

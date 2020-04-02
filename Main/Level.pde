@@ -160,6 +160,7 @@ public class Level {
       if (toLevelCreator) {
         tint(255, 100);
       }
+      imageMode(CORNER);
       image(background2, 0, 0);
     }
   }

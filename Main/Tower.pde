@@ -1,7 +1,7 @@
 public class Tower {
   // texture and id/type
   private int x, y, radius = 20;  //måske d ikkr r
-  private int range, damage, as, id;
+  private int range, damage, as, id;  // as = Attack Speed
   PImage sprite;
 
   public Tower(int x, int y) {
@@ -102,12 +102,12 @@ public class Tower {
     }
   }
   
-  void upgrade(int id) {
+  private void upgrade(int id) {
     this.id = id;
     updateTowerValues();
   }
   
-  void spotEnemies() {
+  private void spotEnemies() {
     
   }
 }

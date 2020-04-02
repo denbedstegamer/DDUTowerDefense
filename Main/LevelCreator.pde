@@ -92,13 +92,13 @@ public class LevelCreator {
     if (selection == null) {
       toolTip = "Something went wrong with choosing a file";
     } else {
-      changesToFeatures = true;
       if (isSelectingBackgroundFile) {
         level.filePathToBackground = selection.getAbsolutePath();
       }
       if (isSelectingLevelFile) {
         level = new Level(selection);
       }
+      changesToFeatures = true;
     }
     isSelectingLevelFile = false;
     isSelectingBackgroundFile = false;

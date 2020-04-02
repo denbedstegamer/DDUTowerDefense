@@ -1,19 +1,22 @@
 public class Game {
   private Level level;
   private Player player;
-  private int wave, maxWaves = 10;
+  private Wave wave;
   
   public Game(File f) {
     level = new Level(f);
     player = new Player();
+    wave = new Wave();
   }
 
   public void update() {
     level.update();
+    wave.update();
   }
 
   public void render() {
-    level.render(false);  //flere render ting som liv osv
+    level.render(false);
+    wave.render();
     renderNonLevelThings();
   }
   
@@ -43,8 +46,8 @@ public class Game {
     textAlign(CENTER);
     stroke(0);
     strokeWeight(1);
-    fill(255);
-    text(wave + " / " + maxWaves, squaresX + (width-squaresX)/2, height/16*2);
+    fill(0);
+    text("wave " + wave.waveCount + " / " + wave.maxWaves, squaresX + (width-squaresX)/2, height-height/16*2);
   }
   
   private void renderBuyables(){

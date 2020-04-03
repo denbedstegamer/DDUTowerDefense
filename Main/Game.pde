@@ -14,11 +14,17 @@ public class Game {
   public void update() {
     level.update();
     wave.update();
+    for(int i = 0; i < projectiles.size(); i++){
+      projectiles.get(i).update();
+    }
   }
 
   public void render() {
     level.render(false);
     wave.render();
+    for(int i = 0; i < projectiles.size(); i++){
+      projectiles.get(i).render();
+    }
     renderNonLevelThings();
   }
   

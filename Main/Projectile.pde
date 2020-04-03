@@ -16,6 +16,7 @@ public class Projectile{
   
   public void render(){
     /*
+    HUSK ROTATION
     imageMode(CENTER);
     image(sprite, pos.x, pos.y);*/
     stroke(0);

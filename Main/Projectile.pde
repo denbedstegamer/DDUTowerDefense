@@ -1,7 +1,7 @@
 public class Projectile{
   private PVector pos, dir;
   private int enemyId;
-  private float vel;
+  private float vel = 2;
   // damage stats and so on
   
   public Projectile(PVector pos, int enemyId){
@@ -10,7 +10,7 @@ public class Projectile{
   }
   
   public void update(){
-    dir = game.level.track.points.get(enemyId).copy().sub(pos).copy().setMag(vel);
+    dir = game.wave.enemies.get(enemyId).pos.copy().sub(pos).copy().setMag(vel);
     pos.add(dir);
   }
   

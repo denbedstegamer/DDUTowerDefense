@@ -5,7 +5,7 @@ public class Projectile{
   // damage stats and so on
   
   public Projectile(PVector pos, int enemyId){
-    this.pos = pos;
+    this.pos = pos.copy();
     this.enemyId = enemyId;
   }
   

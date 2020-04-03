@@ -9,12 +9,12 @@ public class Tower {
     this.x = x;
     this.y = y;
     pos = new PVector(x, y);
-    id = 1;
+    id = 7;
     updateTowerValues();
   }
 
   public void update() {
-    if (frameCount % as == 0) {
+    if (frameCount % (as*5) == 0) {
       attack();
     }
   }

@@ -2,7 +2,7 @@ public class Tower {
   // texture and id/type
   private int x, y, radius = 20;  //måske d ikkr r
   private int range, damage, as, id;  // as = Attack Speed
-  PImage sprite;
+  private PImage sprite;
 
   public Tower(int x, int y) {
     this.x = x;
@@ -10,8 +10,16 @@ public class Tower {
     id = 1;
     updateTowerValues();
   }
+  
+  public void update(){
+    if(frameCount % as == 0){
+      attack();
+    }
+  }
 
   public void render() {
+    ellipseMode(CENTER);
+    stroke(0);
     strokeWeight(1);
     fill(0, 255, 0);
     ellipse(x, y, radius*2, radius*2);
@@ -107,7 +115,7 @@ public class Tower {
     updateTowerValues();
   }
   
-  private void spotEnemies() {
+  private void attack() {
     
   }
 }

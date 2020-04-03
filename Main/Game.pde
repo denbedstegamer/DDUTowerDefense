@@ -2,11 +2,13 @@ public class Game {
   private Level level;
   private Player player;
   private Wave wave;
+  private ArrayList<Projectile> projectiles;
   
   public Game(File f) {
     level = new Level(f);
     player = new Player();
     wave = new Wave();
+    projectiles = new ArrayList<Projectile>();
   }
 
   public void update() {

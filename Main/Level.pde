@@ -128,6 +128,11 @@ public class Level {
   }
 
   public void update() {
+    for (int i = 0; i < towers.size(); i++) {
+      if (towers.get(i) != null) {
+        towers.get(i).update();
+      }
+    }
   }
 
   public void render(boolean toLevelCreator) {

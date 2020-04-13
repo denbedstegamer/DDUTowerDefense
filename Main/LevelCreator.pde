@@ -93,218 +93,218 @@ public class LevelCreator {
       toolTip = "Something went wrong with choosing a file";
     } else {
       if (isSelectingBackgroundFile) {
-        level.filePathToBackground = selection.getAbsolutePath();
+        level.filePathToBackground = selection.getAbsolutePath().substring(dataPath("").length(), selection.getAbsolutePath().length());
+        if (isSelectingLevelFile) {
+          level = new Level(selection);
+        }
+        changesToFeatures = true;
       }
-      if (isSelectingLevelFile) {
-        level = new Level(selection);
+      isSelectingLevelFile = false;
+      isSelectingBackgroundFile = false;
+      isSelectingFile = false;
+    }
+  }
+
+    public void clickEvent() {
+      if (isSettingMarks) {
+        setMark();
+      }
+      if (isSettingPath) {
+        makePath();
+      }
+    }
+
+    public void setMark() {
+      if (mouseX < squaresX && mouseY < squaresY) {
+        boolean temp = true;
+        for (int i = 0; i < marks.length && temp; ) {
+          if (marks[i] == null) {
+            marks[i] = new PVector(round(mouseX), round(mouseY));
+            temp = false;
+          } else {
+            i++;
+          }
+        }
+        if (!(marks[3] == null)) {
+          if (isCreatingObstacle) {
+            createObstacle();
+          } else {
+            removeObstacle();
+          }
+          isSettingMarks = false;
+          clearMarks();
+        }
+      }
+    }
+
+    public void clearMarks() {
+      for (int i = 0; i < marks.length; i++) {
+        marks[i] = null;
+      }
+    }
+
+    public void makePath() {
+      if (mouseX < squaresX && mouseY < squaresY) {
+        level.track.getPoints().add(new PVector(round(mouseX), round(mouseY)));
+      }
+    }
+
+    public void clearPath() {
+      for (int i = level.track.getPoints().size()-1; i >= 0; i--) {
+        level.track.getPoints().remove(i);
+      }
+    }
+
+    public void createObstacle() {
+      int xMin = round(marks[0].x);
+      for (int i = 1; i < marks.length; i++) {
+        if (marks[i].x < xMin) {
+          xMin = round(marks[i].x);
+        }
+      }
+      int yMin = round(marks[0].y);
+      for (int i = 1; i < marks.length; i++) {
+        if (marks[i].y < yMin) {
+          yMin = round(marks[i].y);
+        }
+      }
+      int xMax = round(marks[0].x);
+      for (int i = 1; i < marks.length; i++) {
+        if (marks[i].x > xMax) {
+          xMax = round(marks[i].x);
+        }
+      }
+      int yMax = round(marks[0].y);
+      for (int i = 1; i < marks.length; i++) {
+        if (marks[i].y > yMax) {
+          yMax = round(marks[i].y);
+        }
+      }
+      for (int x = xMin; x < xMax; x++) {
+        for (int y = yMin; y < yMax; y++) {
+          level.field[x][y].setEmpty(false);
+        }
       }
       changesToFeatures = true;
     }
-    isSelectingLevelFile = false;
-    isSelectingBackgroundFile = false;
-    isSelectingFile = false;
-  }
 
-  public void clickEvent() {
-    if (isSettingMarks) {
-      setMark();
-    }
-    if (isSettingPath) {
-      makePath();
-    }
-  }
-
-  public void setMark() {
-    if (mouseX < squaresX && mouseY < squaresY) {
-      boolean temp = true;
-      for (int i = 0; i < marks.length && temp; ) {
-        if (marks[i] == null) {
-          marks[i] = new PVector(round(mouseX), round(mouseY));
-          temp = false;
-        } else {
-          i++;
+    public void removeObstacle() {
+      int xMin = round(marks[0].x);
+      for (int i = 1; i < marks.length; i++) {
+        if (marks[i].x < xMin) {
+          xMin = round(marks[i].x);
         }
       }
-      if (!(marks[3] == null)) {
-        if (isCreatingObstacle) {
-          createObstacle();
-        } else {
-          removeObstacle();
-        }
-        isSettingMarks = false;
-        clearMarks();
-      }
-    }
-  }
-
-  public void clearMarks() {
-    for (int i = 0; i < marks.length; i++) {
-      marks[i] = null;
-    }
-  }
-
-  public void makePath() {
-    if (mouseX < squaresX && mouseY < squaresY) {
-      level.track.getPoints().add(new PVector(round(mouseX), round(mouseY)));
-    }
-  }
-
-  public void clearPath() {
-    for (int i = level.track.getPoints().size()-1; i >= 0; i--) {
-      level.track.getPoints().remove(i);
-    }
-  }
-
-  public void createObstacle() {
-    int xMin = round(marks[0].x);
-    for (int i = 1; i < marks.length; i++) {
-      if (marks[i].x < xMin) {
-        xMin = round(marks[i].x);
-      }
-    }
-    int yMin = round(marks[0].y);
-    for (int i = 1; i < marks.length; i++) {
-      if (marks[i].y < yMin) {
-        yMin = round(marks[i].y);
-      }
-    }
-    int xMax = round(marks[0].x);
-    for (int i = 1; i < marks.length; i++) {
-      if (marks[i].x > xMax) {
-        xMax = round(marks[i].x);
-      }
-    }
-    int yMax = round(marks[0].y);
-    for (int i = 1; i < marks.length; i++) {
-      if (marks[i].y > yMax) {
-        yMax = round(marks[i].y);
-      }
-    }
-    for (int x = xMin; x < xMax; x++) {
-      for (int y = yMin; y < yMax; y++) {
-        level.field[x][y].setEmpty(false);
-      }
-    }
-    changesToFeatures = true;
-  }
-
-  public void removeObstacle() {
-    int xMin = round(marks[0].x);
-    for (int i = 1; i < marks.length; i++) {
-      if (marks[i].x < xMin) {
-        xMin = round(marks[i].x);
-      }
-    }
-    int yMin = round(marks[0].y);
-    for (int i = 1; i < marks.length; i++) {
-      if (marks[i].y < yMin) {
-        yMin = round(marks[i].y);
-      }
-    }
-    int xMax = round(marks[0].x);
-    for (int i = 1; i < marks.length; i++) {
-      if (marks[i].x > xMax) {
-        xMax = round(marks[i].x);
-      }
-    }
-    int yMax = round(marks[0].y);
-    for (int i = 1; i < marks.length; i++) {
-      if (marks[i].y > yMax) {
-        yMax = round(marks[i].y);
-      }
-    }
-    for (int x = xMin; x < xMax; x++) {
-      for (int y = yMin; y < yMax; y++) {
-        level.field[x][y].setEmpty(true);
-      }
-    }
-    changesToFeatures = true;
-  }
-
-  public void createLevel() {
-    PrintWriter output = createWriter("data/field.lvl");  // "data/field" + number + ".lvl"
-
-    output.println(level.filePathToBackground);
-
-    output.println("Field");
-    String[][] dataField = new String[squaresX][squaresY];
-    for (int y = 0; y < squaresY; y++) {
-      for (int x = 0; x < squaresX; x++) {
-        if (level.field[x][y].isEmpty) {
-          dataField[x][y] = "0";
-        } else {
-          dataField[x][y] = "1";
+      int yMin = round(marks[0].y);
+      for (int i = 1; i < marks.length; i++) {
+        if (marks[i].y < yMin) {
+          yMin = round(marks[i].y);
         }
       }
-    }
-    for (int y = 0; y < squaresY; y++) {
-      for (int x = 0; x < squaresX; x++) {
-        output.print(dataField[x][y]);
+      int xMax = round(marks[0].x);
+      for (int i = 1; i < marks.length; i++) {
+        if (marks[i].x > xMax) {
+          xMax = round(marks[i].x);
+        }
       }
-      output.println();
+      int yMax = round(marks[0].y);
+      for (int i = 1; i < marks.length; i++) {
+        if (marks[i].y > yMax) {
+          yMax = round(marks[i].y);
+        }
+      }
+      for (int x = xMin; x < xMax; x++) {
+        for (int y = yMin; y < yMax; y++) {
+          level.field[x][y].setEmpty(true);
+        }
+      }
+      changesToFeatures = true;
     }
 
-    output.println("Track");
-    String[] dataTrack = new String[level.track.getPoints().size()];
-    for (int i = 1; i < dataTrack.length; i++) {
-      dataTrack[i] = level.track.getPoints().get(i).toString().substring(2, level.track.getPoints().get(i).toString().length()-2);
-    }
-    for (int i = 1; i < dataTrack.length; i++) {
-      output.println(dataTrack[i]);
-    }
-    output.flush();
-    output.close();
-  }
+    public void createLevel() {
+      PrintWriter output = createWriter("data/field.lvl");  // "data/field" + number + ".lvl"
 
-  public void update() {
-    chooseBackground.pressed();
-    createLevel.pressed();
-    createObstacle.pressed();
-    createPath.pressed();
-    removeObstacle.pressed();
-    clearPath.pressed();
-    chooseLevel.pressed();
-    backToMM.pressed();
-  }
+      output.println(level.filePathToBackground);
 
-  public void render() {
-    background(255);
-    if (changesToFeatures) {
-      level.render(true);
-      features = get();
-      changesToFeatures = false;
-    }
-    image(features, 0, 0);
+      output.println("Field");
+      String[][] dataField = new String[squaresX][squaresY];
+      for (int y = 0; y < squaresY; y++) {
+        for (int x = 0; x < squaresX; x++) {
+          if (level.field[x][y].isEmpty) {
+            dataField[x][y] = "0";
+          } else {
+            dataField[x][y] = "1";
+          }
+        }
+      }
+      for (int y = 0; y < squaresY; y++) {
+        for (int x = 0; x < squaresX; x++) {
+          output.print(dataField[x][y]);
+        }
+        output.println();
+      }
 
-    chooseBackground.render();
-    createLevel.render();
-    createObstacle.render();
-    createPath.render();
-    removeObstacle.render();
-    clearPath.render();
-    chooseLevel.render();
-    backToMM.render();
-
-    if (toolTip != null) {
-      textSize(32);
-      textAlign(CORNER);
-      fill(0);
-      text(toolTip, 5, height-height/10);
+      output.println("Track");
+      String[] dataTrack = new String[level.track.getPoints().size()];
+      for (int i = 1; i < dataTrack.length; i++) {
+        dataTrack[i] = level.track.getPoints().get(i).toString().substring(2, level.track.getPoints().get(i).toString().length()-2);
+      }
+      for (int i = 1; i < dataTrack.length; i++) {
+        output.println(dataTrack[i]);
+      }
+      output.flush();
+      output.close();
     }
 
-    if (isSettingMarks) {
+    public void update() {
+      chooseBackground.pressed();
+      createLevel.pressed();
+      createObstacle.pressed();
+      createPath.pressed();
+      removeObstacle.pressed();
+      clearPath.pressed();
+      chooseLevel.pressed();
+      backToMM.pressed();
+    }
+
+    public void render() {
+      background(255);
+      if (changesToFeatures) {
+        level.render(true);
+        features = get();
+        changesToFeatures = false;
+      }
+      image(features, 0, 0);
+
+      chooseBackground.render();
+      createLevel.render();
+      createObstacle.render();
+      createPath.render();
+      removeObstacle.render();
+      clearPath.render();
+      chooseLevel.render();
+      backToMM.render();
+
+      if (toolTip != null) {
+        textSize(32);
+        textAlign(CORNER);
+        fill(0);
+        text(toolTip, 5, height-height/10);
+      }
+
+      if (isSettingMarks) {
+        noStroke();
+        fill(0, 255, 0);
+        for (int i = 0; i < marks.length; i++) {
+          if (marks[i] != null) {
+            ellipse(marks[i].x, marks[i].y, 4, 4);
+          }
+        }
+      }
       noStroke();
-      fill(0, 255, 0);
-      for (int i = 0; i < marks.length; i++) {
-        if (marks[i] != null) {
-          ellipse(marks[i].x, marks[i].y, 4, 4);
-        }
+      for (int i = 0; i < level.track.getPoints().size(); i++) {
+        fill(127 + 128*i/level.track.getPoints().size(), 0, 0);
+        ellipse(round(level.track.getPoints().get(i).x), round(level.track.getPoints().get(i).y), 3, 3);
       }
     }
-    noStroke();
-    for (int i = 0; i < level.track.getPoints().size(); i++) {
-      fill(127 + 128*i/level.track.getPoints().size(), 0, 0);
-      ellipse(round(level.track.getPoints().get(i).x), round(level.track.getPoints().get(i).y), 3, 3);
-    }
   }
-}

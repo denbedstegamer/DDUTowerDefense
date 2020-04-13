@@ -9,7 +9,7 @@ public class Tower {
     this.x = x;
     this.y = y;
     pos = new PVector(x, y);
-    id = 7;
+    id =10;
     updateTowerValues();
   }
 

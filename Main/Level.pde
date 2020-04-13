@@ -156,7 +156,7 @@ public class Level {
   public void renderBackground(boolean toLevelCreator) {
     if (background == null) {
       if (filePathToBackground != null) {
-        background = loadImage(filePathToBackground);
+        background = loadImage(dataPath("") + filePathToBackground);
         image(background, 0, 0, squaresX, squaresY);
         background2 = get();
       }

@@ -64,6 +64,7 @@ public class Game {
   
   public void mouseEvent(int x, int y){
     if(x < squaresX && y < squaresY) {
+      //wave.enemies.add(new Enemy(0, level.track.points.get(0)));
       level.addTower(new Tower(x, y));
     } else {
       // logic med liv og sådan noget der og at købe ting osv

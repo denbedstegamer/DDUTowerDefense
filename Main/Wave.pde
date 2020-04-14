@@ -40,6 +40,16 @@ public class Wave {
       enemies.get(i).update();
     }
     timeSinceWaveStarted ++;
+    removeDeadEnemies();
+  }
+
+  public void removeDeadEnemies() {
+    //fjerner døde fjender
+    for (int i = enemies.size(); i > 0; i--) {
+      if (enemies.get(i-1).life <= 0) {
+        enemies.remove(i-1);
+      }
+    }
   }
 
   public void render() {

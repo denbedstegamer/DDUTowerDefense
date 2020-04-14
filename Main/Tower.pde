@@ -9,7 +9,7 @@ public class Tower {
     this.x = x;
     this.y = y;
     pos = new PVector(x, y);
-    id =10;
+    id = 1;
     updateTowerValues();
   }
 
@@ -131,7 +131,7 @@ public class Tower {
   private void attack() {
     spotEnemy();
     if (targetEnemy != -1) {    
-      game.projectiles.add(new Projectile(pos, targetEnemy));
+      game.projectiles.add(new Projectile(pos, targetEnemy, damage));
     }
   }
 }

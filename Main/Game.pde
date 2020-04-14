@@ -14,8 +14,18 @@ public class Game {
   public void update() {
     level.update();
     wave.update();
+    removeCollidedProjectiles();
     for(int i = 0; i < projectiles.size(); i++){
       projectiles.get(i).update();
+    }
+  }
+  
+  //fjerner projektiler, som har ramt deres mål
+  public void removeCollidedProjectiles() {
+    for(int i = projectiles.size(); i > 0; i--) {
+      if (projectiles.get(i-1).collided) {
+        projectiles.remove(i-1);
+      }
     }
   }
 

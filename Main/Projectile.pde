@@ -36,10 +36,12 @@ public class Projectile {
   }
 
   private void detectCollision() {
-    distToEnemy = PVector.dist(pos, game.wave.enemies.get(enemyId).pos);
-    if (distToEnemy < radius/2 + game.wave.enemies.get(enemyId).radius/2) {
-      game.wave.enemies.get(enemyId).reduceLife(damage);
-      collided = true;
+    if (game.wave.enemies.get(enemyId) != null) {
+      distToEnemy = PVector.dist(pos, game.wave.enemies.get(enemyId).pos);
+      if (distToEnemy < radius/2 + game.wave.enemies.get(enemyId).radius/2) {
+        game.wave.enemies.get(enemyId).reduceLife(damage);
+        collided = true;
+      }
     }
   }
 

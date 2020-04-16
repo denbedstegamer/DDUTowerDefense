@@ -17,6 +17,13 @@ public class Wave {
         queue.add(new Enemy(0, game.level.track.points.get(0)));
         queueTimes.add(timeTillNextEnemy);
       }
+
+    case 1:
+      timeTillNextEnemy = 20;
+      for (int i = 0; i < 10; i++) {
+        queue.add(new Enemy(0, game.level.track.points.get(0)));
+        queueTimes.add(timeTillNextEnemy);
+      }
     }
   }
 
@@ -37,7 +44,9 @@ public class Wave {
     }
 
     for (int i = 0; i < enemies.size(); i++) {
-      enemies.get(i).update();
+      if (enemies.get(i) != null) {
+        enemies.get(i).update();
+      }
     }
     timeSinceWaveStarted ++;
     removeDeadEnemies();
@@ -45,16 +54,20 @@ public class Wave {
 
   public void removeDeadEnemies() {
     //fjerner døde fjender
-    for (int i = enemies.size(); i > 0; i--) {
-      if (enemies.get(i-1).life <= 0) {
-        enemies.remove(i-1);
+    for (int i = 0; i < enemies.size(); i++) {
+      if (enemies.get(i) != null) {
+        if (enemies.get(i).life <= 0) {
+          enemies.set(i, null);
+        }
       }
     }
   }
 
   public void render() {
     for (int i = 0; i < enemies.size(); i++) {
-      enemies.get(i).render();
+      if (enemies.get(i) != null) {
+        enemies.get(i).render();
+      }
     }
   }
 }

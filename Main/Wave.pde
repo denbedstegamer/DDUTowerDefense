@@ -11,27 +11,30 @@ public class Wave {
 
   public void spawnEnemies() {
     switch(waveCount) {
-    case 0:
+    case 1:
       timeTillNextEnemy = 60;
       for (int i = 0; i < 10; i++) {
         queue.add(new Enemy(0, game.level.track.points.get(0)));
         queueTimes.add(timeTillNextEnemy);
       }
-
-    case 1:
+      break;
+      
+    case 2:
       timeTillNextEnemy = 20;
       for (int i = 0; i < 10; i++) {
         queue.add(new Enemy(0, game.level.track.points.get(0)));
         queueTimes.add(timeTillNextEnemy);
       }
+      break;
+      
+      
     }
   }
 
   public void update() {
-    if (enemies.size() == 0) {
+    if (enemies.size() == 0 && timeSinceWaveStarted >= 2) {
       queue.clear();
       queueTimes.clear();
-      spawnEnemies();
       waveCount++;
       timeSinceWaveStarted = 0;
     }

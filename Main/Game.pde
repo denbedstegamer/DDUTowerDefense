@@ -11,10 +11,15 @@ public class Game {
     player = new Player();
     wave = new Wave();
     projectiles = new ArrayList<Projectile>();
-    startRound = new Button(width-width/4-width/16, height-height/9, width/4, height/12, "Start round"){
+    startRound = new Button(width-width/4-width/16, height-height/9, width/4, height/12, "Start round") {
       @Override
         public void action() {
-        gaming = true;
+        if (!gaming) {
+          gaming = true;
+          wave.waveCount++;
+          wave.timeSinceWaveStarted = 0;
+          wave.spawnEnemies();
+        }
       }
     };
   }
@@ -29,6 +34,7 @@ public class Game {
       }
     }
     startRound.pressed();
+    cleanUp();
   }
 
   //fjerner projektiler, som har ramt deres mål
@@ -40,9 +46,21 @@ public class Game {
       }
     }
   }
-  
-  private void cleanUp(){
-    
+
+  private void cleanUp() {
+    boolean temp = false;
+    for (int i = 0; i < wave.enemies.size() && !temp; i++) {
+      if (wave.enemies.get(i) != null) {
+        temp = true;
+      }
+    }
+    if (!temp) {
+      projectiles.clear();
+      wave.enemies.clear();
+      if (wave.timeSinceWaveStarted >= 2) {
+        gaming = false;
+      }
+    }
   }
 
   public void render() {
@@ -84,8 +102,7 @@ public class Game {
     strokeWeight(1);
     fill(0);
     text("wave " + wave.waveCount + " / " + wave.maxWaves, squaresX + (width-squaresX)/2, height-height/16*2);
-    
-    
+
     startRound.render();
   }
 

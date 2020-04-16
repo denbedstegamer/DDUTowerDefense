@@ -134,4 +134,9 @@ public class Tower {
       game.projectiles.add(new Projectile(pos, targetEnemy, damage, id));
     }
   }
+  
+  //skal sørge for at hver tårns unikke effekt kommer i spil
+  private void addTowerEffect() {
+    
+  }
 }

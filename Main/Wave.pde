@@ -56,7 +56,7 @@ public class Wave {
     //fjerner døde fjender
     for (int i = 0; i < enemies.size(); i++) {
       if (enemies.get(i) != null) {
-        //hvis fjender dør
+        //hvis fjendens liv er lig nul, køres for-loopet
         if (enemies.get(i).life <= 0) {
           //spilleren får penge for at dræbe fjenden
           enemies.get(i).givePlayerMoney();

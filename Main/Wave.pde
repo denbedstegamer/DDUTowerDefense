@@ -49,14 +49,17 @@ public class Wave {
       }
     }
     timeSinceWaveStarted ++;
-    removeDeadEnemies();
+    setEnemiesNull();
   }
 
-  public void removeDeadEnemies() {
+  public void setEnemiesNull() {
     //fjerner døde fjender
     for (int i = 0; i < enemies.size(); i++) {
       if (enemies.get(i) != null) {
+        //hvis fjender dør
         if (enemies.get(i).life <= 0) {
+          //spilleren får penge for at dræbe fjenden
+          enemies.get(i).givePlayerMoney();
           enemies.set(i, null);
         }
       }

@@ -3,7 +3,6 @@ public class Enemy {
   private int id, markCount = 0, life, radius = 10, totalLife, moneyOnKill;
   private PImage sprite;
   private float vel, remainingLife;
-  private boolean shouldGiveMoney;
 
   public Enemy(int id, PVector pos) {
     this.id = id;
@@ -88,8 +87,6 @@ public class Enemy {
   }
   
   public void givePlayerMoney() {
-    if(shouldGiveMoney) {
       game.player.addMoney(moneyOnKill);
-    }
   }
 }

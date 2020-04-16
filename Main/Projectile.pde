@@ -1,14 +1,15 @@
 public class Projectile{
   private PVector pos, dir;
-  private int enemyId, radius, damage;
+  private int enemyId, radius, damage, towerId;
   private float vel = 3, distToEnemy;
   public boolean collided;
   // damage stats and so on
   
-  public Projectile(PVector pos, int enemyId, int damage){
+  public Projectile(PVector pos, int enemyId, int damage, int towerId){
     this.pos = pos.copy();
     this.enemyId = enemyId;
     this.damage = damage;
+    this.towerId = towerId;
     radius = 10;
   }
   
@@ -35,6 +36,61 @@ public class Projectile{
     if (distToEnemy < radius/2 + game.wave.enemies.get(enemyId).radius/2) {
       game.wave.enemies.get(enemyId).reduceLife(damage);
       collided = true;
+    }
+  }
+  
+  private void addEffect() {
+    switch(towerId) {
+      
+       //peasant
+    case 1:
+vel = 3;
+      break;
+
+      //archer
+    case 2:
+vel = 5;
+      break;
+
+      //knight
+    case 3:
+
+      break;
+
+      //mage
+    case 4:
+
+      break;
+
+      //arrowflinger
+    case 5:
+vel = 5;
+      break;
+
+      //sniper
+    case 6:
+vel = 8;
+      break;
+
+      //barbarian
+    case 7:
+
+      break;
+
+      //king
+    case 8:
+
+      break;
+
+      //summoner
+    case 9:
+
+      break;
+
+      //archmage
+    case 10:
+
+      break;
     }
   }
 }

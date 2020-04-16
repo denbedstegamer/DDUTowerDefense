@@ -131,7 +131,7 @@ public class Tower {
   private void attack() {
     spotEnemy();
     if (targetEnemy != -1) {    
-      game.projectiles.add(new Projectile(pos, targetEnemy, damage));
+      game.projectiles.add(new Projectile(pos, targetEnemy, damage, id));
     }
   }
 }

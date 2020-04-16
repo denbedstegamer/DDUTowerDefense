@@ -119,11 +119,13 @@ public class Tower {
 
   private void spotEnemy() {
     for (int i = 0; i < game.wave.enemies.size(); i++) {
-      if (PVector.dist(pos, game.wave.enemies.get(i).pos) < range) {
-        targetEnemy = i;
-        break;
-      } else {
-        targetEnemy = -1;
+      if (game.wave.enemies.get(i) != null) {
+        if (PVector.dist(pos, game.wave.enemies.get(i).pos) < range) {
+          targetEnemy = i;
+          break;
+        } else {
+          targetEnemy = -1;
+        }
       }
     }
   }
@@ -134,9 +136,8 @@ public class Tower {
       game.projectiles.add(new Projectile(pos, targetEnemy, damage, id));
     }
   }
-  
+
   //skal sørge for at hver tårns unikke effekt kommer i spil
   private void addTowerEffect() {
-    
   }
 }

@@ -1,8 +1,9 @@
 public class Enemy {
   private PVector pos, dir;
-  private int id, markCount = 0, life, radius = 10, totalLife;
+  private int id, markCount = 0, life, radius = 10, totalLife, moneyOnKill;
   private PImage sprite;
   private float vel, remainingLife;
+  private boolean shouldGiveMoney;
 
   public Enemy(int id, PVector pos) {
     this.id = id;
@@ -17,26 +18,30 @@ public class Enemy {
     switch(id) {
       //normal enemy
       case 0:
-        life = 100;
+        life = 30;
         vel = 1.5;
+        moneyOnKill = 10;
         break;
         
         //bulky enemy
         case 1:
-        life = 200;
+        life = 100;
         vel = 1.2;
+        moneyOnKill = 20;
         break;
         
         //bulkiest enemy
         case 2:
         life = 400;
         vel = 0.8;
+        moneyOnKill = 150;
         break;
         
         //speedy enemy
         case 3:
-        life = 150;
+        life = 70;
         vel = 2.5;
+        moneyOnKill = 15;
         break;
     }
   }
@@ -71,7 +76,7 @@ public class Enemy {
     strokeWeight(0);
     rectMode(CORNER);
     fill(255, 0, 0);
-    //laver en rød healthbar under fjenden, med koordinater uden den, baseret på dens radius (så den uanset radius altid er under objektet)
+    //laver en rød healthbar under fjenden, med koordinater unden den, baseret på dens radius (så den uanset radius altid er under objektet)
     rect(pos.x-radius, pos.y+radius, radius*2, radius/3);
     fill(0, 255, 0);
     //samme som forrige, bare af propertionel størrelse med tilbageværende liv
@@ -80,5 +85,11 @@ public class Enemy {
   
   public void reduceLife(int damageTaken) {
     life = life - damageTaken;
+  }
+  
+  public void givePlayerMoney() {
+    if(shouldGiveMoney) {
+      game.player.addMoney(moneyOnKill);
+    }
   }
 }

@@ -7,7 +7,7 @@ public class Enemy {
 
   public Enemy(int id, PVector pos) {
     this.id = id;
-    sprite = loadImage("Enemies/" + id + ".png");
+    //sprite = loadImage("Enemies/" + id + ".png");
     this.pos = pos.copy();
     dir = new PVector();
     setIDValues();

@@ -16,10 +16,10 @@ public class Projectile {
   public void update() {
     if (game.wave.enemies.get(enemyId) != null) {
       dir = game.wave.enemies.get(enemyId).pos.copy().sub(pos).copy().setMag(vel);
+      pos.add(dir);
     } else {
       collided = true;
     }
-    pos.add(dir);
     detectCollision();
   }
 

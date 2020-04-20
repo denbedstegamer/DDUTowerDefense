@@ -1,8 +1,9 @@
 public class Enemy {
   private PVector pos, dir;
-  private int id, markCount = 0, life, radius = 10, totalLife, moneyOnKill;
+  private int id, markCount = 0, life, radius = 10, totalLife, moneyOnKill, damageWhenGoalIsReached;
   private PImage sprite;
   private float vel, remainingLife;
+  public boolean reachedGoal;
 
   public Enemy(int id, PVector pos) {
     this.id = id;
@@ -12,49 +13,53 @@ public class Enemy {
     setIDValues();
     totalLife = life;
   }
-  
+
   public void setIDValues() {
     switch(id) {
       //normal enemy
-      case 0:
-        life = 30;
-        vel = 1.5;
-        moneyOnKill = 10;
-        break;
-        
-        //bulky enemy
-        case 1:
-        life = 100;
-        vel = 1.2;
-        moneyOnKill = 20;
-        break;
-        
-        //bulkiest enemy
-        case 2:
-        life = 400;
-        vel = 0.8;
-        moneyOnKill = 150;
-        break;
-        
-        //speedy enemy
-        case 3:
-        life = 70;
-        vel = 2.5;
-        moneyOnKill = 15;
-        break;
+    case 0:
+      life = 30;
+      vel = 1.5;
+      moneyOnKill = 10;
+      damageWhenGoalIsReached = 1;
+      break;
+
+      //bulky enemy
+    case 1:
+      life = 100;
+      vel = 1.2;
+      moneyOnKill = 20;
+      damageWhenGoalIsReached = 2;
+      break;
+
+      //bulkiest enemy
+    case 2:
+      life = 400;
+      vel = 0.8;
+      moneyOnKill = 150;
+      damageWhenGoalIsReached = 10;
+      break;
+
+      //speedy enemy
+    case 3:
+      life = 70;
+      vel = 2.5;
+      moneyOnKill = 15;
+      damageWhenGoalIsReached = 2;
+      break;
     }
   }
 
   public void update() {
     PVector dirTemp = game.level.track.points.get(markCount).copy().sub(pos).copy();
     if (dirTemp.mag() <= vel) {
-      markCount++;
+      if (markCount < game.level.track.points.size()-1) {
+        markCount++;
+      } else {
+        reachedGoal = true;
+      }
     }
-    if (game.level.track.points.get(markCount) == null) {
-      // do something with life thing idk
-    } else {
-      dir = game.level.track.points.get(markCount).copy().sub(pos).copy().setMag(vel);
-    }
+    dir = game.level.track.points.get(markCount).copy().sub(pos).copy().setMag(vel);
     pos.add(dir);
   }
 
@@ -69,7 +74,7 @@ public class Enemy {
     rect(pos.x, pos.y, radius, radius);
     renderHealthbar();
   }
-  
+
   public void renderHealthbar() {
     remainingLife = (life+0.0)/(totalLife+0.0);
     strokeWeight(0);
@@ -81,12 +86,16 @@ public class Enemy {
     //samme som forrige, bare af propertionel størrelse med tilbageværende liv
     rect(pos.x-radius, pos.y+radius, radius*2*remainingLife, radius/3);
   }
-  
+
   public void reduceLife(int damageTaken) {
     life = life - damageTaken;
   }
-  
+
   public void givePlayerMoney() {
-      game.player.addMoney(moneyOnKill);
+    game.player.addMoney(moneyOnKill);
+  }
+  
+  public void dealDamageToPlayer() {
+    game.player.takeDamage(damageWhenGoalIsReached);
   }
 }

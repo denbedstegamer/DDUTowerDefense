@@ -1,8 +1,9 @@
 public class Player{
   private int life, MONEY;
+  public boolean dead;
   
   public Player(){
-    
+    this.life = 100;
   }
   
   public int getLife(){
@@ -15,5 +16,15 @@ public class Player{
   
   public void addMoney(int money) {
     MONEY += money;
+  }
+  
+  public void takeDamage(int damage) {
+    life -= damage;
+  }
+  
+  public void updatePlayerStatus() {
+    if(life >= 0) {
+      dead = true;
+    }
   }
 }

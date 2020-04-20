@@ -64,11 +64,15 @@ public class Wave {
           //spilleren får penge for at dræbe fjenden
           enemies.get(i).givePlayerMoney();
           enemies.set(i, null);
+        } else if (enemies.get(i).reachedGoal) {
+          enemies.get(i).dealDamageToPlayer();
+          game.player.updatePlayerStatus();
+          enemies.set(i, null);
         }
       }
     }
   }
-
+  
   public void render() {
     for (int i = 0; i < enemies.size(); i++) {
       if (enemies.get(i) != null) {

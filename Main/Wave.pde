@@ -11,6 +11,8 @@ public class Wave {
 
   public void spawnEnemies() {
     switch(waveCount) {
+
+      //wave 1
     case 1:
       timeTillNextEnemy = 60;
       for (int i = 0; i < 10; i++) {
@@ -18,16 +20,92 @@ public class Wave {
         queueTimes.add(timeTillNextEnemy);
       }
       break;
-      
+
+      //wave 2
     case 2:
       timeTillNextEnemy = 20;
-      for (int i = 0; i < 10; i++) {
+      for (int i = 0; i < 14; i++) {
         queue.add(new Enemy(0, game.level.track.points.get(0)));
         queueTimes.add(timeTillNextEnemy);
       }
       break;
+
+      //wave 3
+    case 3:
+      timeTillNextEnemy = 80;
+      for (int i = 0; i < 8; i++) {
+        queue.add(new Enemy(1, game.level.track.points.get(0)));
+        queueTimes.add(timeTillNextEnemy);
+      }
+      break;
+
+      //wave 4
+    case 4:
+      timeTillNextEnemy = 40;
+      for (int i = 0; i < 8; i++) {
+        queue.add(new Enemy(0, game.level.track.points.get(0)));
+        queueTimes.add(timeTillNextEnemy);
+        queue.add(new Enemy(1, game.level.track.points.get(0)));
+        queueTimes.add(timeTillNextEnemy);
+      }
+      break;
+
+      //wave 5
+    case 5:
+      timeTillNextEnemy = 100;
+      for (int i = 0; i < 5; i++) {
+        queue.add(new Enemy(2, game.level.track.points.get(0)));
+        queueTimes.add(timeTillNextEnemy);
+      }
+      break;
+
+      //wave 6
+    case 6:
+      timeTillNextEnemy = 40;
+      for (int i = 0; i < 25; i++) {
+        queue.add(new Enemy(3, game.level.track.points.get(0)));
+        queueTimes.add(timeTillNextEnemy);
+      }
+      break;
+
+      //wave 7
+    case 7:
+      for (int i = 0; i < 4; i++) {
+        timeTillNextEnemy = 300;
+        queue.add(new Enemy(2, game.level.track.points.get(0)));
+        queueTimes.add(timeTillNextEnemy);
+        for (int j = 0; j < 4; j++) {
+          timeTillNextEnemy = 20;
+          queue.add(new Enemy(3, game.level.track.points.get(0)));
+          queueTimes.add(timeTillNextEnemy);
+        }
+      }
+      break;
       
+      //wave 8
+    case 8:
+      timeTillNextEnemy = 20;
+      for (int i = 0; i < 20; i++) {
+        queue.add(new Enemy(1, game.level.track.points.get(0)));
+        queueTimes.add(timeTillNextEnemy);
+      }
+      break;
       
+      //wave 9
+    case 9:
+      timeTillNextEnemy = 20;
+      for (int i = 0; i < 30; i++) {
+        queue.add(new Enemy(3, game.level.track.points.get(0)));
+        queueTimes.add(timeTillNextEnemy);
+      }
+      break;
+      
+      //wave 10
+    case 10:
+      timeTillNextEnemy = 0;
+      queue.add(new Enemy(4, game.level.track.points.get(0)));
+      queueTimes.add(timeTillNextEnemy);
+      break;
     }
   }
 
@@ -72,7 +150,7 @@ public class Wave {
       }
     }
   }
-  
+
   public void render() {
     for (int i = 0; i < enemies.size(); i++) {
       if (enemies.get(i) != null) {

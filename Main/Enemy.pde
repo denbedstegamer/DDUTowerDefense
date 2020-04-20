@@ -47,6 +47,13 @@ public class Enemy {
       moneyOnKill = 15;
       damageWhenGoalIsReached = 2;
       break;
+
+      //boss
+    case 4:
+      life = 4000;
+      vel = 0.5;
+      moneyOnKill = 500;
+      damageWhenGoalIsReached = 95;
     }
   }
 
@@ -94,7 +101,7 @@ public class Enemy {
   public void givePlayerMoney() {
     game.player.addMoney(moneyOnKill);
   }
-  
+
   public void dealDamageToPlayer() {
     game.player.takeDamage(damageWhenGoalIsReached);
   }

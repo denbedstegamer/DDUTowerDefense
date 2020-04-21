@@ -125,10 +125,9 @@ public class Game {
                 public void action() {
                 for (int i = 0; i < upgrades.size(); i++) {
                   if (upgrades.get(i).equals(this)) {
-                    println(upgrades2.get(i).getCost());
                     if (player.getMoney() >= upgrades2.get(i).getCost()) {
                       selectedTower.upgrade(upgrades2.get(i).getId());
-                      player.MONEY -= upgrades2.get(i).getId();
+                      player.MONEY -= upgrades2.get(i).getCost();
                       selectedTower = null;
                       queueShouldBeCleared = true;
                     }
@@ -142,9 +141,7 @@ public class Game {
       }
     }
     if (queueShouldBeCleared) {
-      upgrades.clear();
-      upgrades2.clear();
-      queueShouldBeCleared = false;
+      clearQueue();
     } else {
       for (int i = 0; i < upgrades.size(); i++) {
         upgrades.get(i).pressed();
@@ -153,11 +150,18 @@ public class Game {
     }
   }
 
+  private void clearQueue() {
+    upgrades.clear();
+    upgrades2.clear();
+    queueShouldBeCleared = false;
+  }
+
   public void mouseEvent(int x, int y) {
     if (x < squaresX && y < squaresY) {
       boolean mouseIsOverTower = false;
       for (int i = 0; i < level.towers.size() && !mouseIsOverTower; i++) {
         if (dist(mouseX, mouseY, level.towers.get(i).pos.x, level.towers.get(i).pos.y) < level.towers.get(i).radius) {
+          clearQueue();
           selectedTower = level.towers.get(i);
           mouseIsOverTower = true;
         }

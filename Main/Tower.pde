@@ -127,7 +127,7 @@ public class Tower {
       break;
 
     case 2:
-    upgrades.add(new Upgrade("Idk", 5, 100));
+      upgrades.add(new Upgrade("Idk", 5, 100));
     }
     return upgrades;
   }

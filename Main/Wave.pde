@@ -102,7 +102,7 @@ public class Wave {
       
       //wave 10
     case 10:
-      timeTillNextEnemy = 0;
+      timeTillNextEnemy = 1;
       queue.add(new Enemy(4, game.level.track.points.get(0)));
       queueTimes.add(timeTillNextEnemy);
       break;

@@ -157,6 +157,7 @@ public class Level {
     if (background == null) {
       if (filePathToBackground != null) {
         background = loadImage(dataPath("") + filePathToBackground);
+        imageMode(CORNER);
         image(background, 0, 0, squaresX, squaresY);
         background2 = get();
       }

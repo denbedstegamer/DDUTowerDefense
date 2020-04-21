@@ -2,15 +2,18 @@ public class Tower {
   // texture and id/type
   private int x, y, radius = 20, extend;  //måske d ikkr r
   private int range, damage, as, id, targetEnemy;  // as = Attack Speed
-  private PVector pos;
+  private PVector pos, dir;
   private PImage sprite;
 
   public Tower(int x, int y) {
     this.x = x;
     this.y = y;
     pos = new PVector(x, y);
+    dir = new PVector(-1, 0);
     id = 1;
     updateTowerValues();
+
+    sprite = loadImage(dataPath("") + "/Towers/" + id + ".png");
   }
 
   public void update() {
@@ -25,11 +28,25 @@ public class Tower {
   }
 
   public void render() {
-    ellipseMode(CENTER);
-    stroke(0);
-    strokeWeight(1);
-    fill(0, 255, 0);
-    ellipse(x, y, radius*2, radius*2);
+    /*
+    non-sprite rendering
+     ellipseMode(CENTER);
+     stroke(0);
+     strokeWeight(1);
+     fill(0, 255, 0);
+     ellipse(x, y, radius*2, radius*2);
+     */
+
+    pushMatrix();
+    imageMode(CENTER);
+    translate(pos.x, pos.y);
+    if (dir.y > 0) {
+      rotate(-PVector.angleBetween(dir, new PVector(-1, 0)));
+    } else {
+      rotate(PVector.angleBetween(dir, new PVector(-1, 0)));
+    }
+    image(sprite, 0, 0);
+    popMatrix();
   }
 
   public int getRadius() {
@@ -122,6 +139,7 @@ public class Tower {
     if (id == 8) {
       game.boost = true;
     }
+    sprite = loadImage(dataPath("") + "/Towers/" + id + ".png");
     updateTowerValues();
   }
 
@@ -157,6 +175,7 @@ public class Tower {
       if (game.wave.enemies.get(i) != null) {
         if (PVector.dist(pos, game.wave.enemies.get(i).pos) < range) {
           targetEnemy = i;
+          dir = game.wave.enemies.get(i).pos.copy().sub(pos);
           break;
         } else {
           targetEnemy = -1;

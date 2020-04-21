@@ -3,14 +3,21 @@ public class Game {
   private Player player;
   private Wave wave;
   private ArrayList<Projectile> projectiles;
-  public boolean gaming;
+  public boolean gaming, queueShouldBeCleared;
   private Button startRound;
+
+  private Tower selectedTower;
+  private ArrayList<Button> upgrades;
+  private ArrayList<Upgrade> upgrades2;
+  private int temp;
 
   public Game(File f) {
     level = new Level(f);
     player = new Player();
     wave = new Wave();
+    upgrades = new ArrayList<Button>();
     projectiles = new ArrayList<Projectile>();
+    upgrades2 = new ArrayList<Upgrade>();
     startRound = new Button(width-width/4-width/16, height-height/9, width/4, height/12, "Start round") {
       @Override
         public void action() {
@@ -107,13 +114,57 @@ public class Game {
   }
 
   private void renderBuyables() {
-    // noget med at gette billederne fra towersene og render dem
+    if (selectedTower != null && upgrades.size() == 0) {
+      for (int i = 0; i < (selectedTower.getUpgrades().size()+1)/2; i++) {
+        for (int j = 0; j < 2; j++) {
+          if (i*2+j < selectedTower.getUpgrades().size()) {
+            temp = i*2+j;
+            upgrades2.add(new Upgrade(selectedTower.getUpgrades().get(temp)));
+            Button tempB = new Button(squaresX+j*(width-squaresX)/2, height/8+height/8*i, (width-squaresX)/2, height/12, "Price: " + selectedTower.getUpgrades().get(i*2+j).getCost() + "\n Upgrade to a: " + selectedTower.getUpgrades().get(temp).getName()) {
+              @Override
+                public void action() {
+                for (int i = 0; i < upgrades.size(); i++) {
+                  if (upgrades.get(i).equals(this)) {
+                    println(upgrades2.get(i).getCost());
+                    if (player.getMoney() >= upgrades2.get(i).getCost()) {
+                      selectedTower.upgrade(upgrades2.get(i).getId());
+                      player.MONEY -= upgrades2.get(i).getId();
+                      selectedTower = null;
+                      queueShouldBeCleared = true;
+                    }
+                  }
+                }
+              }
+            };
+            upgrades.add(tempB);
+          }
+        }
+      }
+    }
+    if (queueShouldBeCleared) {
+      upgrades.clear();
+      upgrades2.clear();
+      queueShouldBeCleared = false;
+    } else {
+      for (int i = 0; i < upgrades.size(); i++) {
+        upgrades.get(i).pressed();
+        upgrades.get(i).render();
+      }
+    }
   }
 
   public void mouseEvent(int x, int y) {
     if (x < squaresX && y < squaresY) {
-      //wave.enemies.add(new Enemy(0, level.track.points.get(0)));
-      level.addTower(new Tower(x, y));
+      boolean mouseIsOverTower = false;
+      for (int i = 0; i < level.towers.size() && !mouseIsOverTower; i++) {
+        if (dist(mouseX, mouseY, level.towers.get(i).pos.x, level.towers.get(i).pos.y) < level.towers.get(i).radius) {
+          selectedTower = level.towers.get(i);
+          mouseIsOverTower = true;
+        }
+      }
+      if (!mouseIsOverTower) {
+        level.addTower(new Tower(x, y));
+      }
     } else {
       // logic med liv og sådan noget der og at købe ting osv
     }

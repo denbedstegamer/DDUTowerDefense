@@ -38,7 +38,7 @@ public class Tower {
     return y;
   }
 
-  public void updateTowerValues() {
+  private void updateTowerValues() {
     switch(id) {
       //peasant
     case 1:
@@ -112,9 +112,24 @@ public class Tower {
     }
   }
 
-  private void upgrade(int id) {
+  public void upgrade(int id) {
     this.id = id;
     updateTowerValues();
+  }
+
+  public ArrayList<Upgrade> getUpgrades() {
+    ArrayList<Upgrade> upgrades = new ArrayList<Upgrade>();
+    switch(id) {
+    case 1:
+      upgrades.add(new Upgrade("Archer", 2, 10));
+      upgrades.add(new Upgrade("Knight", 3, 50));
+      upgrades.add(new Upgrade("Mage", 4, 100));
+      break;
+
+    case 2:
+    upgrades.add(new Upgrade("Idk", 5, 100));
+    }
+    return upgrades;
   }
 
   private void spotEnemy() {

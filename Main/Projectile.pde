@@ -45,8 +45,7 @@ public class Projectile {
     }
   }
 
-
-  public void addEffect() {
+  private void giveProjectileVariables() {
     switch(towerId) {
 
       //peasant
@@ -99,5 +98,8 @@ public class Projectile {
 
       break;
     }
+  }
+
+  public void specializedProjectileEffect() {
   }
 }

@@ -1,6 +1,6 @@
 public class Tower {
   // texture and id/type
-  private int x, y, radius = 20;  //måske d ikkr r
+  private int x, y, radius = 20, extend;  //måske d ikkr r
   private int range, damage, as, id, targetEnemy;  // as = Attack Speed
   private PVector pos;
   private PImage sprite;
@@ -14,7 +14,12 @@ public class Tower {
   }
 
   public void update() {
-    if (frameCount % (as*5) == 0) {
+    if (game.boost) {
+      extend = 3;
+    } else {
+      extend = 5;
+    }
+    if (frameCount % (as*extend) == 0) {
       attack();
     }
   }
@@ -114,6 +119,9 @@ public class Tower {
 
   public void upgrade(int id) {
     this.id = id;
+    if (id == 8) {
+      game.boost = true;
+    }
     updateTowerValues();
   }
 
@@ -130,12 +138,12 @@ public class Tower {
       upgrades.add(new Upgrade("ArrowFlinger", 5, 100));
       upgrades.add(new Upgrade("Sniper", 6, 100));
       break;
-      
+
     case 3:
       upgrades.add(new Upgrade("Barbarian", 7, 100));
       upgrades.add(new Upgrade("King", 8, 100));
       break;
-      
+
     case 4:
       upgrades.add(new Upgrade("Summoner", 9, 100));
       upgrades.add(new Upgrade("Archmage", 10, 100));
@@ -159,12 +167,71 @@ public class Tower {
 
   private void attack() {
     spotEnemy();
-    if (targetEnemy != -1) {    
-      game.projectiles.add(new Projectile(pos, targetEnemy, damage, id));
-    }
-  }
+    if (targetEnemy != -1) {
+      switch(id) {
 
-  //skal sørge for at hver tårns unikke effekt kommer i spil
-  private void addTowerEffect() {
+        //peasant
+      case 1:
+        game.projectiles.add(new Projectile(pos, targetEnemy, damage, id));
+        break;
+
+        //archer
+      case 2:
+        game.projectiles.add(new Projectile(pos, targetEnemy, damage, id));
+        break;
+
+        //knight
+      case 3:
+        for (int i = 0; i < game.wave.enemies.size(); i++) {
+          if (game.wave.enemies.get(i).pos.copy().sub(pos).mag() < range) {
+            game.wave.enemies.get(i).reduceLife(damage);
+          }
+        }
+        break;
+
+        //mage
+      case 4:
+        game.projectiles.add(new Projectile(pos, targetEnemy, damage, id));
+        break;
+
+        //arrowflinger
+      case 5:
+        game.projectiles.add(new Projectile(pos, targetEnemy, damage, id));
+        break;
+
+        //sniper
+      case 6:
+        game.projectiles.add(new Projectile(pos, targetEnemy, damage, id));
+        break;
+
+        //barbarian
+      case 7:
+        for (int i = 0; i < game.wave.enemies.size(); i++) {
+          if (game.wave.enemies.get(i).pos.copy().sub(pos).mag() < range) {
+            game.wave.enemies.get(i).reduceLife(damage);
+          }
+        }
+        break;
+
+        //king
+      case 8:
+        for (int i = 0; i < game.wave.enemies.size(); i++) {
+          if (game.wave.enemies.get(i).pos.copy().sub(pos).mag() < range) {
+            game.wave.enemies.get(i).reduceLife(damage);
+          }
+        }
+        break;
+
+        //summoner
+      case 9:
+        game.projectiles.add(new Projectile(pos, targetEnemy, damage, id));
+        break;
+
+        //archmage
+      case 10:
+        game.projectiles.add(new Projectile(pos, targetEnemy, damage, id));
+        break;
+      }
+    }
   }
 }

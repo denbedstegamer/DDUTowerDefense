@@ -3,7 +3,7 @@ public class Game {
   private Player player;
   private Wave wave;
   private ArrayList<Projectile> projectiles;
-  public boolean gaming, queueShouldBeCleared;
+  public boolean gaming, queueShouldBeCleared, boost;
   private Button startRound;
 
   private Tower selectedTower;

@@ -123,14 +123,13 @@ public class Wave {
         enemyCount ++;
       }
     }
-
+    setEnemiesNull();
     for (int i = 0; i < enemies.size(); i++) {
       if (enemies.get(i) != null) {
         enemies.get(i).update();
       }
     }
     timeSinceWaveStarted ++;
-    setEnemiesNull();
   }
 
   public void setEnemiesNull() {

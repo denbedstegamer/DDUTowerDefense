@@ -1,8 +1,8 @@
 public class Enemy {
   private PVector pos, dir;
-  private int id, markCount = 0, life, radius = 10, totalLife, moneyOnKill, damageWhenGoalIsReached;
+  private int id, markCount = 0, life, radius = 10, totalLife, moneyOnKill, damageWhenGoalIsReached, burnDamage, slowTime, burnTime, stunTime;
   private PImage sprite;
-  private float vel, remainingLife;
+  private float vel, remainingLife, slowPercent;
   public boolean reachedGoal;
 
   public Enemy(int id, PVector pos) {
@@ -12,6 +12,8 @@ public class Enemy {
     dir = new PVector();
     setIDValues();
     totalLife = life;
+    burnDamage = 5;
+    slowPercent = 0.5;
   }
 
   public void setIDValues() {
@@ -66,8 +68,29 @@ public class Enemy {
         reachedGoal = true;
       }
     }
-    dir = game.level.track.points.get(markCount).copy().sub(pos).copy().setMag(vel);
+    if (stunTime > 0) {
+      dir = new PVector(0, 0);
+    } else if (slowTime > 0) {
+      dir = game.level.track.points.get(markCount).copy().sub(pos).copy().setMag(vel*slowPercent);
+    } else {
+      dir = game.level.track.points.get(markCount).copy().sub(pos).copy().setMag(vel);
+    }
     pos.add(dir);
+
+    if (slowTime > 0) {
+      slowTime--;
+    }
+
+    if (burnTime > 0) {
+      if (burnTime % 60 == 0) {
+        reduceLife(burnDamage);
+      }
+      burnTime--;
+    }
+
+    if (stunTime > 0) {
+      stunTime--;
+    }
   }
 
   public void render() {

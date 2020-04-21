@@ -1,6 +1,6 @@
 public class Projectile {
   private PVector pos, dir;
-  private int enemyId, radius, damage, towerId;
+  private int enemyId, radius, damage, towerId, cycle;
   private float vel = 3, distToEnemy;
   public boolean collided;
   // damage stats and so on
@@ -11,6 +11,7 @@ public class Projectile {
     this.damage = damage;
     this.towerId = towerId;
     radius = 10;
+    cycle = 1;
   }
 
   public void update() {
@@ -101,5 +102,21 @@ public class Projectile {
   }
 
   public void specializedProjectileEffect() {
+    if (towerId == 10) {
+      switch(cycle) {
+        //frostbolt
+      case 1:
+      game.wave.enemies.get(enemyId).slowTime = 180;
+      break;
+        //fireball
+      case 2:
+      game.wave.enemies.get(enemyId).burnTime = 240;
+      break;
+        //lightningbolt
+      case 3:
+      game.wave.enemies.get(enemyId).stunTime = 30;
+      break;
+      }
+    }
   }
 }

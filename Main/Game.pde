@@ -167,7 +167,13 @@ public class Game {
         }
       }
       if (!mouseIsOverTower) {
-        level.addTower(new Tower(x, y));
+        if (player.getMoney() >= 50) {
+          int currentTowerNumber = level.towers.size();
+          level.addTower(new Tower(x, y));
+          if(level.towers.size() > currentTowerNumber){
+            player.MONEY -= 50;
+          }
+        }
       }
     } else {
       // logic med liv og sådan noget der og at købe ting osv

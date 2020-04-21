@@ -127,7 +127,19 @@ public class Tower {
       break;
 
     case 2:
-      upgrades.add(new Upgrade("Idk", 5, 100));
+      upgrades.add(new Upgrade("ArrowFlinger", 5, 100));
+      upgrades.add(new Upgrade("Sniper", 6, 100));
+      break;
+      
+    case 3:
+      upgrades.add(new Upgrade("Barbarian", 7, 100));
+      upgrades.add(new Upgrade("King", 8, 100));
+      break;
+      
+    case 4:
+      upgrades.add(new Upgrade("Summoner", 9, 100));
+      upgrades.add(new Upgrade("Archmage", 10, 100));
+      break;
     }
     return upgrades;
   }

@@ -4,6 +4,7 @@ public class Player{
   
   public Player(){
     this.life = 100;
+    this.MONEY = 50;
   }
   
   public int getLife(){

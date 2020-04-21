@@ -183,8 +183,10 @@ public class Tower {
         //knight
       case 3:
         for (int i = 0; i < game.wave.enemies.size(); i++) {
-          if (game.wave.enemies.get(i).pos.copy().sub(pos).mag() < range) {
-            game.wave.enemies.get(i).reduceLife(damage);
+          if (game.wave.enemies.get(i) != null) {
+            if (game.wave.enemies.get(i).pos.copy().sub(pos).mag() < range) {
+              game.wave.enemies.get(i).reduceLife(damage);
+            }
           }
         }
         break;
@@ -207,8 +209,10 @@ public class Tower {
         //barbarian
       case 7:
         for (int i = 0; i < game.wave.enemies.size(); i++) {
-          if (game.wave.enemies.get(i).pos.copy().sub(pos).mag() < range) {
-            game.wave.enemies.get(i).reduceLife(damage);
+          if (game.wave.enemies.get(i) != null) {
+            if (game.wave.enemies.get(i).pos.copy().sub(pos).mag() < range) {
+              game.wave.enemies.get(i).reduceLife(damage);
+            }
           }
         }
         break;
@@ -216,8 +220,10 @@ public class Tower {
         //king
       case 8:
         for (int i = 0; i < game.wave.enemies.size(); i++) {
-          if (game.wave.enemies.get(i).pos.copy().sub(pos).mag() < range) {
-            game.wave.enemies.get(i).reduceLife(damage);
+          if (game.wave.enemies.get(i) != null) {
+            if (game.wave.enemies.get(i).pos.copy().sub(pos).mag() < range) {
+              game.wave.enemies.get(i).reduceLife(damage);
+            }
           }
         }
         break;

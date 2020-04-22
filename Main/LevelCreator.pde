@@ -223,8 +223,16 @@ public class LevelCreator {
 
     public void createLevel() {
       PrintWriter output = createWriter("data/field.lvl");  // "data/field" + number + ".lvl"
-
-      output.println(level.filePathToBackground);
+      
+      String filePathWithCorrectSlashes = new String();
+      for(int i = 0; i < level.filePathToBackground.length(); i++){
+        if(level.filePathToBackground.charAt(i) != '\'){
+          filePathWithCorrectSlashes += level.filePathToBackground.charAt(i);
+        } else {
+          filePathWithCorrectSlashes += '/';
+        }
+      }
+      output.println(filePathWithCorrectSlashes);
 
       output.println("Field");
       String[][] dataField = new String[squaresX][squaresY];

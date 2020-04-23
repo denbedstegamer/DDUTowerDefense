@@ -19,7 +19,7 @@ public class Game {
     upgrades = new ArrayList<Button>();
     projectiles = new ArrayList<Projectile>();
     upgrades2 = new ArrayList<Upgrade>();
-    startRound = new Button(width/2+width/8, height-height/9, width/4, height/12, "Start Round","","") {
+    startRound = new Button(width/2+width/4, height-height/9, (width-squaresX)/2, height/12, "Start Round","","") {
       @Override
         public void action() {
         if (!gaming) {
@@ -75,14 +75,14 @@ public class Game {
     stroke(0);
     strokeWeight(1);
     fill(255, 0, 0);  // nok ikke 255, når der er et billede
-    text(player.getLife(), squaresX + (width-squaresX)/2, height/16);
+    text(player.getLife(), squaresX + width/3+width/32, height/16);
     // måske et billede af et nogle MONEYS
     textSize(50);  // alle textSize(x), så burde x være i forhold til height eller width
     textAlign(CENTER);
     stroke(0);
     strokeWeight(1);
     fill(231, 202, 0);
-    text(player.getMoney(), squaresX + (width-squaresX)/2, height/16*2);
+    text(player.getMoney(), squaresX + width/3+width/42, height/16*2);
 
     renderBuyables();
 
@@ -92,7 +92,7 @@ public class Game {
     stroke(0);
     strokeWeight(1);
     fill(0);
-    text("wave " + wave.waveCount + " / " + wave.maxWaves, squaresX + width/4-width/64, height-height/16*2);
+    text("wave " + wave.waveCount + " / " + wave.maxWaves, squaresX + width/3+width/32, height-height/16*2);
 
     startRound.render();
   }
@@ -104,7 +104,7 @@ public class Game {
           if (j < selectedTower.getUpgrades().size()) {
             temp = j;
             upgrades2.add(new Upgrade(selectedTower.getUpgrades().get(temp)));
-            Button tempB = new Button(width/2+width/8, height/6+height/8*j+j*25, (width-squaresX)/2, height/7,"", "Price: " + selectedTower.getUpgrades().get(j).getCost(), "\n Upgrade to: " + selectedTower.getUpgrades().get(temp).getName()) {
+            Button tempB = new Button(width/2+width/4, height/6+height/8*j+j*25, (width-squaresX)/2, height/7,"", "Price: " + selectedTower.getUpgrades().get(j).getCost(), "\n Upgrade to: " + selectedTower.getUpgrades().get(temp).getName()) {
               @Override
                 public void action() {
                 for (int i = 0; i < upgrades.size(); i++) {

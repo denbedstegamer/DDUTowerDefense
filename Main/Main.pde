@@ -44,7 +44,9 @@ public void draw() {
     break;
   }
   fill(0);
-  text(frameRate, width/10, height-height/15);
+  textAlign(LEFT);
+  textSize(14);
+  text("fps: "+frameRate, width/128, height-height/64);
 }
 
 public void mousePressed() {

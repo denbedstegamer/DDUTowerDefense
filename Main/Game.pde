@@ -12,14 +12,19 @@ public class Game {
   private int temp;
   public int sizeX = 200;
 
+  private PImage hearts;
+  private PImage coins;
+
   public Game(File f) {
+    hearts = loadImage(dataPath("") + "/Particles/Heart.png");
+    coins = loadImage(dataPath("") + "/Particles/Coin.png");
     level = new Level(f);
     player = new Player();
     wave = new Wave();
     upgrades = new ArrayList<Button>();
     projectiles = new ArrayList<Projectile>();
     upgrades2 = new ArrayList<Upgrade>();
-    startRound = new Button(width/2+width/4, height-height/9, (width-squaresX)/2, height/12, "Start Round","","") {
+    startRound = new Button(squaresX+(width-squaresX)/4, height-height/9, (width-squaresX)/2, height/12, "Start Round", "", "") {
       @Override
         public void action() {
         if (!gaming) {
@@ -70,19 +75,23 @@ public class Game {
 
     // rendering player stats
     // måske et billede af et hjerte
+    
     textSize(50);  // alle textSize(x), så burde x være i forhold til height eller width
-    textAlign(CENTER);
+    textAlign(RIGHT);
     stroke(0);
     strokeWeight(1);
     fill(255, 0, 0);  // nok ikke 255, når der er et billede
-    text(player.getLife(), squaresX + width/3+width/32, height/16);
+    text(player.getLife(), squaresX+(width-squaresX)-(width-squaresX)/4-(width-squaresX)/12, height/16);
     // måske et billede af et nogle MONEYS
+    imageMode(CORNER);
+    image(hearts, squaresX+(width-squaresX)-(width-squaresX)/4-(width-squaresX)/12, height/36, (width-squaresX)/22, (width-squaresX)/22);
+    image(coins, squaresX+(width-squaresX)-(width-squaresX)/4-(width-squaresX)/12, height/11, (width-squaresX)/24, (width-squaresX)/24);
     textSize(50);  // alle textSize(x), så burde x være i forhold til height eller width
-    textAlign(CENTER);
+    textAlign(RIGHT);
     stroke(0);
     strokeWeight(1);
     fill(231, 202, 0);
-    text(player.getMoney(), squaresX + width/3+width/42, height/16*2);
+    text(player.getMoney(), squaresX+(width-squaresX)-(width-squaresX)/4-(width-squaresX)/12, height/16*2);
 
     renderBuyables();
 
@@ -92,7 +101,7 @@ public class Game {
     stroke(0);
     strokeWeight(1);
     fill(0);
-    text("wave " + wave.waveCount + " / " + wave.maxWaves, squaresX + width/3+width/32, height-height/16*2);
+    text("wave " + wave.waveCount + " / " + wave.maxWaves, squaresX+(width-squaresX)/2, height-height/16*2);
 
     startRound.render();
   }
@@ -100,32 +109,30 @@ public class Game {
   private void renderBuyables() {
     if (selectedTower != null && upgrades.size() == 0) {
       //for (int i = 0; i < (selectedTower.getUpgrades().size()+1)/2; i++) {
-        for (int j = 0; j < 3; j++) {
-          if (j < selectedTower.getUpgrades().size()) {
-            temp = j;
-            upgrades2.add(new Upgrade(selectedTower.getUpgrades().get(temp)));
-            Button tempB = new Button(width/2+width/4, height/6+height/8*j+j*25, (width-squaresX)/2, height/7,"", "Price: " + selectedTower.getUpgrades().get(j).getCost(), "\n Upgrade to: " + selectedTower.getUpgrades().get(temp).getName()) {
-              @Override
-                public void action() {
-                for (int i = 0; i < upgrades.size(); i++) {
-                  if (upgrades.get(i).equals(this)) {
-                    if (player.getMoney() >= upgrades2.get(i).getCost()) {
-                      selectedTower.upgrade(upgrades2.get(i).getId());
-                      player.MONEY -= upgrades2.get(i).getCost();
-                      selectedTower = null;
-                      queueShouldBeCleared = true;
-                    }
+      for (int j = 0; j < 3; j++) {
+        if (j < selectedTower.getUpgrades().size()) {
+          temp = j;
+          upgrades2.add(new Upgrade(selectedTower.getUpgrades().get(temp)));
+          Button tempB = new Button(squaresX+(width-squaresX)/4, height/6+height/8*j+j*25, (width-squaresX)/2, height/7, "", "Price: " + selectedTower.getUpgrades().get(j).getCost(), "\n Upgrade to: " + selectedTower.getUpgrades().get(temp).getName()) {
+            @Override
+              public void action() {
+              for (int i = 0; i < upgrades.size(); i++) {
+                if (upgrades.get(i).equals(this)) {
+                  if (player.getMoney() >= upgrades2.get(i).getCost()) {
+                    selectedTower.upgrade(upgrades2.get(i).getId());
+                    player.MONEY -= upgrades2.get(i).getCost();
+                    selectedTower = null;
+                    queueShouldBeCleared = true;
                   }
                 }
-                }
-
-              
-            };
-            upgrades.add(tempB);
-          }
+              }
+            }
+          };
+          upgrades.add(tempB);
         }
       }
-    
+    }
+
     if (queueShouldBeCleared) {
       clearQueue();
     } else {

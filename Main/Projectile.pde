@@ -1,7 +1,7 @@
 public class Projectile {
   private PVector pos, dir;
   private int enemyId, radius, damage, towerId;
-  private float vel = 3, distToEnemy;
+  private float vel, distToEnemy;
   public boolean collided;
   // damage stats and so on
 
@@ -48,14 +48,17 @@ public class Projectile {
 
   private void giveProjectileVariables() {
     switch(towerId) {
-
+      
+      //peasant
     case 1:
       damage = 10;
+      vel = 3;
       break;
 
       //archer
     case 2:
       damage = 20;
+      vel = 4;
       break;
 
       //knight
@@ -66,16 +69,19 @@ public class Projectile {
       //mage
     case 4:
       damage = 25;
+      vel = 3;
       break;
 
       //arrowflinger
     case 5:
       damage = 25;
+      vel = 6;
       break;
 
       //sniper
     case 6:
       damage = 50;
+      vel = 10;
       break;
 
       //barbarian
@@ -91,6 +97,7 @@ public class Projectile {
       //summoner
     case 9:
       damage = 10;
+      vel = 4;
       break;
 
       //archmage
@@ -98,6 +105,7 @@ public class Projectile {
     case 11:
     case 12:
       damage = 35;
+      vel = 5;
       break;
     }
   }

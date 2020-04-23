@@ -77,6 +77,7 @@ public class Tower {
     case 3:
       as = 5;
       range = 50;
+      damage = 30;
       break;
 
       //mage
@@ -101,12 +102,14 @@ public class Tower {
     case 7:
       as = 2;
       range = 50;
+      damage = 30;
       break;
 
       //king
     case 8:
       as = 5;
       range = 100;
+      damage = 40;
       break;
 
       //summoner

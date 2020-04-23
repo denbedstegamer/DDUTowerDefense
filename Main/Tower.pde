@@ -1,7 +1,6 @@
 public class Tower {
-  // texture and id/type
-  private int x, y, radius = 20, extend;  //måske d ikkr r
-  private int range, damage, as, id, targetEnemy;  // as = Attack Speed
+  private int x, y, radius = 20, extend;
+  private int range, damage, as, id, targetEnemy, cycle;  // as = Attack Speed
   private PVector pos, dir;
   private PImage sprite;
 
@@ -64,72 +63,63 @@ public class Tower {
     switch(id) {
       //peasant
     case 1:
-      damage = 10;
       as = 10;
       range = 100;
       break;
 
       //archer
     case 2:
-      damage = 20;
       as = 7;
       range = 250;
       break;
 
       //knight
     case 3:
-      damage = 30;
       as = 5;
       range = 50;
       break;
 
       //mage
     case 4:
-      damage = 25;
       as = 13;
       range = 200;
       break;
 
       //arrowflinger
     case 5:
-      damage = 25;
       as = 5;
       range = 300;
       break;
 
       //sniper
     case 6:
-      damage = 50;
       as = 15;
       range = 10000;
       break;
 
       //barbarian
     case 7:
-      damage = 30;
       as = 2;
       range = 50;
       break;
 
       //king
     case 8:
-      damage = 40;
       as = 5;
       range = 100;
       break;
 
       //summoner
     case 9:
-      damage = 10;
       as = 11;
       range = 250;
       break;
 
       //archmage
     case 10:
-      damage = 35;
       as = 5;
       range = 300;
+      cycle = 1;
       break;
     }
   }
@@ -191,12 +181,12 @@ public class Tower {
 
         //peasant
       case 1:
-        game.projectiles.add(new Projectile(pos, targetEnemy, damage, id));
+        game.projectiles.add(new Projectile(pos, targetEnemy, id));
         break;
 
         //archer
       case 2:
-        game.projectiles.add(new Projectile(pos, targetEnemy, damage, id));
+        game.projectiles.add(new Projectile(pos, targetEnemy, id));
         break;
 
         //knight
@@ -212,17 +202,17 @@ public class Tower {
 
         //mage
       case 4:
-        game.projectiles.add(new Projectile(pos, targetEnemy, damage, id));
+        game.projectiles.add(new Projectile(pos, targetEnemy, id));
         break;
 
         //arrowflinger
       case 5:
-        game.projectiles.add(new Projectile(pos, targetEnemy, damage, id));
+        game.projectiles.add(new Projectile(pos, targetEnemy, id));
         break;
 
         //sniper
       case 6:
-        game.projectiles.add(new Projectile(pos, targetEnemy, damage, id));
+        game.projectiles.add(new Projectile(pos, targetEnemy, id));
         break;
 
         //barbarian
@@ -249,14 +239,28 @@ public class Tower {
 
         //summoner
       case 9:
-        game.projectiles.add(new Projectile(pos, targetEnemy, damage, id));
+        game.projectiles.add(new Projectile(pos, targetEnemy, id));
         break;
 
         //archmage
       case 10:
-        game.projectiles.add(new Projectile(pos, targetEnemy, damage, id));
+        game.projectiles.add(new Projectile(pos, targetEnemy, id+cycle));
         break;
       }
+    }
+  }
+  
+  private void spellCycle() {
+    switch(cycle) {
+      case 0:
+      cycle = 1;
+      break;
+      case 1:
+      cycle = 2;
+      break;
+      case 2:
+      cycle = 0;
+      break;
     }
   }
 }

@@ -179,7 +179,7 @@ public class Tower {
 
   private void attack() {
     spotEnemy();
-    if (targetEnemy != -1) {
+    if (targetEnemy > -1) {
       switch(id) {
 
         //peasant

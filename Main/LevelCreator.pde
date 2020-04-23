@@ -12,7 +12,7 @@ public class LevelCreator {
     marks = new PVector[4];
     features = new PImage();
 
-    chooseBackground = new Button(1000, 0, width-1000, height/8, "Background") {
+    chooseBackground = new Button(1000, 0, width-1000, height/8, "Background","","") {
       @Override
         public void action() {
         if (!isSelectingFile) {
@@ -23,14 +23,14 @@ public class LevelCreator {
         toolTip = null;
       }
     };
-    createLevel = new Button(1000, height/8, width-1000, height/8, "Create Level") {
+    createLevel = new Button(1000, height/8, width-1000, height/8, "Create Level","","") {
       @Override
         public void action() {
         createLevel();
         toolTip = "Level saved";
       }
     };
-    createObstacle = new Button(1000, height/4, width-1000, height/8, "Create Obstacle") {
+    createObstacle = new Button(1000, height/4, width-1000, height/8, "Create Obstacle","","") {
       @Override
         public void action() {
         isCreatingObstacle = true;
@@ -40,7 +40,7 @@ public class LevelCreator {
         toolTip = "Click on the field in order to mark the 4 corners of the obstacle";
       }
     };
-    createPath = new Button(1000, height/4+height/8, width-1000, height/8, "Create Path") {
+    createPath = new Button(1000, height/4+height/8, width-1000, height/8, "Create Path","","") {
       @Override
         public void action() {
         isSettingPath = true;
@@ -48,7 +48,7 @@ public class LevelCreator {
         toolTip = "Click on the field in order to trace the path for the enemies";
       }
     };
-    removeObstacle = new Button(1000, height/2, width-1000, height/8, "Remove Obstacle") {
+    removeObstacle = new Button(1000, height/2, width-1000, height/8, "Remove Obstacle","","") {
       @Override
         public void action() {
         isCreatingObstacle = false;
@@ -58,14 +58,14 @@ public class LevelCreator {
         toolTip = "Click on the field in order to mark the 4 corners of the area you want to remove";
       }
     };
-    clearPath = new Button(1000, height/2+height/8, width-1000, height/8, "Clear Path") {
+    clearPath = new Button(1000, height/2+height/8, width-1000, height/8, "Clear Path","","") {
       @Override
         public void action() {
         clearPath();
         toolTip = "Path cleared";
       }
     };
-    chooseLevel = new Button(1000, height/2+height/4, width-1000, height/8, "Edit Level") {
+    chooseLevel = new Button(1000, height/2+height/4, width-1000, height/8, "Edit Level","","") {
       @Override
         public void action() {
         if (!isSelectingFile) {
@@ -76,7 +76,7 @@ public class LevelCreator {
         toolTip = null;
       }
     };
-    backToMM = new Button(1000, height/2+height/4+height/8, width-1000, height/8, "Main Menu") {
+    backToMM = new Button(1000, height/2+height/4+height/8, width-1000, height/8, "Main Menu","","") {
       @Override
         public void action() {
         gameState = 0;

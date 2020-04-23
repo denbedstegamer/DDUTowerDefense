@@ -18,13 +18,13 @@ public class Button {
     fill(200);
     rect(pos.x, pos.y, size.x, size.y);
     
-    textSize(60);
+    textSize(size.x/8);
     textAlign(CENTER);
     fill(0);
     text(text, pos.x+size.x/2, pos.y+size.y/3*2);
-    textSize(size.x/10);
+    textSize(size.x/8);
     text(text2, pos.x+size.x/2, pos.y+size.y/2);
-    textSize(size.x/15);
+    textSize(size.x/13);
     text(text3, pos.x+size.x/2, pos.y+size.y/2);
   }
 

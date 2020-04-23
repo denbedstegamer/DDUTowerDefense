@@ -19,7 +19,7 @@ public class Game {
     upgrades = new ArrayList<Button>();
     projectiles = new ArrayList<Projectile>();
     upgrades2 = new ArrayList<Upgrade>();
-    startRound = new Button(squaresX+sizeX/5*2+(width-squaresX)/8, height-height/9, width/4, height/12, "Start Round","","") {
+    startRound = new Button(width/2+width/8, height-height/9, width/4, height/12, "Start Round","","") {
       @Override
         public void action() {
         if (!gaming) {
@@ -92,7 +92,7 @@ public class Game {
     stroke(0);
     strokeWeight(1);
     fill(0);
-    text("wave " + wave.waveCount + " / " + wave.maxWaves, squaresX + (width-squaresX)/2, height-height/16*2);
+    text("wave " + wave.waveCount + " / " + wave.maxWaves, squaresX + width/4-width/64, height-height/16*2);
 
     startRound.render();
   }
@@ -104,7 +104,7 @@ public class Game {
           if (j < selectedTower.getUpgrades().size()) {
             temp = j;
             upgrades2.add(new Upgrade(selectedTower.getUpgrades().get(temp)));
-            Button tempB = new Button(squaresX+sizeX/5*2+(width-squaresX)/8, height/6+height/8*j+j*25, (width-squaresX)/2, height/7,"", "Price: " + selectedTower.getUpgrades().get(j).getCost(), "\n Upgrade to: " + selectedTower.getUpgrades().get(temp).getName()) {
+            Button tempB = new Button(width/2+width/8, height/6+height/8*j+j*25, (width-squaresX)/2, height/7,"", "Price: " + selectedTower.getUpgrades().get(j).getCost(), "\n Upgrade to: " + selectedTower.getUpgrades().get(temp).getName()) {
               @Override
                 public void action() {
                 for (int i = 0; i < upgrades.size(); i++) {

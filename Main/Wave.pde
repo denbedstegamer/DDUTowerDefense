@@ -120,10 +120,6 @@ public class Wave {
   }
 
   public void update() {
-    println(enemies.size());
-    println(enemyCount);
-    println(totalEnemiesCount);
-
     if (queue.size() != enemyCount) {
       if (timeSinceWaveStarted % queueTimes.get(enemyCount).intValue() == 0) {
         enemies.add(new Enemy(queue.get(enemyCount).id, queue.get(enemyCount).pos));
@@ -137,14 +133,14 @@ public class Wave {
       }
     }
     timeSinceWaveStarted ++;
-    
+
     boolean temp = true;
-    for (int i = 0; i < enemies.size() && temp && enemyCount == totalEnemiesCount && timeSinceWaveStarted >= 2; i++) {
+    for (int i = 0; i < enemies.size(); i++) {
       if (enemies.get(i) != null) {
         temp = false;
       }
     }
-    if (!temp) {
+    if (temp && enemyCount == totalEnemiesCount && timeSinceWaveStarted >= 2) {
       enemies.clear();
     }
     if (enemies.size() == 0) {

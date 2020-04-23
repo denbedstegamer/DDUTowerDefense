@@ -122,7 +122,7 @@ public class Projectile {
       break;
       //lightningbolt
     case 12:
-      game.wave.enemies.get(enemyId).stunTime = 30;
+      game.wave.enemies.get(enemyId).stunTime = 5;
       break;
     }
   }

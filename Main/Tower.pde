@@ -248,6 +248,7 @@ public class Tower {
         //archmage
       case 10:
         game.projectiles.add(new Projectile(pos, targetEnemy, id+cycle));
+        spellCycle();
         break;
       }
     }

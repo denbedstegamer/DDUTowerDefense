@@ -1,40 +1,52 @@
 public class Projectile {
-  private PVector pos, dir;
-  private int enemyId, radius, damage, towerId;
+  private PVector pos, dir, enemyStartPos;
+  private int enemyId, radius, damage, id, lifeSpan;
   private float vel, distToEnemy;
-  public boolean collided;
+  public boolean collided, homingProjectile, definedDirection;
+  private PImage sprite;
   // damage stats and so on
 
-  public Projectile(PVector pos, int enemyId, int towerId) {
+  public Projectile(PVector pos, int enemyId, int id) {
     this.pos = pos.copy();
     this.enemyId = enemyId;
-    this.towerId = towerId;
+    this.id = id;
+    enemyStartPos = game.wave.enemies.get(enemyId).pos.copy();
     giveProjectileVariables();
     radius = 10;
+
+    sprite = loadImage(dataPath("") + "/Projectiles/" + id + ".png");
   }
 
   public void update() {
-    if (game.wave.enemies.size() > 0) {
-      if (game.wave.enemies.get(enemyId) != null) {
-        dir = game.wave.enemies.get(enemyId).pos.copy().sub(pos).copy().setMag(vel);
-        pos.add(dir);
+    if (homingProjectile) {
+      if (game.wave.enemies.size() > 0) {
+        if (game.wave.enemies.get(enemyId) != null) {
+          homingProjectile();
+        } else {
+          collided = true;
+        }
       } else {
-        collided = true;
+        nonHomingProjectile();
       }
       detectCollision();
     }
   }
 
   public void render() {
-    /*
-    HUSK ROTATION
-     imageMode(CENTER);
-     image(sprite, pos.x, pos.y);*/
-    stroke(0);
-    strokeWeight(1);
-    fill(255, 0, 0);
-    rectMode(CENTER);
-    rect(pos.x, pos.y, radius, radius);
+    if (homingProjectile) {
+      pushMatrix();
+      imageMode(CENTER);
+      translate(pos.x, pos.y);
+      if (dir.y > 0) {
+        rotate(-PVector.angleBetween(dir, new PVector(-1, 0)));
+      } else {
+        rotate(PVector.angleBetween(dir, new PVector(-1, 0)));
+      }
+      image(sprite, 0, 0);
+      popMatrix();
+    } else {
+      image(sprite, pos.x, pos.y);
+    }
   }
 
   private void detectCollision() {
@@ -48,19 +60,35 @@ public class Projectile {
     }
   }
 
+  private void homingProjectile() {
+    dir = game.wave.enemies.get(enemyId).pos.copy().sub(pos).copy().setMag(vel);
+    pos.add(dir);
+  }
+
+  private void nonHomingProjectile() {
+    if (definedDirection) {
+      dir = enemyStartPos.sub(pos).copy();
+      definedDirection = true;
+    }
+    dir.setMag(vel);
+    pos.add(dir);
+  }
+
   private void giveProjectileVariables() {
-    switch(towerId) {
+    switch(id) {
 
       //peasant
     case 1:
       damage = 10;
       vel = 3;
+      homingProjectile = true;
       break;
 
       //archer
     case 2:
       damage = 20;
-      vel = 4;
+      vel = 6;
+      lifeSpan = 60;
       break;
 
       //knight
@@ -72,18 +100,21 @@ public class Projectile {
     case 4:
       damage = 25;
       vel = 3;
+      homingProjectile = true;
       break;
 
       //arrowflinger
     case 5:
       damage = 25;
       vel = 6;
+      lifeSpan = 60;
       break;
 
       //sniper
     case 6:
       damage = 50;
       vel = 10;
+      lifeSpan = 9999;
       break;
 
       //barbarian
@@ -100,6 +131,7 @@ public class Projectile {
     case 9:
       damage = 10;
       vel = 4;
+      homingProjectile = true;
       break;
 
       //archmage
@@ -108,12 +140,13 @@ public class Projectile {
     case 12:
       damage = 35;
       vel = 5;
+      homingProjectile = true;
       break;
     }
   }
 
   public void specializedProjectileEffect() {
-    switch(towerId) {
+    switch(id) {
       //frostbolt
     case 10:
       game.wave.enemies.get(enemyId).slowTime = 180;

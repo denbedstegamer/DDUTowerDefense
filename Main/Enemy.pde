@@ -107,6 +107,9 @@ public class Enemy {
 
   public void renderHealthbar() {
     remainingLife = (life+0.0)/(totalLife+0.0);
+    if(remainingLife < 0) {
+      remainingLife = 0;
+    }
     strokeWeight(0);
     rectMode(CORNER);
     fill(255, 0, 0);

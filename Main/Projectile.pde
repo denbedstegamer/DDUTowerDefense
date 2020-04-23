@@ -2,7 +2,7 @@ public class Projectile {
   private PVector pos, dir, enemyStartPos;
   private int enemyId, radius, damage, id, lifeSpan;
   private float vel, distToEnemy;
-  public boolean collided, homingProjectile, definedDirection;
+  public boolean collided, homingProjectile, definedDirection = true;
   private PImage sprite;
   // damage stats and so on
 
@@ -18,35 +18,31 @@ public class Projectile {
   }
 
   public void update() {
-    if (homingProjectile) {
-      if (enemyId < game.wave.enemies.size()) {
-        if (game.wave.enemies.get(enemyId) != null) {
+    if (enemyId < game.wave.enemies.size()) {
+      if (game.wave.enemies.get(enemyId) != null) {
+        if (homingProjectile) {
           homingProjectile();
         } else {
-          collided = true;
+          nonHomingProjectile();
         }
       } else {
-        nonHomingProjectile();
+        collided = true;
       }
-      detectCollision();
     }
+    detectCollision();
   }
 
   public void render() {
-    if (homingProjectile) {
-      pushMatrix();
-      imageMode(CENTER);
-      translate(pos.x, pos.y);
-      if (dir.y > 0) {
-        rotate(-PVector.angleBetween(dir, new PVector(-1, 0)));
-      } else {
-        rotate(PVector.angleBetween(dir, new PVector(-1, 0)));
-      }
-      image(sprite, 0, 0);
-      popMatrix();
+    pushMatrix();
+    imageMode(CENTER);
+    translate(pos.x, pos.y);
+    if (dir.y > 0) {
+      rotate(-PVector.angleBetween(dir, new PVector(-1, 0)));
     } else {
-      image(sprite, pos.x, pos.y);
+      rotate(PVector.angleBetween(dir, new PVector(-1, 0)));
     }
+    image(sprite, 0, 0);
+    popMatrix();
   }
 
   private void detectCollision() {
@@ -67,8 +63,9 @@ public class Projectile {
 
   private void nonHomingProjectile() {
     if (definedDirection) {
-      dir = enemyStartPos.sub(pos).copy();
-      definedDirection = true;
+      dir = enemyStartPos.sub(pos);
+      println(dir.x, dir.y);
+      definedDirection = false;
     }
     dir.setMag(vel);
     pos.add(dir);

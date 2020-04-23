@@ -23,8 +23,6 @@ public class Game {
         public void action() {
         if (!gaming) {
           gaming = true;
-          wave.waveCount++;
-          wave.timeSinceWaveStarted = 0;
           wave.spawnEnemies();
         }
       }
@@ -32,16 +30,17 @@ public class Game {
   }
 
   public void update() {
-    level.update();
     if (gaming) {
       wave.update();
-      removeCollidedProjectiles();
-      for (int i = 0; i < projectiles.size(); i++) {
-        projectiles.get(i).update();
+      if (wave.timeSinceWaveStarted >= 2) {
+        level.update();
+        for (int i = 0; i < projectiles.size(); i++) {
+          projectiles.get(i).update();
+        }
+        removeCollidedProjectiles();
       }
     }
     startRound.pressed();
-    cleanUp();
   }
 
   //fjerner projektiler, som har ramt deres mål
@@ -50,22 +49,6 @@ public class Game {
       if (projectiles.get(i).collided) {
         projectiles.remove(i);
         i--;
-      }
-    }
-  }
-
-  private void cleanUp() {
-    boolean temp = false;
-    for (int i = 0; i < wave.enemies.size() && !temp; i++) {
-      if (wave.enemies.get(i) != null) {
-        temp = true;
-      }
-    }
-    if (!temp) {
-      projectiles.clear();
-      wave.enemies.clear();
-      if (wave.timeSinceWaveStarted >= 2 && wave.enemyCount == wave.totalEnemiesCount) {
-        gaming = false;
       }
     }
   }
@@ -170,7 +153,7 @@ public class Game {
         if (player.getMoney() >= 50) {
           int currentTowerNumber = level.towers.size();
           level.addTower(new Tower(x, y));
-          if(level.towers.size() > currentTowerNumber){
+          if (level.towers.size() > currentTowerNumber) {
             player.MONEY -= 50;
           }
         }

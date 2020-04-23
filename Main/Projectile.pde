@@ -19,7 +19,7 @@ public class Projectile {
 
   public void update() {
     if (homingProjectile) {
-      if (game.wave.enemies.size() > 0) {
+      if (enemyId < game.wave.enemies.size()) {
         if (game.wave.enemies.get(enemyId) != null) {
           homingProjectile();
         } else {

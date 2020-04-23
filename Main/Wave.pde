@@ -1,5 +1,5 @@
 public class Wave {
-  public int waveCount = 0, maxWaves = 10, timeTillNextEnemy, timeSinceWaveStarted, enemyCount, totalEnemiesCount;
+  public int waveCount = 1, maxWaves = 10, timeTillNextEnemy, timeSinceWaveStarted, enemyCount, totalEnemiesCount;
   private ArrayList<Enemy> enemies, queue;
   private ArrayList<Integer> queueTimes;
 
@@ -123,12 +123,6 @@ public class Wave {
     println(enemies.size());
     println(enemyCount);
     println(totalEnemiesCount);
-    if (enemies.size() == 0 && timeSinceWaveStarted >= 2) {
-      queue.clear();
-      queueTimes.clear();
-      waveCount++;
-      timeSinceWaveStarted = 0;
-    }
 
     if (queue.size() != enemyCount) {
       if (timeSinceWaveStarted % queueTimes.get(enemyCount).intValue() == 0) {
@@ -143,10 +137,28 @@ public class Wave {
       }
     }
     timeSinceWaveStarted ++;
+    
+    boolean temp = true;
+    for (int i = 0; i < enemies.size() && temp && enemyCount == totalEnemiesCount && timeSinceWaveStarted >= 2; i++) {
+      if (enemies.get(i) != null) {
+        temp = false;
+      }
+    }
+    if (!temp) {
+      enemies.clear();
+    }
+    if (enemies.size() == 0) {
+      queue.clear();
+      queueTimes.clear();
+      waveCount++;
+      game.projectiles.clear();
+      timeSinceWaveStarted = 0;
+      game.gaming = false;
+      enemyCount = 0;
+    }
   }
 
   public void setEnemiesNull() {
-    //fjerner døde fjender
     for (int i = 0; i < enemies.size(); i++) {
       if (enemies.get(i) != null) {
         //hvis fjendens liv er lig nul, køres for-loopet

@@ -94,6 +94,8 @@ public class LevelCreator {
     } else {
       if (isSelectingBackgroundFile) {
         level.filePathToBackground = selection.getAbsolutePath().substring(dataPath("").length(), selection.getAbsolutePath().length());
+        changesToFeatures = true;
+      } else {
         if (isSelectingLevelFile) {
           level = new Level(selection);
         }

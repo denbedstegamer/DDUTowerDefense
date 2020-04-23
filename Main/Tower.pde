@@ -175,6 +175,15 @@ public class Tower {
         }
       }
     }
+    boolean temp = true;
+    for (int i = 0; i < game.wave.enemies.size(); i++) {
+      if (game.wave.enemies.get(i) != null) {
+        temp = false;
+      }
+    }
+    if (temp) {
+      targetEnemy = -1;
+    }
   }
 
   private void attack() {
@@ -189,7 +198,7 @@ public class Tower {
 
         //archer
       case 2:
-        game.projectiles.add(new Projectile(pos, targetEnemy, id));
+        game.projectiles.add(new Projectile(pos, dir.copy(), id));
         break;
 
         //knight
@@ -210,12 +219,14 @@ public class Tower {
 
         //arrowflinger
       case 5:
-        game.projectiles.add(new Projectile(pos, targetEnemy, id));
+        game.projectiles.add(new Projectile(pos, dir.copy(), id));
+        game.projectiles.add(new Projectile(pos, dir.copy().rotate(-PI/16), id));
+        game.projectiles.add(new Projectile(pos, dir.copy().rotate(PI/16), id));
         break;
 
         //sniper
       case 6:
-        game.projectiles.add(new Projectile(pos, targetEnemy, id));
+        game.projectiles.add(new Projectile(pos, dir.copy(), id));
         break;
 
         //barbarian
@@ -253,16 +264,16 @@ public class Tower {
       }
     }
   }
-  
+
   private void spellCycle() {
     switch(cycle) {
-      case 0:
+    case 0:
       cycle = 1;
       break;
-      case 1:
+    case 1:
       cycle = 2;
       break;
-      case 2:
+    case 2:
       cycle = 0;
       break;
     }

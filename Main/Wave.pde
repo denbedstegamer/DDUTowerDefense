@@ -76,7 +76,7 @@ public class Wave {
 
       //wave 7
     case 7:
-      totalEnemiesCount = 16;
+      totalEnemiesCount = 20;
       for (int i = 0; i < 4; i++) {
         timeTillNextEnemy = 300;
         queue.add(new Enemy(2, game.level.track.points.get(0)));

@@ -2,7 +2,7 @@ public class Projectile {
   private PVector pos, dir, enemyStartPos;
   private int enemyId, radius, damage, id, lifeSpan;
   private float vel, distToEnemy;
-  public boolean collided, homingProjectile, definedDirection = true;
+  public boolean collided, homingProjectile, definedDirection = false;
   private PImage sprite;
   // damage stats and so on
 
@@ -10,7 +10,17 @@ public class Projectile {
     this.pos = pos.copy();
     this.enemyId = enemyId;
     this.id = id;
-    enemyStartPos = game.wave.enemies.get(enemyId).pos.copy();
+    giveProjectileVariables();
+    radius = 10;
+
+    sprite = loadImage(dataPath("") + "/Projectiles/" + id + ".png");
+  }
+
+  public Projectile(PVector pos, PVector dir, int id) {
+    this.pos = pos.copy();
+    this.id = id;
+    this.dir = dir;
+    definedDirection = true;
     giveProjectileVariables();
     radius = 10;
 
@@ -18,16 +28,18 @@ public class Projectile {
   }
 
   public void update() {
-    if (enemyId < game.wave.enemies.size()) {
-      if (game.wave.enemies.get(enemyId) != null) {
-        if (homingProjectile) {
-          homingProjectile();
+    if (homingProjectile) {
+      if (enemyId < game.wave.enemies.size()) {
+        if (game.wave.enemies.get(enemyId) != null) {
+          if (homingProjectile) {
+            homingProjectile();
+          }
         } else {
-          nonHomingProjectile();
+          collided = true;
         }
-      } else {
-        collided = true;
       }
+    } else {
+      nonHomingProjectile();
     }
     detectCollision();
   }
@@ -46,12 +58,24 @@ public class Projectile {
   }
 
   private void detectCollision() {
-    if (game.wave.enemies.get(enemyId) != null) {
-      distToEnemy = PVector.dist(pos, game.wave.enemies.get(enemyId).pos);
-      if (distToEnemy < radius/2 + game.wave.enemies.get(enemyId).radius/2) {
-        specializedProjectileEffect();
-        game.wave.enemies.get(enemyId).reduceLife(damage);
-        collided = true;
+    if (homingProjectile) {
+      if (game.wave.enemies.get(enemyId) != null) {
+        distToEnemy = PVector.dist(pos, game.wave.enemies.get(enemyId).pos);
+        if (distToEnemy < radius/2 + game.wave.enemies.get(enemyId).radius/2) {
+          specializedProjectileEffect();
+          game.wave.enemies.get(enemyId).reduceLife(damage);
+          collided = true;
+        }
+      }
+    } else {
+      for (int i = 0; i < game.wave.enemies.size(); i++) {
+        if (game.wave.enemies.get(i) != null) {
+          distToEnemy = PVector.dist(pos, game.wave.enemies.get(i).pos);
+          if (distToEnemy < radius/2 + game.wave.enemies.get(i).radius/2) {
+            game.wave.enemies.get(i).reduceLife(damage);
+            collided = true;
+          }
+        }
       }
     }
   }
@@ -62,10 +86,9 @@ public class Projectile {
   }
 
   private void nonHomingProjectile() {
-    if (definedDirection) {
+    if (!definedDirection) {
       dir = enemyStartPos.sub(pos);
-      println(dir.x, dir.y);
-      definedDirection = false;
+      definedDirection = true;
     }
     dir.setMag(vel);
     pos.add(dir);

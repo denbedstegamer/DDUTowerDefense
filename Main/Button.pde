@@ -22,9 +22,9 @@ public class Button {
     textAlign(CENTER);
     fill(0);
     text(text, pos.x+size.x/2, pos.y+size.y/3*2);
-    textSize(50);
+    textSize(size.x/10);
     text(text2, pos.x+size.x/2, pos.y+size.y/2);
-    textSize(30);
+    textSize(size.x/15);
     text(text3, pos.x+size.x/2, pos.y+size.y/2);
   }
 

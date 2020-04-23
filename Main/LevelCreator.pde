@@ -226,7 +226,7 @@ public class LevelCreator {
       
       String filePathWithCorrectSlashes = new String();
       for(int i = 0; i < level.filePathToBackground.length(); i++){
-        if(level.filePathToBackground.charAt(i) != '\'){
+        if(level.filePathToBackground.charAt(i) != '\\'){
           filePathWithCorrectSlashes += level.filePathToBackground.charAt(i);
         } else {
           filePathWithCorrectSlashes += '/';

@@ -1,17 +1,16 @@
 public class Projectile {
   private PVector pos, dir;
-  private int enemyId, radius, damage, towerId, cycle;
+  private int enemyId, radius, damage, towerId;
   private float vel = 3, distToEnemy;
   public boolean collided;
   // damage stats and so on
 
-  public Projectile(PVector pos, int enemyId, int damage, int towerId) {
+  public Projectile(PVector pos, int enemyId, int towerId) {
     this.pos = pos.copy();
     this.enemyId = enemyId;
-    this.damage = damage;
     this.towerId = towerId;
+    giveProjectileVariables();
     radius = 10;
-    cycle = 1;
   }
 
   public void update() {
@@ -40,6 +39,7 @@ public class Projectile {
     if (game.wave.enemies.get(enemyId) != null) {
       distToEnemy = PVector.dist(pos, game.wave.enemies.get(enemyId).pos);
       if (distToEnemy < radius/2 + game.wave.enemies.get(enemyId).radius/2) {
+        specializedProjectileEffect();
         game.wave.enemies.get(enemyId).reduceLife(damage);
         collided = true;
       }
@@ -49,74 +49,73 @@ public class Projectile {
   private void giveProjectileVariables() {
     switch(towerId) {
 
-      //peasant
     case 1:
-
+      damage = 10;
       break;
 
       //archer
     case 2:
-
+      damage = 20;
       break;
 
       //knight
     case 3:
-
+      damage = 30;
       break;
 
       //mage
     case 4:
-
+      damage = 25;
       break;
 
       //arrowflinger
     case 5:
-
+      damage = 25;
       break;
 
       //sniper
     case 6:
-
+      damage = 50;
       break;
 
       //barbarian
     case 7:
-
+      damage = 30;
       break;
 
       //king
     case 8:
-
+      damage = 40;
       break;
 
       //summoner
     case 9:
-
+      damage = 10;
       break;
 
       //archmage
     case 10:
-
+    case 11:
+    case 12:
+      damage = 35;
       break;
     }
   }
 
   public void specializedProjectileEffect() {
-    if (towerId == 10) {
-      switch(cycle) {
-        //frostbolt
-      case 1:
+    switch(towerId) {
+      //frostbolt
+    case 10:
       game.wave.enemies.get(enemyId).slowTime = 180;
       break;
-        //fireball
-      case 2:
+      //fireball
+    case 11:
       game.wave.enemies.get(enemyId).burnTime = 240;
       break;
-        //lightningbolt
-      case 3:
+      //lightningbolt
+    case 12:
       game.wave.enemies.get(enemyId).stunTime = 30;
       break;
-      }
     }
   }
 }

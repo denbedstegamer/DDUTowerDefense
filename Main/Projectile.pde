@@ -14,13 +14,15 @@ public class Projectile {
   }
 
   public void update() {
-    if (game.wave.enemies.get(enemyId) != null) {
-      dir = game.wave.enemies.get(enemyId).pos.copy().sub(pos).copy().setMag(vel);
-      pos.add(dir);
-    } else {
-      collided = true;
+    if (game.wave.enemies.size() > 0) {
+      if (game.wave.enemies.get(enemyId) != null) {
+        dir = game.wave.enemies.get(enemyId).pos.copy().sub(pos).copy().setMag(vel);
+        pos.add(dir);
+      } else {
+        collided = true;
+      }
+      detectCollision();
     }
-    detectCollision();
   }
 
   public void render() {
@@ -48,7 +50,7 @@ public class Projectile {
 
   private void giveProjectileVariables() {
     switch(towerId) {
-      
+
       //peasant
     case 1:
       damage = 10;

@@ -64,7 +64,7 @@ public class Game {
     if (!temp) {
       projectiles.clear();
       wave.enemies.clear();
-      if (wave.timeSinceWaveStarted >= 2) {
+      if (wave.timeSinceWaveStarted >= 2 && wave.enemyCount == wave.totalEnemiesCount) {
         gaming = false;
       }
     }

@@ -10,7 +10,7 @@ public class Game {
   private ArrayList<Button> upgrades;
   private ArrayList<Upgrade> upgrades2;
   private int temp;
-  public int sizeX;
+  public int sizeX = 200;
 
   public Game(File f) {
     level = new Level(f);
@@ -19,7 +19,7 @@ public class Game {
     upgrades = new ArrayList<Button>();
     projectiles = new ArrayList<Projectile>();
     upgrades2 = new ArrayList<Upgrade>();
-    startRound = new Button(width-width/4-width/16, height-height/9, width/4, height/12, "Start round","","") {
+    startRound = new Button(squaresX+sizeX/5*2+(width-squaresX)/8, height-height/9, width/4, height/12, "Start Round","","") {
       @Override
         public void action() {
         if (!gaming) {
@@ -98,14 +98,13 @@ public class Game {
   }
 
   private void renderBuyables() {
-    sizeX = 200;
     if (selectedTower != null && upgrades.size() == 0) {
-      for (int i = 0; i < (selectedTower.getUpgrades().size()+1)/2; i++) {
-        for (int j = 0; j < 2; j++) {
-          if (i*2+j < selectedTower.getUpgrades().size()) {
-            temp = i*2+j;
+      //for (int i = 0; i < (selectedTower.getUpgrades().size()+1)/2; i++) {
+        for (int j = 0; j < 3; j++) {
+          if (j < selectedTower.getUpgrades().size()) {
+            temp = j;
             upgrades2.add(new Upgrade(selectedTower.getUpgrades().get(temp)));
-            Button tempB = new Button(squaresX+sizeX/5*2+j*(width-squaresX)/5*2+j*10, height/6+height/8*i+i*10, (width-squaresX)/5*2, height/8,"", "Price: " + selectedTower.getUpgrades().get(i*2+j).getCost(), "\n Upgrade to: " + selectedTower.getUpgrades().get(temp).getName()) {
+            Button tempB = new Button(squaresX+sizeX/5*2+(width-squaresX)/8, height/6+height/8*j+j*25, (width-squaresX)/2, height/7,"", "Price: " + selectedTower.getUpgrades().get(j).getCost(), "\n Upgrade to: " + selectedTower.getUpgrades().get(temp).getName()) {
               @Override
                 public void action() {
                 for (int i = 0; i < upgrades.size(); i++) {
@@ -118,13 +117,15 @@ public class Game {
                     }
                   }
                 }
-              }
+                }
+
+              
             };
             upgrades.add(tempB);
           }
         }
       }
-    }
+    
     if (queueShouldBeCleared) {
       clearQueue();
     } else {

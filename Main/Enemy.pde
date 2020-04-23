@@ -1,13 +1,13 @@
 public class Enemy {
   private PVector pos, dir;
-  private int id, markCount = 0, life, radius = 10, totalLife, moneyOnKill, damageWhenGoalIsReached, burnDamage, slowTime, burnTime, stunTime;
+  private int id, markCount = 0, life, radius = 30, totalLife, moneyOnKill, damageWhenGoalIsReached, burnDamage, slowTime, burnTime, stunTime;
   private PImage sprite;
   private float vel, remainingLife, slowPercent;
   public boolean reachedGoal;
 
   public Enemy(int id, PVector pos) {
     this.id = id;
-    //sprite = loadImage("Enemies/" + id + ".png");
+    sprite = loadImage(dataPath("") + "/Enemies/" + id + ".png");
     this.pos = pos.copy();
     dir = new PVector();
     setIDValues();
@@ -94,20 +94,29 @@ public class Enemy {
   }
 
   public void render() {
-    /*
+    pushMatrix();
     imageMode(CENTER);
-     image(sprite, pos.x, pos.y);*/
-    stroke(0);
-    strokeWeight(1);
-    fill(0, 0, 255);
-    rectMode(CENTER);
-    rect(pos.x, pos.y, radius, radius);
+    translate(pos.x, pos.y);
+    if (dir.y > 0) {
+      rotate(-PVector.angleBetween(dir, new PVector(-1, 0)));
+    } else {
+      rotate(PVector.angleBetween(dir, new PVector(-1, 0)));
+    }
+    image(sprite, 0, 0);
+    popMatrix();
     renderHealthbar();
+
+    /*stroke(0);
+     strokeWeight(1);
+     fill(0, 0, 255);
+     rectMode(CENTER);
+     rect(pos.x, pos.y, radius, radius);
+     renderHealthbar();*/
   }
 
   public void renderHealthbar() {
     remainingLife = (life+0.0)/(totalLife+0.0);
-    if(remainingLife < 0) {
+    if (remainingLife < 0) {
       remainingLife = 0;
     }
     strokeWeight(0);

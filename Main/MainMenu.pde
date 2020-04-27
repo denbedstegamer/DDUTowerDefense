@@ -3,7 +3,7 @@ public class MainMenu {
   private boolean isSelectingFile;
 
   public MainMenu() {
-    toGame = new Button(width/2-width/6, height/4, width/3, height/8, "Play", "", "") {
+    toGame = new Button(width/2-width/6, height/4-height/8, width/3, height/8, "Play", "", "") {
       @Override
         public void action() {
         if (game == null) {
@@ -15,7 +15,7 @@ public class MainMenu {
       }
     };
 
-    toSettings = new Button(width/2-width/6, height/2-height/24, width/3, height/8, "Settings", "", "") {
+    toSettings = new Button(width/2-width/6+width/48, height/2-height/6, width/3-width/24, height/8, "Settings", "", "") {
       @Override
         public void action() {
         sm = new SettingsMenu();
@@ -23,7 +23,7 @@ public class MainMenu {
       }
     };
 
-    toLevelCreator = new Button(width/2-width/6, height/2+height/6, width/3, height/8, "Level Creator", "", "") {
+    toLevelCreator = new Button(width/2-width/6+width/48, height/2+height/4, width/3-width/24, height/8, "Level Creator", "", "") {
       @Override
         public void action() {
         if (lc == null) {

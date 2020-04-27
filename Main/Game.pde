@@ -5,6 +5,7 @@ public class Game {
   private ArrayList<Projectile> projectiles;
   public boolean gaming, queueShouldBeCleared, boost;
   private Button startRound;
+  private boolean gameOver;
 
   private Tower selectedTower;
   private ArrayList<Button> upgrades;
@@ -39,17 +40,24 @@ public class Game {
   }
 
   public void update() {
-    if (gaming) {
-      wave.update();
-      if (wave.timeSinceWaveStarted >= 2) {
-        level.update();
-        for (int i = 0; i < projectiles.size(); i++) {
-          projectiles.get(i).update();
+    if (!gameOver) {
+      if (gaming) {
+        wave.update();
+        if (wave.timeSinceWaveStarted >= 2) {
+          level.update();
+          for (int i = 0; i < projectiles.size(); i++) {
+            projectiles.get(i).update();
+          }
+          removeCollidedProjectiles();
         }
-        removeCollidedProjectiles();
       }
     }
     startRound.pressed();
+    if (player.life <= 0) {
+      gaming = false;
+      gameOver = true;
+      text("You died", width/8, height-height/16);
+    }
   }
 
   //fjerner projektiler, som har ramt deres mål
@@ -78,7 +86,7 @@ public class Game {
 
     // rendering player stats
     // måske et billede af et hjerte
-    
+
     textSize(50);  // alle textSize(x), så burde x være i forhold til height eller width
     textAlign(RIGHT);
     stroke(0);
@@ -140,8 +148,10 @@ public class Game {
       clearQueue();
     } else {
       for (int i = 0; i < upgrades.size(); i++) {
-        upgrades.get(i).pressed();
-        upgrades.get(i).render();
+        if (!gameOver) {
+          upgrades.get(i).pressed();
+          upgrades.get(i).render();
+        }
       }
     }
   }
@@ -153,26 +163,28 @@ public class Game {
   }
 
   public void mouseEvent(int x, int y) {
-    if (x < squaresX && y < squaresY) {
-      boolean mouseIsOverTower = false;
-      for (int i = 0; i < level.towers.size() && !mouseIsOverTower; i++) {
-        if (dist(mouseX, mouseY, level.towers.get(i).pos.x, level.towers.get(i).pos.y) < level.towers.get(i).radius) {
-          clearQueue();
-          selectedTower = level.towers.get(i);
-          mouseIsOverTower = true;
-        }
-      }
-      if (!mouseIsOverTower) {
-        if (player.getMoney() >= 50) {
-          int currentTowerNumber = level.towers.size();
-          level.addTower(new Tower(x, y));
-          if (level.towers.size() > currentTowerNumber) {
-            player.addMoney(-50);
+    if (!gameOver) {
+      if (x < squaresX && y < squaresY) {
+        boolean mouseIsOverTower = false;
+        for (int i = 0; i < level.towers.size() && !mouseIsOverTower; i++) {
+          if (dist(mouseX, mouseY, level.towers.get(i).pos.x, level.towers.get(i).pos.y) < level.towers.get(i).radius) {
+            clearQueue();
+            selectedTower = level.towers.get(i);
+            mouseIsOverTower = true;
           }
         }
+        if (!mouseIsOverTower) {
+          if (player.getMoney() >= 50) {
+            int currentTowerNumber = level.towers.size();
+            level.addTower(new Tower(x, y));
+            if (level.towers.size() > currentTowerNumber) {
+              player.addMoney(-50);
+            }
+          }
+        }
+      } else {
+        // logic med liv og sådan noget der og at købe ting osv
       }
-    } else {
-      // logic med liv og sådan noget der og at købe ting osv
     }
   }
 }

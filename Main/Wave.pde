@@ -164,7 +164,6 @@ public class Wave {
           enemies.set(i, null);
         } else if (enemies.get(i).reachedGoal) {
           enemies.get(i).dealDamageToPlayer();
-          game.player.updatePlayerStatus();
           enemies.set(i, null);
         }
       }

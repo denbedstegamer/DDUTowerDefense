@@ -159,6 +159,13 @@ public class Projectile {
       vel = 5;
       homingProjectile = true;
       break;
+      
+      //minion
+    case 111:
+      damage = 25;
+      vel = 4;
+      homingProjectile = true;
+      break;
     }
   }
 

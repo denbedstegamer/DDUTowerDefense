@@ -1,8 +1,9 @@
 public class Tower {
   private int x, y, radius = 20, extend;
-  private int range, damage, as, id, targetEnemy, cycle;  // as = Attack Speed
+  private int range, damage, as, id, targetEnemy, cycle, minionLifeSpan, minionSpawn;  // as = Attack Speed
   private PVector pos, dir;
   private PImage sprite;
+  private Tower[] minions;
 
   public Tower(int x, int y) {
     this.x = x;
@@ -23,6 +24,11 @@ public class Tower {
     }
     if (frameCount % (as*extend) == 0) {
       attack();
+    }
+    
+    if (id == 9) {
+      updateMinionLife();
+      updateMinions();
     }
   }
 
@@ -46,6 +52,9 @@ public class Tower {
     }
     image(sprite, 0, 0);
     popMatrix();
+    if (id == 9) {
+      renderMinions();
+    }
   }
 
   public int getRadius() {
@@ -116,6 +125,8 @@ public class Tower {
     case 9:
       as = 11;
       range = 250;
+      minions = new Tower[3];
+      minionSpawn = 200;
       break;
 
       //archmage
@@ -123,6 +134,12 @@ public class Tower {
       as = 3;
       range = 300;
       cycle = 1;
+      break;
+      
+    case 11:
+      as = 7;
+      range = 200;
+      minionLifeSpan = 600;
       break;
     }
   }
@@ -261,6 +278,10 @@ public class Tower {
         game.projectiles.add(new Projectile(pos, targetEnemy, id+cycle));
         spellCycle();
         break;
+        
+      case 11:
+        game.projectiles.add(new Projectile(pos, targetEnemy, id+100));
+        break;
       }
     }
   }
@@ -276,6 +297,58 @@ public class Tower {
     case 2:
       cycle = 0;
       break;
+    }
+  }
+  
+  private void spawnMinion() {
+    minionSpawn--;
+    if (minionSpawn <= 0) {
+      for (int i = 0; i < 3; i++) {
+        if (minions[i] == null) {
+          Tower tempTower = new Tower(this.x+(round(random(-100, 100))), this.y+(round(random(-100, 100))));
+          tempTower.id = 11;
+          tempTower.updateTowerValues();
+          minions[i] = tempTower;
+          minionSpawn = 100;
+          break;
+        }
+      }
+    }
+  }
+
+  private void updateMinions() {
+    for (int i = 0; i < 3; i++) {
+      if (minions[i] != null) {
+        minions[i].update();
+      }
+    }
+  }
+
+  private void renderMinions() {
+    for (int i = 0; i < 3; i++) {
+      if (minions[i] != null) {
+        minions[i].render();
+      }
+    }
+  }
+
+  private void updateMinionLife() {
+    for (int i = 0; i < 3; i++) {
+      if (minions[i] != null) {
+        minions[i].minionLifeSpan--;
+      }
+    }
+    spawnMinion();
+    isMinionDead();
+  }
+
+  private void isMinionDead() {
+    for (int i = 0; i < 3; i++) {
+      if (minions[i] != null) {
+        if (minions[i].minionLifeSpan <= 0) {
+          minions[i] = null;
+        }
+      }
     }
   }
 }

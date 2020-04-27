@@ -78,7 +78,7 @@ public class Tower {
 
       //archer
     case 2:
-      as = 7;
+      as = 6;
       range = 250;
       break;
 
@@ -86,19 +86,19 @@ public class Tower {
     case 3:
       as = 5;
       range = 50;
-      damage = 30;
+      damage = 16;
       break;
 
       //mage
     case 4:
-      as = 13;
-      range = 200;
+      as = 12;
+      range = 220;
       break;
 
       //arrowflinger
     case 5:
       as = 5;
-      range = 300;
+      range = 260;
       break;
 
       //sniper
@@ -110,15 +110,15 @@ public class Tower {
       //barbarian
     case 7:
       as = 2;
-      range = 50;
-      damage = 30;
+      range = 55;
+      damage = 20;
       break;
 
       //king
     case 8:
       as = 5;
-      range = 100;
-      damage = 40;
+      range = 80;
+      damage = 26;
       break;
 
       //summoner
@@ -137,9 +137,9 @@ public class Tower {
       break;
       
     case 11:
-      as = 7;
+      as = 8;
       range = 200;
-      minionLifeSpan = 600;
+      minionLifeSpan = 550;
       break;
     }
   }
@@ -157,24 +157,24 @@ public class Tower {
     ArrayList<Upgrade> upgrades = new ArrayList<Upgrade>();
     switch(id) {
     case 1:
-      upgrades.add(new Upgrade("Archer", 2, 25));
-      upgrades.add(new Upgrade("Knight", 3, 50));
-      upgrades.add(new Upgrade("Mage", 4, 85));
+      upgrades.add(new Upgrade("Archer", 2, 30));
+      upgrades.add(new Upgrade("Knight", 3, 60));
+      upgrades.add(new Upgrade("Mage", 4, 90));
       break;
 
     case 2:
-      upgrades.add(new Upgrade("ArrowFlinger", 5, 110));
+      upgrades.add(new Upgrade("ArrowFlinger", 5, 120));
       upgrades.add(new Upgrade("Sniper", 6, 100));
       break;
 
     case 3:
-      upgrades.add(new Upgrade("Barbarian", 7, 110));
-      upgrades.add(new Upgrade("King", 8, 150));
+      upgrades.add(new Upgrade("Barbarian", 7, 140));
+      upgrades.add(new Upgrade("King", 8, 180));
       break;
 
     case 4:
-      upgrades.add(new Upgrade("Summoner", 9, 100));
-      upgrades.add(new Upgrade("Archmage", 10, 145));
+      upgrades.add(new Upgrade("Summoner", 9, 140));
+      upgrades.add(new Upgrade("Archmage", 10, 200));
       break;
     }
     return upgrades;

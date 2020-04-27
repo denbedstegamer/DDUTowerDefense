@@ -17,7 +17,7 @@ public class Settings {
     case 0:
       life = 100;
       priceMultiplier = 0.5;
-      healthMultiplier = 0.5;
+      healthMultiplier = 0.8;
       startMoney = 100;
       break;
     case 1:
@@ -29,7 +29,7 @@ public class Settings {
     case 2:
       life = 50;
       priceMultiplier = 1.5;
-      healthMultiplier = 2;
+      healthMultiplier = 1.2;
       startMoney = 65;
       break;
     }

@@ -29,31 +29,31 @@ public class Enemy {
 
       //bulky enemy
     case 1:
-      life = 100;
+      life = 150;
       vel = 1.2;
       moneyOnKill = 10;
-      damageWhenGoalIsReached = 2;
+      damageWhenGoalIsReached = 4;
       break;
 
       //bulkiest enemy
     case 2:
-      life = 400;
+      life = 500;
       vel = 0.8;
-      moneyOnKill = 15;
+      moneyOnKill = 12;
       damageWhenGoalIsReached = 10;
       break;
 
       //speedy enemy
     case 3:
-      life = 70;
-      vel = 2.5;
-      moneyOnKill = 15;
+      life = 100;
+      vel = 2.8;
+      moneyOnKill = 12;
       damageWhenGoalIsReached = 2;
       break;
 
       //boss
     case 4:
-      life = 4000;
+      life = 5000;
       vel = 0.5;
       moneyOnKill = 5000;
       damageWhenGoalIsReached = 95;

@@ -99,49 +99,49 @@ public class Projectile {
 
       //peasant
     case 1:
-      damage = 15;
+      damage = 12;
       vel = 3;
       homingProjectile = true;
       break;
 
       //archer
     case 2:
-      damage = 15;
-      vel = 6;
+      damage = 10;
+      vel = 8;
       break;
 
       //knight
     case 3:
-      damage = 25;
+      damage = 16;
       break;
 
       //mage
     case 4:
-      damage = 25;
+      damage = 24;
       vel = 3;
       homingProjectile = true;
       break;
 
       //arrowflinger
     case 5:
-      damage = 15;
-      vel = 6;
+      damage = 12;
+      vel = 7;
       break;
 
       //sniper
     case 6:
-      damage = 45;
-      vel = 11;
+      damage = 40;
+      vel = 24;
       break;
 
       //barbarian
     case 7:
-      damage = 30;
+      damage = 20;
       break;
 
       //king
     case 8:
-      damage = 35;
+      damage = 26;
       break;
 
       //summoner
@@ -155,15 +155,15 @@ public class Projectile {
     case 10:
     case 11:
     case 12:
-      damage = 30;
-      vel = 5;
+      damage = 24;
+      vel = 7;
       homingProjectile = true;
       break;
       
       //minion
     case 111:
-      damage = 25;
-      vel = 4;
+      damage = 10;
+      vel = 5;
       homingProjectile = true;
       break;
     }

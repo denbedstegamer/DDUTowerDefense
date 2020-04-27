@@ -150,6 +150,7 @@ public class Game {
                   if (player.getMoney() >= upgrades2.get(i).getCost()) {
                     selectedTower.upgrade(upgrades2.get(i).getId());
                     player.addMoney(-upgrades2.get(i).getCost());
+                    selectedTower.moneySpent += upgrades2.get(i).getCost();
                     selectedTower = null;
                     queueShouldBeCleared = true;
                   }
@@ -160,6 +161,24 @@ public class Game {
           upgrades.add(tempB);
         }
       }
+      Button tempB = new Button(squaresX+(width-squaresX)/4, height/6+height/8*upgrades.size()+upgrades.size()*25, (width-squaresX)/2, height/7, "Sell", "80% of cost refunded", "") {
+        @Override
+          public void action() {
+          for (int i = 0; i < upgrades.size(); i++) {
+            if (upgrades.get(i).equals(this)) {
+              player.addMoney(selectedTower.moneySpent*0.8);
+              for (int j = 0; j < level.towers.size(); j++) {
+                if(level.towers.get(j).equals(selectedTower)){
+                  level.towers.remove(j);
+                }
+              }
+              selectedTower = null;
+              queueShouldBeCleared = true;
+            }
+          }
+        }
+      };
+      upgrades.add(tempB);
     }
 
     if (queueShouldBeCleared) {

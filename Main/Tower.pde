@@ -1,6 +1,6 @@
 public class Tower {
   private int x, y, radius = 20, extend;
-  private int range, damage, as, id, targetEnemy, cycle, minionLifeSpan, minionSpawn;  // as = Attack Speed
+  private int range, damage, as, id, targetEnemy, cycle, minionLifeSpan, minionSpawn, moneySpent = 50;  // as = Attack Speed
   private PVector pos, dir;
   private PImage sprite;
   private Tower[] minions;

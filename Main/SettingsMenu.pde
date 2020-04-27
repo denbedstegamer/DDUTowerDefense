@@ -4,25 +4,26 @@ public class SettingsMenu{
   
   public SettingsMenu(){
     this.settings = new Settings(0);
-    easy = new Button(squaresX, height/2, width-squaresX, height/8, "Change to easy","","") {
+    easy = new Button(width/2-width/4, height/2-height/4, width/2, height/8, "Change to easy","","") {
       @Override
         public void action() {
         settings.changeDifficulty(0);
       }
     };
-    medium = new Button(squaresX, height/2+height/8, width-squaresX, height/8, "Change to medium","","") {
+    medium = new Button(width/2-width/4, height/2-height/8, width/2, height/8, "Change to medium","","") {
       @Override
         public void action() {
         settings.changeDifficulty(1);
       }
     };
-    hard = new Button(squaresX, height/2+height/4, width-squaresX, height/8, "Change to hard","","") {
+    hard = new Button(width/2-width/4, height/2, width/2, height/8, "Change to hard","","") {
       @Override
         public void action() {
         settings.changeDifficulty(2);
+        
       }
     };
-    backToMM = new Button(squaresX, height/2+height/4+height/8, width-squaresX, height/8, "Main Menu","","") {
+    backToMM = new Button(width/2-width/4, height/2+height/8, width/2, height/8, "Main Menu","","") {
       @Override
         public void action() {
         gameState = 0;

@@ -1,6 +1,7 @@
 public class Button {
   private PVector pos, size;
   private String text, text2, text3;
+  private boolean pressed;
 
   // it's "width_" and not "width", because width is already defined because of processing and therefore it can't be used.
   public Button(float x, float y, float width_, float height_, String text, String text2, String text3) {
@@ -31,6 +32,7 @@ public class Button {
   public void pressed() {
     if (mousePressed == true && mouseX > pos.x && mouseX < pos.x + size.x && mouseY > pos.y && mouseY < pos.y + size.y) {
       action();
+      pressed = true;
     }
   }
   

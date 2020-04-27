@@ -4,8 +4,8 @@ public class Game {
   private Wave wave;
   private ArrayList<Projectile> projectiles;
   public boolean gaming, queueShouldBeCleared, boost;
-  private Button startRound;
-  private boolean gameOver;
+  private Button startRound, buyPeasant;
+  private boolean gameOver, isBuyingPeasant;
 
   private Tower selectedTower;
   private ArrayList<Button> upgrades;
@@ -35,6 +35,12 @@ public class Game {
         }
       }
     };
+    buyPeasant = new Button(squaresX+(width-squaresX)/4, height-height/3, (width-squaresX)/2, height/12, "", "Buy Peasant", "\n Price: 50") {
+      @Override
+        public void action() {
+        isBuyingPeasant = true;
+      }
+    };
     priceMultiplier = s.priceMultiplier;
     healthMultiplier = s.healthMultiplier;
   }
@@ -53,6 +59,7 @@ public class Game {
       }
     }
     startRound.pressed();
+    buyPeasant.pressed();
     if (player.life <= 0) {
       gaming = false;
       gameOver = true;
@@ -114,7 +121,18 @@ public class Game {
     fill(0);
     text("wave " + wave.waveCount + " / " + wave.maxWaves, squaresX+(width-squaresX)/2, height-height/16*2);
 
+    if (isBuyingPeasant && player.money >= 50) {
+      if (!level.canAddTower(mouseX, mouseY, 20)) {
+        tint(255, 0, 0, 100);
+      }
+      imageMode(CENTER);
+      PImage sprite = loadImage(dataPath("") + "/Towers/1.png");
+      image(sprite, mouseX, mouseY);
+      noTint();
+    }
+
     startRound.render();
+    buyPeasant.render();
   }
 
   private void renderBuyables() {
@@ -167,23 +185,35 @@ public class Game {
       if (x < squaresX && y < squaresY) {
         boolean mouseIsOverTower = false;
         for (int i = 0; i < level.towers.size() && !mouseIsOverTower; i++) {
-          if (dist(mouseX, mouseY, level.towers.get(i).pos.x, level.towers.get(i).pos.y) < level.towers.get(i).radius) {
+          if (dist(mouseX, mouseY, level.towers.get(i).pos.x, level.towers.get(i).pos.y) < level.towers.get(i).radius && !isBuyingPeasant) {
             clearQueue();
             selectedTower = level.towers.get(i);
             mouseIsOverTower = true;
           }
         }
         if (!mouseIsOverTower) {
-          if (player.getMoney() >= 50) {
-            int currentTowerNumber = level.towers.size();
-            level.addTower(new Tower(x, y));
-            if (level.towers.size() > currentTowerNumber) {
-              player.addMoney(-50);
+          selectedTower = null;
+          queueShouldBeCleared = true;
+          if (isBuyingPeasant) {
+            if (player.getMoney() >= 50) {
+              int currentTowerNumber = level.towers.size();
+              level.addTower(new Tower(x, y));
+              if (level.towers.size() > currentTowerNumber) {
+                player.addMoney(-50);
+                isBuyingPeasant = false;
+              }
             }
           }
         }
       } else {
-        // logic med liv og sådan noget der og at købe ting osv
+        isBuyingPeasant = false;
+        for (int i = 0; i < upgrades.size(); i++) {
+          if (!gameOver) {
+            upgrades.get(i).pressed();
+          }
+        }
+        selectedTower = null;
+        queueShouldBeCleared = true;
       }
     }
   }

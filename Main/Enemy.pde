@@ -13,8 +13,8 @@ public class Enemy {
     setIDValues();
     life *= game.healthMultiplier;
     totalLife = life;
-    burnDamage = 5;
-    slowPercent = 0.5;
+    burnDamage = 10;
+    slowPercent = 0.8;
   }
 
   public void setIDValues() {
@@ -70,7 +70,7 @@ public class Enemy {
       }
     }
     if (stunTime > 0) {
-      dir = new PVector(0, 0);
+      dir = game.level.track.points.get(markCount).copy().sub(pos).copy().setMag(0.001);
     } else if (slowTime > 0) {
       dir = game.level.track.points.get(markCount).copy().sub(pos).copy().setMag(vel*slowPercent);
     } else {
@@ -103,7 +103,15 @@ public class Enemy {
     } else {
       rotate(PVector.angleBetween(dir, new PVector(-1, 0)));
     }
+    if (burnTime > 0 && slowTime > 0) {
+      tint(255,0,255);
+    } else if (burnTime > 0) {
+      tint(255,0,0);
+    } else if (slowTime > 0) {
+      tint(0,0,255);
+    }
     image(sprite, 0, 0);
+    noTint();
     popMatrix();
     renderHealthbar();
 

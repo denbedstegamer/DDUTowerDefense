@@ -5,7 +5,7 @@ public class Upgrade{
   public Upgrade(String name, int id, int cost){
     this.id = id;
     this.name = name;
-    this.cost = cost;
+    this.cost = cost * game.priceMultiplier;
   }
   
   public Upgrade(Upgrade u){

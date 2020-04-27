@@ -11,6 +11,7 @@ public class Enemy {
     this.pos = pos.copy();
     dir = new PVector();
     setIDValues();
+    life *= game.healthMultiplier;
     totalLife = life;
     burnDamage = 5;
     slowPercent = 0.5;

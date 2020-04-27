@@ -1,10 +1,10 @@
 public class Player{
-  private int life, MONEY;
+  private int life, money;
   public boolean dead;
   
-  public Player(){
-    this.life = 100;
-    this.MONEY = 5000;
+  public Player(int life, int money){
+    this.life = life;
+    this.money = money;
   }
   
   public int getLife(){
@@ -12,11 +12,11 @@ public class Player{
   }
   
   public int getMoney(){
-    return MONEY;
+    return money;
   }
   
   public void addMoney(int money) {
-    MONEY += money;
+    this.money += money;
   }
   
   public void takeDamage(int damage) {

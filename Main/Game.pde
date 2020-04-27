@@ -9,17 +9,18 @@ public class Game {
   private Tower selectedTower;
   private ArrayList<Button> upgrades;
   private ArrayList<Upgrade> upgrades2;
-  private int temp;
+  private int temp, priceMultiplier;
+  private float healthMultiplier;
   public int sizeX = 200;
 
   private PImage hearts;
   private PImage coins;
 
-  public Game(File f) {
+  public Game(File f, Settings s) {
     hearts = loadImage(dataPath("") + "/Particles/Heart.png");
     coins = loadImage(dataPath("") + "/Particles/Coin.png");
     level = new Level(f);
-    player = new Player();
+    player = new Player(s.life, s.startMoney);
     wave = new Wave();
     upgrades = new ArrayList<Button>();
     projectiles = new ArrayList<Projectile>();
@@ -33,6 +34,8 @@ public class Game {
         }
       }
     };
+    priceMultiplier = s.priceMultiplier;
+    healthMultiplier = s.healthMultiplier;
   }
 
   public void update() {
@@ -120,7 +123,7 @@ public class Game {
                 if (upgrades.get(i).equals(this)) {
                   if (player.getMoney() >= upgrades2.get(i).getCost()) {
                     selectedTower.upgrade(upgrades2.get(i).getId());
-                    player.MONEY -= upgrades2.get(i).getCost();
+                    player.addMoney(-upgrades2.get(i).getCost());
                     selectedTower = null;
                     queueShouldBeCleared = true;
                   }
@@ -164,7 +167,7 @@ public class Game {
           int currentTowerNumber = level.towers.size();
           level.addTower(new Tower(x, y));
           if (level.towers.size() > currentTowerNumber) {
-            player.MONEY -= 50;
+            player.addMoney(-50);
           }
         }
       }

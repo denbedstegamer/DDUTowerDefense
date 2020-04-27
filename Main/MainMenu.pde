@@ -18,7 +18,9 @@ public class MainMenu {
     toSettings = new Button(width/2-width/6+width/48, height/2-height/6, width/3-width/24, height/8, "Settings", "", "") {
       @Override
         public void action() {
+          if(sm == null){
         sm = new SettingsMenu();
+          }
         gameState = 1;
       }
     };

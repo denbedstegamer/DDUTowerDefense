@@ -20,6 +20,7 @@ public class SettingsMenu {
         hard.pressed = false;
       }
     };
+    medium.pressed = true;
     hard = new Button(width/2-width/8, height/2-height/36, width/4, height/8, "Hard", "", "") {
       @Override
         public void action() {
@@ -49,23 +50,23 @@ public class SettingsMenu {
 
     easy.render();
     if (easy.pressed) {
-      noFill();
-      stroke(255, 0, 0);
+      fill(0, 255, 0, 30);
+      stroke(0, 255, 0);
       strokeWeight(5);
       rect(width/2-width/8, height/2-height/3-height/36, width/4, height/8);
       stroke(1);
     }
     medium.render();
     if (medium.pressed) {
-      noFill();
-      stroke(255, 0, 0);
+      fill(255, 255, 0, 30);
+      stroke(255, 255, 0);
       strokeWeight(5);
       rect(width/2-width/8, height/2-height/6-height/36, width/4, height/8);
       stroke(1);
     }
     hard.render();
     if (hard.pressed) {
-      noFill();
+      fill(255, 0, 0, 30);
       stroke(255, 0, 0);
       strokeWeight(5);
       rect(width/2-width/8, height/2-height/36, width/4, height/8);

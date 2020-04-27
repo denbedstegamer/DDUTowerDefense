@@ -1,6 +1,6 @@
 public class Projectile {
   private PVector pos, dir, enemyStartPos;
-  private int enemyId, radius, damage, id, lifeSpan;
+  private int enemyId, radius, damage, id;
   private float vel, distToEnemy;
   public boolean collided, homingProjectile, definedDirection = false;
   private PImage sprite;
@@ -108,7 +108,6 @@ public class Projectile {
     case 2:
       damage = 20;
       vel = 6;
-      lifeSpan = 60;
       break;
 
       //knight
@@ -127,14 +126,12 @@ public class Projectile {
     case 5:
       damage = 25;
       vel = 6;
-      lifeSpan = 60;
       break;
 
       //sniper
     case 6:
       damage = 50;
       vel = 10;
-      lifeSpan = 9999;
       break;
 
       //barbarian

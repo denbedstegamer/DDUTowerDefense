@@ -22,23 +22,23 @@ public class Enemy {
       //normal enemy
     case 0:
       life = 30;
-      vel = 1.5;
-      moneyOnKill = 5;
+      vel = 1.5*15;
+      moneyOnKill = 6;
       damageWhenGoalIsReached = 1;
       break;
 
       //bulky enemy
     case 1:
-      life = 150;
-      vel = 1.2;
-      moneyOnKill = 10;
+      life = 100;
+      vel = 1.2*15;
+      moneyOnKill = 8;
       damageWhenGoalIsReached = 4;
       break;
 
       //bulkiest enemy
     case 2:
-      life = 500;
-      vel = 0.8;
+      life = 400;
+      vel = 1*15;
       moneyOnKill = 12;
       damageWhenGoalIsReached = 10;
       break;
@@ -46,7 +46,7 @@ public class Enemy {
       //speedy enemy
     case 3:
       life = 100;
-      vel = 2.8;
+      vel = 3*15;
       moneyOnKill = 12;
       damageWhenGoalIsReached = 2;
       break;
@@ -54,7 +54,7 @@ public class Enemy {
       //boss
     case 4:
       life = 5000;
-      vel = 0.5;
+      vel = 0.8*15;
       moneyOnKill = 5000;
       damageWhenGoalIsReached = 95;
     }

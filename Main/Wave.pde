@@ -150,7 +150,7 @@ public class Wave {
       game.projectiles.clear();
       timeSinceWaveStarted = 0;
       game.gaming = false;
-      game.player.addMoney(20);
+      game.player.addMoney(10+waveCount*5);
       enemyCount = 0;
     }
   }

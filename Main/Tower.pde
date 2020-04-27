@@ -72,8 +72,8 @@ public class Tower {
     switch(id) {
       //peasant
     case 1:
-      as = 10;
-      range = 100;
+      as = 9;
+      range = 150;
       break;
 
       //archer
@@ -85,14 +85,14 @@ public class Tower {
       //knight
     case 3:
       as = 5;
-      range = 50;
-      damage = 16;
+      range = 60;
+      damage = 20;
       break;
 
       //mage
     case 4:
-      as = 12;
-      range = 220;
+      as = 11;
+      range = 250;
       break;
 
       //arrowflinger
@@ -103,15 +103,15 @@ public class Tower {
 
       //sniper
     case 6:
-      as = 15;
+      as = 12;
       range = 10000;
       break;
 
       //barbarian
     case 7:
       as = 2;
-      range = 55;
-      damage = 20;
+      range = 60;
+      damage = 24;
       break;
 
       //king

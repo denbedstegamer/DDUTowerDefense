@@ -110,11 +110,6 @@ public class Projectile {
       vel = 8;
       break;
 
-      //knight
-    case 3:
-      damage = 16;
-      break;
-
       //mage
     case 4:
       damage = 24;
@@ -132,16 +127,6 @@ public class Projectile {
     case 6:
       damage = 40;
       vel = 24;
-      break;
-
-      //barbarian
-    case 7:
-      damage = 20;
-      break;
-
-      //king
-    case 8:
-      damage = 26;
       break;
 
       //summoner
@@ -166,6 +151,8 @@ public class Projectile {
       vel = 5;
       homingProjectile = true;
       break;
+      
+      //Knight line damage in Tower class
     }
   }
 

@@ -17,19 +17,19 @@ public class Settings {
     case 0:
       life = 100;
       priceMultiplier = 0.5;
-      healthMultiplier = 1;
+      healthMultiplier = 0.5;
       startMoney = 100;
       break;
     case 1:
       life = 75;
       priceMultiplier = 1;
-      healthMultiplier = 1.5;
+      healthMultiplier = 1;
       startMoney = 80;
       break;
     case 2:
       life = 50;
-      priceMultiplier = 3;
-      healthMultiplier = 2.5;
+      priceMultiplier = 1.5;
+      healthMultiplier = 2;
       startMoney = 65;
       break;
     }

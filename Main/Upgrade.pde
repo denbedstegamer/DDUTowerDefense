@@ -1,8 +1,9 @@
 public class Upgrade{
   private String name;
-  private int id, cost;
+  private int id;
+  private float cost;
   
-  public Upgrade(String name, int id, int cost){
+  public Upgrade(String name, int id, float cost){
     this.id = id;
     this.name = name;
     this.cost = cost * game.priceMultiplier;
@@ -22,7 +23,7 @@ public class Upgrade{
     return id;
   }
   
-  public int getCost(){
+  public float getCost(){
     return cost;
   }
 }

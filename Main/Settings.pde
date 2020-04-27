@@ -1,6 +1,6 @@
 public class Settings {
-  private int life, startMoney, priceMultiplier, id;  // 0 = easy, 1 = normal, 2 = hard
-  private float healthMultiplier;
+  private int life, startMoney, id;  // 0 = easy, 1 = normal, 2 = hard
+  private float healthMultiplier, priceMultiplier;
 
   public Settings(int id) {
     this.id = id;
@@ -16,13 +16,13 @@ public class Settings {
     switch(id) {
     case 0:
       life = 100;
-      priceMultiplier = 1;
+      priceMultiplier = 0.5;
       healthMultiplier = 1;
       startMoney = 100;
       break;
     case 1:
       life = 75;
-      priceMultiplier = 2;
+      priceMultiplier = 1;
       healthMultiplier = 1.5;
       startMoney = 80;
       break;

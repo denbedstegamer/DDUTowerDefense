@@ -23,7 +23,7 @@ public class Enemy {
     case 0:
       life = 30;
       vel = 1.5;
-      moneyOnKill = 10;
+      moneyOnKill = 5;
       damageWhenGoalIsReached = 1;
       break;
 
@@ -31,7 +31,7 @@ public class Enemy {
     case 1:
       life = 100;
       vel = 1.2;
-      moneyOnKill = 20;
+      moneyOnKill = 10;
       damageWhenGoalIsReached = 2;
       break;
 
@@ -39,7 +39,7 @@ public class Enemy {
     case 2:
       life = 400;
       vel = 0.8;
-      moneyOnKill = 150;
+      moneyOnKill = 15;
       damageWhenGoalIsReached = 10;
       break;
 
@@ -55,7 +55,7 @@ public class Enemy {
     case 4:
       life = 4000;
       vel = 0.5;
-      moneyOnKill = 500;
+      moneyOnKill = 5000;
       damageWhenGoalIsReached = 95;
     }
   }

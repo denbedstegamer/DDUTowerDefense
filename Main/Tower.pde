@@ -120,7 +120,7 @@ public class Tower {
 
       //archmage
     case 10:
-      as = 5;
+      as = 3;
       range = 300;
       cycle = 1;
       break;
@@ -140,24 +140,24 @@ public class Tower {
     ArrayList<Upgrade> upgrades = new ArrayList<Upgrade>();
     switch(id) {
     case 1:
-      upgrades.add(new Upgrade("Archer", 2, 10));
+      upgrades.add(new Upgrade("Archer", 2, 25));
       upgrades.add(new Upgrade("Knight", 3, 50));
-      upgrades.add(new Upgrade("Mage", 4, 100));
+      upgrades.add(new Upgrade("Mage", 4, 85));
       break;
 
     case 2:
-      upgrades.add(new Upgrade("ArrowFlinger", 5, 100));
+      upgrades.add(new Upgrade("ArrowFlinger", 5, 110));
       upgrades.add(new Upgrade("Sniper", 6, 100));
       break;
 
     case 3:
-      upgrades.add(new Upgrade("Barbarian", 7, 100));
-      upgrades.add(new Upgrade("King", 8, 100));
+      upgrades.add(new Upgrade("Barbarian", 7, 110));
+      upgrades.add(new Upgrade("King", 8, 150));
       break;
 
     case 4:
       upgrades.add(new Upgrade("Summoner", 9, 100));
-      upgrades.add(new Upgrade("Archmage", 10, 100));
+      upgrades.add(new Upgrade("Archmage", 10, 145));
       break;
     }
     return upgrades;

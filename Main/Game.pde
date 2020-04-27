@@ -9,8 +9,8 @@ public class Game {
   private Tower selectedTower;
   private ArrayList<Button> upgrades;
   private ArrayList<Upgrade> upgrades2;
-  private int temp, priceMultiplier;
-  private float healthMultiplier;
+  private int temp;
+  private float healthMultiplier, priceMultiplier;
   public int sizeX = 200;
 
   private PImage hearts;
@@ -94,7 +94,7 @@ public class Game {
     stroke(0);
     strokeWeight(1);
     fill(231, 202, 0);
-    text(player.getMoney(), squaresX+(width-squaresX)-(width-squaresX)/4-(width-squaresX)/12, height/16*2);
+    text(round(player.getMoney()), squaresX+(width-squaresX)-(width-squaresX)/4-(width-squaresX)/12, height/16*2);
 
     renderBuyables();
 

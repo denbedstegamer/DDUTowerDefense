@@ -45,7 +45,7 @@ public class MainMenu {
       if (sm != null) {
         game = new Game(selection, sm.settings);
       } else {
-        game = new Game(selection, new Settings(0));
+        game = new Game(selection, new Settings(1));
       }
       gameState = 2;
     }

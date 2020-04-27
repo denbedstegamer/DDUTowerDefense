@@ -23,7 +23,7 @@ public class LevelCreator {
         toolTip = null;
       }
     };
-    createLevel = new Button(squaresX, height/8, width-squaresX, height/8, "Create Level","","") {
+    createLevel = new Button(squaresX, height/8, width-squaresX, height/8, "Save Level","","") {
       @Override
         public void action() {
         createLevel();

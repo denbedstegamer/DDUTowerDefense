@@ -1,3 +1,6 @@
+import processing.sound.*;
+SoundFile file;
+
 public int squaresX, squaresY, gameState = 0;  // 0 = MainMenu, 1 = SettingsMenu, 2 = Game, 3 = LevelCreator
 private MainMenu mm;
 private SettingsMenu sm;
@@ -8,6 +11,8 @@ public void setup() {
   fullScreen();
   frameRate(60);
   
+  file = new SoundFile(this, dataPath("") + "/Sound/beat.aiff");
+  //file.play();
   /*
   String[] lines = loadStrings("field1.txt");
   for (int i = 0; i<lines.length; i++) {
@@ -19,6 +24,7 @@ public void setup() {
   squaresY = 700;
 
   mm = new MainMenu();
+  
 }
 
 public void draw() {

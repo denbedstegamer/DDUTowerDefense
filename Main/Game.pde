@@ -169,6 +169,7 @@ public class Game {
               player.addMoney(selectedTower.moneySpent*0.8);
               for (int j = 0; j < level.towers.size(); j++) {
                 if(level.towers.get(j).equals(selectedTower)){
+                  level.removeObstaclesFromTower(level.towers.get(j));
                   level.towers.remove(j);
                 }
               }

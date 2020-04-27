@@ -118,6 +118,33 @@ public class Level {
       }
     }
   }
+  
+  public void removeObstaclesFromTower(Tower t){
+    int xTemp2 = t.getX()-t.getRadius();
+      if (xTemp2 < 0) {
+        xTemp2 = 0;
+      }
+      if (xTemp2 > squaresX) {
+        xTemp2 = squaresX;
+      }
+      int yTemp2 = t.getY()-t.getRadius();
+      if (yTemp2 < 0) {
+        yTemp2 = 0;
+      }
+      if (yTemp2 > squaresY) {
+        yTemp2 = squaresY;
+      }
+      for (int xTemp = xTemp2; xTemp < t.getX()+t.getRadius(); xTemp++) {
+        for (int yTemp = yTemp2; yTemp < t.getY()+t.getRadius(); yTemp++) {
+          for (int i = 0; i < 4; i++) {
+            float[] tempCoords = field[xTemp][yTemp].getCorner(i);
+            if (dist(t.getX(), t.getY(), tempCoords[0], tempCoords[1]) < t.getRadius()) {
+              field[xTemp][yTemp].isEmpty = true;
+            }
+          }
+        }
+      }
+  }
 
   public void RenderTowers() {
     for (int i = 0; i < towers.size(); i++) {

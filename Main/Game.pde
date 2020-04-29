@@ -166,7 +166,7 @@ public class Game {
         if (j < selectedTower.getUpgrades().size()) {
           temp = j;
           upgrades2.add(new Upgrade(selectedTower.getUpgrades().get(temp)));
-          Button tempB = new Button(squaresX+(width-squaresX)/4-(width-squaresX)/32, height/6+height/8*j+j*25, (width-squaresX)/2+(width-squaresX)/16, (height-squaresY)/3, "", "Price: " + round(selectedTower.getUpgrades().get(j).getCost()), "\n Upgrade to: " + selectedTower.getUpgrades().get(temp).getName()) {
+          Button tempB = new Button(squaresX+(width-squaresX)/4, height/6+height/8*j+j*25, (width-squaresX)/2, height/7, "", "Price: " + round(selectedTower.getUpgrades().get(j).getCost()), "\n Upgrade to: " + selectedTower.getUpgrades().get(temp).getName()) {
             @Override
               public void action() {
               for (int i = 0; i < upgrades.size(); i++) {
@@ -185,7 +185,7 @@ public class Game {
           upgrades.add(tempB);
         }
       }
-      Button tempB = new Button(squaresX+(width-squaresX)/4, height/6+height/8*upgrades.size()+upgrades.size()*25, (width-squaresX)/2, (height-squaresY)/4, "", "Sell", "\n 80% of cost refunded") {
+      Button tempB = new Button(squaresX+(width-squaresX)/4, height/6+height/8*upgrades.size()+upgrades.size()*25, (width-squaresX)/2, height/7, "", "Sell", "\n 80% of cost refunded") {
         @Override
           public void action() {
           for (int i = 0; i < upgrades.size(); i++) {

@@ -145,7 +145,7 @@ public class Projectile {
       homingProjectile = true;
       break;
       
-      //minion
+      //void summon
     case 111:
       damage = 10;
       vel = 5;

@@ -21,6 +21,8 @@ public class Game {
     hearts = loadImage(dataPath("") + "/Particles/Heart.png");
     coins = loadImage(dataPath("") + "/Particles/Coin.png");
     level = new Level(f);
+    level.background = null;
+    level.background2 = null;
     player = new Player(s.life, s.startMoney);
     wave = new Wave();
     upgrades = new ArrayList<Button>();

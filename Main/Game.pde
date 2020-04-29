@@ -133,7 +133,7 @@ public class Game {
     renderBuyables();
 
     // rendering details of the level
-    textSize(50);  // alle textSize(x), så burde x være i forhold til height eller width
+    textSize(((height-squaresY)/3)/2);  // alle textSize(x), så burde x være i forhold til height eller width
     textAlign(CENTER);
     stroke(0);
     strokeWeight(1);

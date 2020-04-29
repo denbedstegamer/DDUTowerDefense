@@ -15,7 +15,7 @@ public class LevelSelectionMenu {
       } else {
         temp = null;
       }
-      buttons.add(new Button((i%5)*width/6+width/16, (i/5)*height/6+height/16, 100, 70, temp, i) {
+      buttons.add(new Button((i%3)*width/6+width/4, (i/3)*height/5+height/8, squaresX/4, squaresY/4, temp, i) {
         @Override
           public void action() {
           if (game == null) {

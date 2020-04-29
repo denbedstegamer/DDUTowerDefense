@@ -36,7 +36,7 @@ public class Settings {
       life = 10000;
       priceMultiplier = 0.1;
       healthMultiplier = 1;
-      startMoney = 99999900000000000000000000000;
+      startMoney = 999999;
       break;
     }
   }

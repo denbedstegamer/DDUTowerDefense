@@ -2,7 +2,7 @@ public class Level {
   private Track track;
   private FieldPiece[][] field;
   private ArrayList<Tower> towers;
-  private String filePathToBackground;
+  private String filePathToBackground, absolutePath;
   private PImage background, background2;  // background2 is to make the game not lag, because processing is terrible with images
 
   public Level() {
@@ -17,6 +17,7 @@ public class Level {
   }
 
   public Level(File f) {
+    absolutePath = f.getAbsolutePath();
     String[] contents = loadStrings(f);
 
     if (contents[0].compareTo("null") != 0) {

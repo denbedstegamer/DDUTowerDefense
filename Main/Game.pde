@@ -6,7 +6,7 @@ public class Game {
   private Wave wave;
   private ArrayList<Projectile> projectiles;
   public boolean gaming, queueShouldBeCleared, boost;
-  private Button startRound, buyPeasant;
+  private Button startRound, buyPeasant, backToMM;
   private boolean gameOver, isBuyingPeasant;
 
   private Tower selectedTower;
@@ -30,7 +30,15 @@ public class Game {
     upgrades = new ArrayList<Button>();
     projectiles = new ArrayList<Projectile>();
     upgrades2 = new ArrayList<Upgrade>();
-    startRound = new Button(squaresX+(width-squaresX)/4, height-height/9, (width-squaresX)/2, height/12, "Start Round", "", "") {
+    
+    backToMM = new Button(squaresX+(width-squaresX)-(width-squaresX)/4, height/64, width/12, height/18, "Main Menu", "", "") {
+      @Override
+        public void action() {
+        gameState = 0;
+      }
+    };
+    
+    startRound = new Button(width/36+(width-squaresX)/2, squaresY+(height-squaresY)/4, (width-squaresX)/2, height/8, "Start Round", "", "") {
       @Override
         public void action() {
         if (!gaming) {
@@ -39,7 +47,7 @@ public class Game {
         }
       }
     };
-    buyPeasant = new Button(squaresX+(width-squaresX)/4, height-height/3, (width-squaresX)/2, height/12, "", "Buy Peasant", "\n Price: 50") {
+    buyPeasant = new Button(width/72, squaresY+(height-squaresY)/4, (width-squaresX)/2, height/8, "", "Buy Peasant", "\n Price: 50") {
       @Override
         public void action() {
         isBuyingPeasant = true;
@@ -64,6 +72,7 @@ public class Game {
     }
     startRound.pressed();
     buyPeasant.pressed();
+    backToMM.pressed();
     if (player.life <= 0) {
       gaming = false;
       gameOver = true;
@@ -119,11 +128,11 @@ public class Game {
 
     // rendering details of the level
     textSize(50);  // alle textSize(x), så burde x være i forhold til height eller width
-    textAlign(CENTER);
+    textAlign(LEFT);
     stroke(0);
     strokeWeight(1);
     fill(0);
-    text("wave " + wave.waveCount + " / " + wave.maxWaves, squaresX+(width-squaresX)/2, height-height/16*2);
+    text("wave " + wave.waveCount + " / " + wave.maxWaves, width/14+(width-squaresX)/2, squaresY+(height-squaresY)/4+height/6+height/64);
 
     if (isBuyingPeasant && player.money >= 50) {
       if (!level.canAddTower(mouseX, mouseY, 20)) {
@@ -137,6 +146,7 @@ public class Game {
 
     startRound.render();
     buyPeasant.render();
+    backToMM.render();
   }
 
   private void renderBuyables() {

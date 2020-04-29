@@ -1,5 +1,5 @@
 public class Settings {
-  private int life, startMoney, id;  // 0 = easy, 1 = normal, 2 = hard
+  private int life, startMoney, id;  // 0 = easy, 1 = normal, 2 = hard, 3 = sandbox
   private float healthMultiplier, priceMultiplier;
 
   public Settings(int id) {
@@ -36,7 +36,7 @@ public class Settings {
       life = 10000;
       priceMultiplier = 0.1;
       healthMultiplier = 1;
-      startMoney = 10000;
+      startMoney = 99999900000000000000000000000;
       break;
     }
   }

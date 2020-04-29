@@ -169,6 +169,7 @@ public class Level {
     }
     RenderTowers();
     if (toLevelCreator) {
+      renderBackground(toLevelCreator);
       rectMode(CORNER);
       noStroke();
       for (int x = 0; x < squaresX; x++) {
@@ -183,6 +184,7 @@ public class Level {
   public void renderBackground(boolean toLevelCreator) {
     if (background == null) {
       if (filePathToBackground != null) {
+        noTint();
         background = loadImage(dataPath("") + filePathToBackground);
         imageMode(CORNER);
         image(background, 0, 0, squaresX, squaresY);
@@ -192,6 +194,8 @@ public class Level {
     if (background != null) {
       if (toLevelCreator) {
         tint(255, 100);
+      } else {
+        noTint();
       }
       imageMode(CORNER);
       image(background2, 0, 0);

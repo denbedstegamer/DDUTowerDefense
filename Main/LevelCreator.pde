@@ -256,10 +256,10 @@ public class LevelCreator {
 
       output.println("Track");
       String[] dataTrack = new String[level.track.getPoints().size()];
-      for (int i = 1; i < dataTrack.length; i++) {
+      for (int i = 0; i < dataTrack.length; i++) {
         dataTrack[i] = level.track.getPoints().get(i).toString().substring(2, level.track.getPoints().get(i).toString().length()-2);
       }
-      for (int i = 1; i < dataTrack.length; i++) {
+      for (int i = 0; i < dataTrack.length; i++) {
         output.println(dataTrack[i]);
       }
       output.flush();

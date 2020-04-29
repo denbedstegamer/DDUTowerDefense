@@ -4,7 +4,7 @@ public class Game {
   private Wave wave;
   private ArrayList<Projectile> projectiles;
   public boolean gaming, queueShouldBeCleared, boost;
-  private Button startRound, buyPeasant, backToMM, retry, deathToMM;
+  private Button startRound, buyPeasant, backToMM, retry, endToMM;
   private boolean gameOver, isBuyingPeasant;
   private File f;
   private Settings s;
@@ -12,13 +12,13 @@ public class Game {
   private Tower selectedTower;
   private ArrayList<Button> upgrades;
   private ArrayList<Upgrade> upgrades2;
-  private int temp, tintDeathFade = 255, tintDeathText = 50;
+  private int temp, tintDeathFade = 255, tintDeathText = 50, tintWinFade = 255, tintWinText = 50;
   private float healthMultiplier, priceMultiplier;
   public int sizeX = 200;
 
   private PImage hearts;
   private PImage coins;
-  private PImage deathground;
+  private PImage endground;
 
   public Game(File f, Settings s) {
     this.f = f;
@@ -75,8 +75,13 @@ public class Game {
       startRound.pressed();
       buyPeasant.pressed();
       backToMM.pressed();
-      if (player.life <= 0) {
-        deathground = get();
+      if (player.life <= 0 || wave.waveCount > wave.maxWaves) {
+        if (player.life <= 0) {
+          death.play();
+        } else {
+          //victory.play();
+        }
+        endground = get();
         gaming = false;
         gameOver = true;
         selectedTower = null;
@@ -88,18 +93,17 @@ public class Game {
             game = new Game(f, s);
           }
         };
-        deathToMM = new Button(width/3+width/6+10, height-height/3, width/6, height/14, "Main Menu", "", "") {
+        endToMM = new Button(width/3+width/6+10, height-height/3, width/6, height/14, "Main Menu", "", "") {
           @Override
             public void action() {
             gameState = 0;
             game = null;
           }
         };
-        death.play();
       }
     } else {
       retry.pressed();
-      deathToMM.pressed();
+      endToMM.pressed();
     }
   }
 
@@ -130,21 +134,38 @@ public class Game {
         ellipse(selectedTower.pos.x, selectedTower.pos.y, selectedTower.range*2, selectedTower.range*2);
       }
     } else {
-      if (tintDeathFade >= 50) {
-        tintDeathFade -= 3;
+      if (player.life <= 0) {
+        if (tintDeathFade >= 50) {
+          tintDeathFade -= 3;
+        }
+        if (tintDeathText <= 205) {
+          tintDeathText += 3;
+        }
+        tint(tintDeathFade);
+        image(endground, 0, 0, width, height);
+        noTint();
+        fill(255, tintDeathText);
+        textAlign(CENTER);
+        textSize(height/10);
+        text("Game Over", width/2, height/3);
+      } else {
+        if (tintWinFade >= 100) {
+          tintWinFade -= 3;
+        }
+        if (tintWinText <= 205) {
+          tintWinText += 3;
+        }
+        background(255);
+        tint(255, tintWinFade);
+        image(endground, 0, 0, width, height);
+        noTint();
+        fill(0, tintWinText);
+        textAlign(CENTER);
+        textSize(height/10);
+        text("GG EZ!!", width/2, height/3);
       }
-      if (tintDeathText <= 205) {
-        tintDeathText += 3;
-      }
-      tint(tintDeathFade);
-      image(deathground, 0, 0, width, height);
-      noTint();
-      fill(255, tintDeathText);
-      textAlign(CENTER);
-      textSize(height/10);
-      text("Game Over", width/2, height/3);
       retry.render();
-      deathToMM.render();
+      endToMM.render();
     }
   }
 

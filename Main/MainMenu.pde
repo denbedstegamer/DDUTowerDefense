@@ -1,7 +1,10 @@
 public class MainMenu {
   private Button toGame, toSettings, toLevelCreator;
+  private PImage background, background2;
+  private boolean hasDrawnBackground;
 
   public MainMenu() {
+    background = loadImage(dataPath("") + "/Backgrounds/MainMenuBackgrounds/MoreSoldiers.jpg");
     toGame = new Button(width/2-width/6, height/4-height/8, width/3, height/8, "Play", "", "") {
       @Override
         public void action() {
@@ -45,6 +48,13 @@ public class MainMenu {
 
   public void render() {
     background(255);
+    if (!hasDrawnBackground) {
+      imageMode(CORNER);
+      image(background, 0, 0, width, height);
+      background2 = get();
+      hasDrawnBackground = true;
+    }
+    background(background2);
     toGame.render();
     toSettings.render();
     toLevelCreator.render();

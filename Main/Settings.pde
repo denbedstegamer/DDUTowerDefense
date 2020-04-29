@@ -32,6 +32,12 @@ public class Settings {
       healthMultiplier = 1.2;
       startMoney = 65;
       break;
+    case 3:
+      life = 10000;
+      priceMultiplier = 0.1;
+      healthMultiplier = 1;
+      startMoney = 10000;
+      break;
     }
   }
 }

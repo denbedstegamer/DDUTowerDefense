@@ -12,14 +12,14 @@ private boolean mainMenuSound, noArrowSound, noMagicSound, noBladeSound, noRockS
 public void setup() {
   fullScreen();
   frameRate(60);
-  
+
   death = new SoundFile(this, dataPath("") + "/Sound/death_screen.aiff");
   rockThrow = new SoundFile(this, dataPath("") + "/Sound/AttackSounds/rocks_hit.aiff");
   magicShoot = new SoundFile(this, dataPath("") + "/Sound/AttackSounds/magicShoot_1.aiff");
   arrowShoot = new SoundFile(this, dataPath("") + "/Sound/AttackSounds/arrowShoot_1.aiff");
   bladeSwing = new SoundFile(this, dataPath("") + "/Sound/AttackSounds/bladeSwing_1.aiff");
   mainMenu = new SoundFile(this, dataPath("") + "/Sound/Medieval.aiff");
-  
+
   /*
   String[] lines = loadStrings("field1.txt");
    for (int i = 0; i<lines.length; i++) {
@@ -52,7 +52,9 @@ public void draw() {
 
   case 2:
     game.update();
-    game.render();
+    if (game != null) {
+      game.render();
+    }
     break;
 
   case 3:

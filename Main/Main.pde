@@ -11,8 +11,8 @@ public void setup() {
   fullScreen();
   frameRate(60);
   
-  file = new SoundFile(this, dataPath("") + "/Sound/beat.aiff");
-  //file.play();
+  file = new SoundFile(this, dataPath("") + "/Sound/Medieval.aiff");
+  file.play();
   /*
   String[] lines = loadStrings("field1.txt");
   for (int i = 0; i<lines.length; i++) {

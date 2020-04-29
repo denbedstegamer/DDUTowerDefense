@@ -1,3 +1,5 @@
+import processing.sound.*;
+
 public class Game {
   private Level level;
   private Player player;

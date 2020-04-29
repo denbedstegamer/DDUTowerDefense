@@ -136,6 +136,7 @@ public class Tower {
       cycle = 1;
       break;
       
+      //void summon
     case 11:
       as = 8;
       range = 200;
@@ -279,6 +280,7 @@ public class Tower {
         spellCycle();
         break;
         
+        //void summon
       case 11:
         game.projectiles.add(new Projectile(pos, targetEnemy, id+100));
         break;
@@ -308,6 +310,7 @@ public class Tower {
           Tower tempTower = new Tower(this.x+(round(random(-100, 100))), this.y+(round(random(-100, 100))));
           tempTower.id = 11;
           tempTower.updateTowerValues();
+          tempTower.sprite = loadImage(dataPath("") + "/Towers/11.png");
           minions[i] = tempTower;
           minionSpawn = 100;
           break;

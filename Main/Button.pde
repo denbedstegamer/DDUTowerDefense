@@ -31,7 +31,7 @@ public class Button {
     fill(200);
     rect(pos.x, pos.y, size.x, size.y);
 
-    textSize(size.x/8);
+    textSize(size.x/10);
     textAlign(CENTER);
     fill(0);
     text(text, pos.x+size.x/2, pos.y+size.y/3*2);

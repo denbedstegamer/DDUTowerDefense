@@ -132,7 +132,7 @@ public class Game {
     stroke(0);
     strokeWeight(1);
     fill(0);
-    text("wave " + wave.waveCount + " / " + wave.maxWaves, width/14+(width-squaresX)/2, squaresY+(height-squaresY)/4+height/6+height/64);
+    text("wave " + wave.waveCount + " / " + wave.maxWaves, (width-squaresX)/2+(width-squaresX)/7, squaresY+(height-squaresY)-(height-squaresY)/4);
 
     if (isBuyingPeasant && player.money >= 50) {
       if (!level.canAddTower(mouseX, mouseY, 20)) {

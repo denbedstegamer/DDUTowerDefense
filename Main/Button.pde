@@ -31,13 +31,13 @@ public class Button {
     fill(200);
     rect(pos.x, pos.y, size.x, size.y);
 
-    textSize(size.x/10);
+    textSize(size.y/2);
     textAlign(CENTER);
     fill(0);
     text(text, pos.x+size.x/2, pos.y+size.y/3*2);
-    textSize(size.x/8);
+    textSize(size.y/2);
     text(text2, pos.x+size.x/2, pos.y+size.y/2);
-    textSize(size.x/13);
+    textSize(size.y/4);
     text(text3, pos.x+size.x/2, pos.y+size.y/2);
 
     if (background != null) {

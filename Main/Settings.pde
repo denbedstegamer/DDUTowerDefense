@@ -21,7 +21,7 @@ public class Settings {
       startMoney = 100;
       break;
     case 1:
-      life = 75;
+      life = 1;
       priceMultiplier = 1;
       healthMultiplier = 1;
       startMoney = 80;

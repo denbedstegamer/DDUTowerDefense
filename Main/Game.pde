@@ -30,14 +30,14 @@ public class Game {
     upgrades = new ArrayList<Button>();
     projectiles = new ArrayList<Projectile>();
     upgrades2 = new ArrayList<Upgrade>();
-    
+
     backToMM = new Button(squaresX+(width-squaresX)-(width-squaresX)/4, (height-squaresY)/4, (width-squaresX)/6, (height-squaresY)/8, "Main Menu", "", "") {
       @Override
         public void action() {
         gameState = 0;
       }
     };
-    
+
     startRound = new Button(width/36+(width-squaresX)/2, squaresY+(height-squaresY)/4, (width-squaresX)/2, (height-squaresY)/3, "Start Round", "", "") {
       @Override
         public void action() {
@@ -69,14 +69,18 @@ public class Game {
           removeCollidedProjectiles();
         }
       }
-    }
-    startRound.pressed();
-    buyPeasant.pressed();
-    backToMM.pressed();
-    if (player.life <= 0) {
-      gaming = false;
-      gameOver = true;
-      text("You died", width/8, height-height/16);
+      startRound.pressed();
+      buyPeasant.pressed();
+      backToMM.pressed();
+      if (player.life <= 0) {
+        gaming = false;
+        gameOver = true;
+        text("You died", width/8, height-height/16);
+        selectedTower = null;
+        isBuyingPeasant = false;
+        queueShouldBeCleared = false;
+        death.play();
+      }
     }
   }
 
@@ -91,19 +95,21 @@ public class Game {
   }
 
   public void render() {
-    level.render(false);
-    if (gaming) {
-      wave.render();
-      for (int i = 0; i < projectiles.size(); i++) {
-        projectiles.get(i).render();
+    if (!gameOver) {
+      level.render(false);
+      if (gaming) {
+        wave.render();
+        for (int i = 0; i < projectiles.size(); i++) {
+          projectiles.get(i).render();
+        }
       }
-    }
-    renderNonLevelThings();
-    if (selectedTower != null) {
-      fill(255, 75);
-      strokeWeight(1);
-      stroke(0);
-      ellipse(selectedTower.pos.x, selectedTower.pos.y, selectedTower.range*2, selectedTower.range*2);
+      renderNonLevelThings();
+      if (selectedTower != null) {
+        fill(255, 75);
+        strokeWeight(1);
+        stroke(0);
+        ellipse(selectedTower.pos.x, selectedTower.pos.y, selectedTower.range*2, selectedTower.range*2);
+      }
     }
   }
 
@@ -166,7 +172,7 @@ public class Game {
         if (j < selectedTower.getUpgrades().size()) {
           temp = j;
           upgrades2.add(new Upgrade(selectedTower.getUpgrades().get(temp)));
-          Button tempB = new Button(squaresX+(width-squaresX)/4, height/6+height/8*j+j*25, (width-squaresX)/2, height/7, "", "Price: " + round(selectedTower.getUpgrades().get(j).getCost()), "\n Upgrade to: " + selectedTower.getUpgrades().get(temp).getName()) {
+          Button tempB = new Button(squaresX+(width-squaresX)/4-(width-squaresX)/32, height/6+height/8*j+j*25, (width-squaresX)/2+(width-squaresX)/16, (height-squaresY)/3, "", "Price: " + round(selectedTower.getUpgrades().get(j).getCost()), "\n Upgrade to: " + selectedTower.getUpgrades().get(temp).getName()) {
             @Override
               public void action() {
               for (int i = 0; i < upgrades.size(); i++) {
@@ -185,14 +191,14 @@ public class Game {
           upgrades.add(tempB);
         }
       }
-      Button tempB = new Button(squaresX+(width-squaresX)/4, height/6+height/8*upgrades.size()+upgrades.size()*25, (width-squaresX)/2, height/7, "", "Sell", "\n 80% of cost refunded") {
+      Button tempB = new Button(squaresX+(width-squaresX)/4, height/6+height/8*upgrades.size()+upgrades.size()*25, (width-squaresX)/2, (height-squaresY)/4, "", "Sell", "\n 80% of cost refunded") {        
         @Override
           public void action() {
           for (int i = 0; i < upgrades.size(); i++) {
             if (upgrades.get(i).equals(this)) {
               player.addMoney(selectedTower.moneySpent*0.8);
               for (int j = 0; j < level.towers.size(); j++) {
-                if(level.towers.get(j).equals(selectedTower)){
+                if (level.towers.get(j).equals(selectedTower)) {
                   level.removeObstaclesFromTower(level.towers.get(j));
                   level.towers.remove(j);
                 }

@@ -1,11 +1,12 @@
 import processing.sound.*;
 SoundFile file;
 
-public int squaresX, squaresY, gameState = 0;  // 0 = MainMenu, 1 = SettingsMenu, 2 = Game, 3 = LevelCreator
+public int squaresX, squaresY, gameState = 0;  // 0 = MainMenu, 1 = SettingsMenu, 2 = Game, 3 = LevelCreator, 4 = LevelSelectionMenu
 private MainMenu mm;
 private SettingsMenu sm;
 private Game game;
 private LevelCreator lc;
+private LevelSelectionMenu lsm;
 
 public void setup() {
   fullScreen();
@@ -24,7 +25,6 @@ public void setup() {
   squaresY = 700;
 
   mm = new MainMenu();
-  
 }
 
 public void draw() {
@@ -47,6 +47,11 @@ public void draw() {
   case 3:
     lc.update();
     lc.render();
+    break;
+    
+  case 4:
+    lsm.update();
+    lsm.render();
     break;
   }
   fill(0);

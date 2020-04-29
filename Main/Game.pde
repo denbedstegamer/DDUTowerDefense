@@ -99,6 +99,12 @@ public class Game {
       }
     }
     renderNonLevelThings();
+    if (selectedTower != null) {
+      fill(255, 75);
+      strokeWeight(1);
+      stroke(0);
+      ellipse(selectedTower.pos.x, selectedTower.pos.y, selectedTower.range*2, selectedTower.range*2);
+    }
   }
 
   private void renderNonLevelThings() {
@@ -142,6 +148,10 @@ public class Game {
       PImage sprite = loadImage(dataPath("") + "/Towers/1.png");
       image(sprite, mouseX, mouseY);
       noTint();
+      fill(255, 75);
+      strokeWeight(1);
+      stroke(0);
+      ellipse(mouseX, mouseY, 300, 300);
     }
 
     startRound.render();

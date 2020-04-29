@@ -79,7 +79,7 @@ public class Game {
         if (player.life <= 0) {
           death.play();
         } else {
-          //victory.play();
+          victory.play();
         }
         endground = get();
         gaming = false;

@@ -53,7 +53,7 @@ public class Enemy {
 
       //boss
     case 4:
-      life = 5;
+      life = 5000;
       vel = 0.8;
       moneyOnKill = 5000;
       damageWhenGoalIsReached = 95;

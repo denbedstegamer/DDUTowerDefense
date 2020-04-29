@@ -1,5 +1,5 @@
 import processing.sound.*;
-SoundFile mainMenu, magicShoot, arrowShoot, bladeSwing, rockThrow, death;
+SoundFile mainMenu, magicShoot, arrowShoot, bladeSwing, rockThrow, death, victory;
 
 public int squaresX, squaresY, gameState = 0;  // 0 = MainMenu, 1 = SettingsMenu, 2 = Game, 3 = LevelCreator, 4 = LevelSelectionMenu
 private MainMenu mm;
@@ -12,7 +12,8 @@ private boolean mainMenuSound, noArrowSound, noMagicSound, noBladeSound, noRockS
 public void setup() {
   fullScreen();
   frameRate(60);
-
+  
+  victory = new SoundFile(this, dataPath("") + "/Sound/win_screen.aiff");
   death = new SoundFile(this, dataPath("") + "/Sound/death_screen.aiff");
   rockThrow = new SoundFile(this, dataPath("") + "/Sound/AttackSounds/rocks_hit.aiff");
   magicShoot = new SoundFile(this, dataPath("") + "/Sound/AttackSounds/magicShoot_1.aiff");

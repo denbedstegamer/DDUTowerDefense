@@ -7,12 +7,12 @@ private SettingsMenu sm;
 private Game game;
 private LevelCreator lc;
 private LevelSelectionMenu lsm;
-private boolean mainMenuSound;
+private boolean mainMenuSound, noArrowSound, noMagicSound, noBladeSound;
 
 public void setup() {
   fullScreen();
   frameRate(60);
-  
+
   magicShoot = new SoundFile(this, dataPath("") + "/Sound/AttackSounds/magicShoot_1.aiff");
   arrowShoot = new SoundFile(this, dataPath("") + "/Sound/AttackSounds/arrowShoot_1.aiff");
   bladeSwing = new SoundFile(this, dataPath("") + "/Sound/AttackSounds/bladeSwing_1.aiff");
@@ -91,6 +91,9 @@ public void mousePressed() {
 }
 
 public void setMusicBooleans() {
+  noArrowSound = true;
+  noBladeSound = true;
+  noMagicSound = true;
   switch(gameState) {
   case 0:
 
@@ -122,59 +125,35 @@ public void stopAllMusic() {
 
 public void attackSound(int id) {
   switch(id) {
-      //peasant
-    case 1:
-    
-      break;
+    //peasant
+  case 1:
 
-      //archer
-    case 2:
-    arrowShoot.play();
-      break;
+    break;
 
-      //knight
-    case 3:
-    bladeSwing();
-      break;
-
-      //mage
-    case 4:
-    
-      break;
-
-      //arrowflinger
-    case 5:
-    
-      break;
-
-      //sniper
-    case 6:
-    
-      break;
-
-      //barbarian
-    case 7:
-    
-      break;
-
-      //king
-    case 8:
-    
-      break;
-
-      //summoner
-    case 9:
-    
-      break;
-
-      //archmage
-    case 10:
-    
-      break;
-      
-      //void summon
-    case 11:
-    
-      break;
+  case 2:
+  case 5:
+  case 6:
+    if (noArrowSound) {
+      arrowShoot.play();
+      noArrowSound = false;
     }
+    break;
+
+  case 3:
+  case 7:
+  case 8:
+    if (noBladeSound) {
+      bladeSwing.play();
+      noBladeSound = false;
+    }
+    break;
+  case 4:
+  case 9:
+  case 10:
+    if (noMagicSound) {
+      magicShoot.play();
+      noMagicSound = false;
+    }
+    break;
+  }
 }

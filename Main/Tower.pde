@@ -285,6 +285,7 @@ public class Tower {
         game.projectiles.add(new Projectile(pos, targetEnemy, id+100));
         break;
       }
+      attackSound(id);
     }
   }
 

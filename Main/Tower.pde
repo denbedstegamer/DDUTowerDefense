@@ -1,9 +1,10 @@
 public class Tower {
-  private int x, y, radius = 20, extend;
+  private int x, y, radius = 20, extend, timeSinceLastAttacked;
   private int range, damage, as, id, targetEnemy, cycle, minionLifeSpan, minionSpawn, moneySpent = 50;  // as = Attack Speed
   private PVector pos, dir;
   private PImage sprite;
   private Tower[] minions;
+  private boolean readyToAttack;
 
   public Tower(int x, int y) {
     this.x = x;
@@ -22,14 +23,21 @@ public class Tower {
     } else {
       extend = 5;
     }
-    if (frameCount % (as*extend) == 0) {
-      attack();
+    if (timeSinceLastAttacked % (as*extend) == 0) {
+      readyToAttack = true;
     }
-    
+    if (readyToAttack) {
+      if(attack()){
+        timeSinceLastAttacked = 0;
+        readyToAttack = false;
+      }
+    }
+
     if (id == 9) {
       updateMinionLife();
       updateMinions();
     }
+    timeSinceLastAttacked++;
   }
 
   public void render() {
@@ -135,7 +143,7 @@ public class Tower {
       range = 300;
       cycle = 1;
       break;
-      
+
       //void summon
     case 11:
       as = 8;
@@ -204,7 +212,7 @@ public class Tower {
     }
   }
 
-  private void attack() {
+  private boolean attack() {
     spotEnemy();
     if (targetEnemy > -1) {
       switch(id) {
@@ -279,14 +287,17 @@ public class Tower {
         game.projectiles.add(new Projectile(pos, targetEnemy, id+cycle));
         spellCycle();
         break;
-        
+
         //void summon
       case 11:
         game.projectiles.add(new Projectile(pos, targetEnemy, id+100));
         break;
       }
       attackSound(id);
+    } else {
+      return false;
     }
+    return true;
   }
 
   private void spellCycle() {
@@ -302,7 +313,7 @@ public class Tower {
       break;
     }
   }
-  
+
   private void spawnMinion() {
     minionSpawn--;
     if (minionSpawn <= 0) {

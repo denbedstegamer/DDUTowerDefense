@@ -31,14 +31,14 @@ public class Game {
     projectiles = new ArrayList<Projectile>();
     upgrades2 = new ArrayList<Upgrade>();
     
-    backToMM = new Button(squaresX+(width-squaresX)-(width-squaresX)/4, height/64, width/12, height/18, "Main Menu", "", "") {
+    backToMM = new Button(squaresX+(width-squaresX)-(width-squaresX)/4, (height-squaresY)/4, (width-squaresX)/6, (height-squaresY)/8, "Main Menu", "", "") {
       @Override
         public void action() {
         gameState = 0;
       }
     };
     
-    startRound = new Button(width/36+(width-squaresX)/2, squaresY+(height-squaresY)/4, (width-squaresX)/2, height/8, "Start Round", "", "") {
+    startRound = new Button(width/36+(width-squaresX)/2, squaresY+(height-squaresY)/4, (width-squaresX)/2, (height-squaresY)/3, "Start Round", "", "") {
       @Override
         public void action() {
         if (!gaming) {
@@ -47,7 +47,7 @@ public class Game {
         }
       }
     };
-    buyPeasant = new Button(width/72, squaresY+(height-squaresY)/4, (width-squaresX)/2, height/8, "", "Buy Peasant", "\n Price: 50") {
+    buyPeasant = new Button(width/72, squaresY+(height-squaresY)/4, (width-squaresX)/2, (height-squaresY)/3, "", "Buy Peasant", "\n Price: 50") {
       @Override
         public void action() {
         isBuyingPeasant = true;
@@ -99,6 +99,12 @@ public class Game {
       }
     }
     renderNonLevelThings();
+    if (selectedTower != null) {
+      fill(255, 75);
+      strokeWeight(1);
+      stroke(0);
+      ellipse(selectedTower.pos.x, selectedTower.pos.y, selectedTower.range*2, selectedTower.range*2);
+    }
   }
 
   private void renderNonLevelThings() {
@@ -128,11 +134,11 @@ public class Game {
 
     // rendering details of the level
     textSize(50);  // alle textSize(x), så burde x være i forhold til height eller width
-    textAlign(LEFT);
+    textAlign(CENTER);
     stroke(0);
     strokeWeight(1);
     fill(0);
-    text("wave " + wave.waveCount + " / " + wave.maxWaves, (width-squaresX)/2+(width-squaresX)/7, squaresY+(height-squaresY)-(height-squaresY)/4);
+    text("wave " + wave.waveCount + " / " + wave.maxWaves, (width-squaresX)-(width-squaresX)/6, squaresY+(height-squaresY)-(height-squaresY)/4);
 
     if (isBuyingPeasant && player.money >= 50) {
       if (!level.canAddTower(mouseX, mouseY, 20)) {
@@ -142,6 +148,10 @@ public class Game {
       PImage sprite = loadImage(dataPath("") + "/Towers/1.png");
       image(sprite, mouseX, mouseY);
       noTint();
+      fill(255, 75);
+      strokeWeight(1);
+      stroke(0);
+      ellipse(mouseX, mouseY, 300, 300);
     }
 
     startRound.render();
@@ -175,7 +185,7 @@ public class Game {
           upgrades.add(tempB);
         }
       }
-      Button tempB = new Button(squaresX+(width-squaresX)/4, height/6+height/8*upgrades.size()+upgrades.size()*25, (width-squaresX)/2, height/7, "Sell", "80% of cost refunded", "") {
+      Button tempB = new Button(squaresX+(width-squaresX)/4, height/6+height/8*upgrades.size()+upgrades.size()*25, (width-squaresX)/2, height/7, "", "Sell", "\n 80% of cost refunded") {
         @Override
           public void action() {
           for (int i = 0; i < upgrades.size(); i++) {

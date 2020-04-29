@@ -1,5 +1,5 @@
 public class MainMenu {
-  private Button toGame, toSettings, toLevelCreator;
+  private Button toGame, toSettings, toLevelCreator, reset;
   private PImage background, background2;
   private boolean hasDrawnBackground;
 
@@ -15,6 +15,7 @@ public class MainMenu {
             lsm = new LevelSelectionMenu();
           }
           gameState = 4;
+          delay(100);
         }
       }
     };
@@ -38,12 +39,20 @@ public class MainMenu {
         gameState = 3;
       }
     };
+    
+    reset = new Button(width/2+width/5, height/4-height/8+height/52, width/10, height/12, "reset", "", "") {
+      @Override
+        public void action() {
+        game = null;
+      }
+    };
   }
 
   public void update() {
     toGame.pressed();
     toSettings.pressed();
     toLevelCreator.pressed();
+    reset.pressed();
   }
 
   public void render() {
@@ -58,5 +67,6 @@ public class MainMenu {
     toGame.render();
     toSettings.render();
     toLevelCreator.render();
+    reset.render();
   }
 }

@@ -10,6 +10,7 @@ public class MainMenu {
         public void action() {
         if (game != null) {
           gameState = 2;
+          stopAllMusic();
         } else {
           if (lsm == null) {
             lsm = new LevelSelectionMenu();
@@ -20,7 +21,6 @@ public class MainMenu {
             }
           }
           gameState = 4;
-          stopAllMusic();
           delay(100);
         }
       }

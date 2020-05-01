@@ -1,5 +1,5 @@
 import processing.sound.*;
-SoundFile mainMenu, magicShoot, arrowShoot, bladeSwing, rockThrow, death, victory, buttonClick;
+SoundFile mainMenuMusic, magicShoot, arrowShoot, bladeSwing, rockThrow, death, victory, buttonClick, ingameMusic;
 
 public int squaresX, squaresY, gameState = 0;  // 0 = MainMenu, 1 = SettingsMenu, 2 = Game, 3 = LevelCreator, 4 = LevelSelectionMenu
 private MainMenu mm;
@@ -12,13 +12,14 @@ public void setup() {
   fullScreen();
   frameRate(60);
 
+  ingameMusic = new SoundFile(this, dataPath("") + "/Sound/glorious_morning.aiff");
   victory = new SoundFile(this, dataPath("") + "/Sound/win_screen.aiff");
   death = new SoundFile(this, dataPath("") + "/Sound/death_screen.aiff");
   rockThrow = new SoundFile(this, dataPath("") + "/Sound/AttackSounds/rocks_hit.aiff");
   magicShoot = new SoundFile(this, dataPath("") + "/Sound/AttackSounds/magicShoot_1.aiff");
   arrowShoot = new SoundFile(this, dataPath("") + "/Sound/AttackSounds/arrowShoot_1.aiff");
   bladeSwing = new SoundFile(this, dataPath("") + "/Sound/AttackSounds/bladeSwing_1.aiff");
-  mainMenu = new SoundFile(this, dataPath("") + "/Sound/Medieval.aiff");
+  mainMenuMusic = new SoundFile(this, dataPath("") + "/Sound/medieval.aiff");
   buttonClick = new SoundFile(this, dataPath("") + "/Sound/button_click.aiff");
 
   squaresX = 1000;
@@ -32,34 +33,43 @@ public void draw() {
   case 0:
     mm.update();
     mm.render();
-    if(!mainMenu.isPlaying()){
-      mainMenu.amp(0.2);
-      mainMenu.loop();
+    if (!mainMenuMusic.isPlaying()) {
+      mainMenuMusic.amp(0.2);
+      mainMenuMusic.loop();
     }
+    noOverlappingMusic();
     break;
 
   case 1:
     sm.update();
     sm.render();
+    noOverlappingMusic();
     break;
 
   case 2:
+    if (!ingameMusic.isPlaying()) {
+      ingameMusic.amp(0.2);
+      ingameMusic.loop();
+    }
     if (game != null) {
       game.update();
       if (game != null) {
         game.render();
       }
     }
+    noOverlappingMusic();
     break;
 
   case 3:
     lc.update();
     lc.render();
+    noOverlappingMusic();
     break;
 
   case 4:
     lsm.update();
     lsm.render();
+    noOverlappingMusic();
     break;
   }
 }
@@ -79,14 +89,49 @@ public void mousePressed() {
 }
 
 public void stopAllMusic() {
-  mainMenu.stop();
+  mainMenuMusic.stop();
+  ingameMusic.stop();
+}
+
+public void noOverlappingMusic() {
+  switch(gameState) {
+  case 0:
+  if (ingameMusic.isPlaying()) {
+    ingameMusic.stop();
+  }
+    break;
+
+  case 1:
+  if (ingameMusic.isPlaying()) {
+    ingameMusic.stop();
+  }
+    break;
+
+  case 2:
+  if (mainMenuMusic.isPlaying()) {
+    mainMenuMusic.stop();
+  }
+    break;
+
+  case 3:
+  if (ingameMusic.isPlaying()) {
+    ingameMusic.stop();
+  }
+    break;
+
+  case 4:
+  if (ingameMusic.isPlaying()) {
+    ingameMusic.stop();
+  }
+    break;
+  }
 }
 
 public void attackSound(int id) {
   switch(id) {
     //peasant
   case 1:
-    if(!rockThrow.isPlaying()){
+    if (!rockThrow.isPlaying()) {
       rockThrow.play();
     }
     break;
@@ -95,7 +140,7 @@ public void attackSound(int id) {
   case 2:
   case 5:
   case 6:
-    if(!arrowShoot.isPlaying()){
+    if (!arrowShoot.isPlaying()) {
       arrowShoot.play();
     }
     break;
@@ -104,7 +149,7 @@ public void attackSound(int id) {
   case 3:
   case 7:
   case 8:
-    if(!bladeSwing.isPlaying()){
+    if (!bladeSwing.isPlaying()) {
       bladeSwing.play();
     }
     break;
@@ -113,7 +158,7 @@ public void attackSound(int id) {
   case 4:
   case 9:
   case 10:
-    if(!magicShoot.isPlaying()){
+    if (!magicShoot.isPlaying()) {
       magicShoot.play();
     }
     break;

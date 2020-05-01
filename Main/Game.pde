@@ -38,6 +38,7 @@ public class Game {
       @Override
         public void action() {
         gameState = 0;
+        stopAllMusic();
       }
     };
 
@@ -98,6 +99,7 @@ public class Game {
             public void action() {
             gameState = 0;
             game = null;
+            stopAllMusic();
           }
         };
       }

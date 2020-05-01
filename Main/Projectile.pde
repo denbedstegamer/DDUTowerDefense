@@ -106,7 +106,7 @@ public class Projectile {
 
       //archer
     case 2:
-      damage = 10;
+      damage = 14;
       vel = 16;
       break;
 
@@ -119,13 +119,13 @@ public class Projectile {
 
       //arrowflinger
     case 5:
-      damage = 12;
+      damage = 14;
       vel = 14;
       break;
 
       //sniper
     case 6:
-      damage = 40;
+      damage = 45;
       vel = 40;
       break;
 

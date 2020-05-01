@@ -49,6 +49,9 @@ public class Button {
   public void pressed() {
     if (mousePressed == true && mouseX > pos.x && mouseX < pos.x + size.x && mouseY > pos.y && mouseY < pos.y + size.y) {
       action();
+      if(pressed == false){
+         buttonClick.play(); 
+      }
       pressed = true;
     }
   }

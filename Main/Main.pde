@@ -1,5 +1,5 @@
 import processing.sound.*;
-SoundFile mainMenu, magicShoot, arrowShoot, bladeSwing, rockThrow, death, victory;
+SoundFile mainMenu, magicShoot, arrowShoot, bladeSwing, rockThrow, death, victory, buttonClick;
 
 public int squaresX, squaresY, gameState = 0;  // 0 = MainMenu, 1 = SettingsMenu, 2 = Game, 3 = LevelCreator, 4 = LevelSelectionMenu
 private MainMenu mm;
@@ -19,6 +19,7 @@ public void setup() {
   arrowShoot = new SoundFile(this, dataPath("") + "/Sound/AttackSounds/arrowShoot_1.aiff");
   bladeSwing = new SoundFile(this, dataPath("") + "/Sound/AttackSounds/bladeSwing_1.aiff");
   mainMenu = new SoundFile(this, dataPath("") + "/Sound/Medieval.aiff");
+  buttonClick = new SoundFile(this, dataPath("") + "/Sound/button_click.aiff");
 
   squaresX = 1000;
   squaresY = 700;
@@ -32,6 +33,7 @@ public void draw() {
     mm.update();
     mm.render();
     if(!mainMenu.isPlaying()){
+      mainMenu.amp(0.2);
       mainMenu.loop();
     }
     break;

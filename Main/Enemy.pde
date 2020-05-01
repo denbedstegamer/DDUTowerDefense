@@ -37,7 +37,7 @@ public class Enemy {
 
       //bulkiest enemy
     case 2:
-      life = 400;
+      life = 300;
       vel = 1;
       moneyOnKill = 12;
       damageWhenGoalIsReached = 10;
@@ -46,17 +46,17 @@ public class Enemy {
       //speedy enemy
     case 3:
       life = 100;
-      vel = 3;
+      vel = 2.8;
       moneyOnKill = 12;
       damageWhenGoalIsReached = 2;
       break;
 
       //boss
     case 4:
-      life = 5000;
-      vel = 0.8;
+      life = 10000;
+      vel = 1;
       moneyOnKill = 5000;
-      damageWhenGoalIsReached = 95;
+      damageWhenGoalIsReached = 100;
     }
   }
 

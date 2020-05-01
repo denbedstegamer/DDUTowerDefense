@@ -43,7 +43,7 @@ public class LevelSelectionMenu {
           gameState = 2;
         }
         stopAllMusic();
-        delay(25);
+        delay(50);
       }
     };
   }

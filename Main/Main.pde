@@ -21,7 +21,10 @@ public void setup() {
   bladeSwing = new SoundFile(this, dataPath("") + "/Sound/AttackSounds/bladeSwing_1.aiff");
   mainMenuMusic = new SoundFile(this, dataPath("") + "/Sound/medieval.aiff");
   buttonClick = new SoundFile(this, dataPath("") + "/Sound/button_click.aiff");
-
+  
+  mainMenuMusic.amp(0.5);
+  ingameMusic.amp(0.5);
+  
   squaresX = 1000;
   squaresY = 700;
 

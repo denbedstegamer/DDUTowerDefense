@@ -122,7 +122,7 @@ public class Enemy {
       } else {
         sprite = loadImage(dataPath("") + "/Enemies/" + (id+2) + ".png");
       }
-      if (frame == 60) {
+      if (frame == 54) {
         frame = 0;
       }
     }

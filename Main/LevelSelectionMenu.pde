@@ -19,12 +19,10 @@ public class LevelSelectionMenu {
       buttons.add(new Button((i%3)*width/6+width/4, (i/3)*width/9+height/8, width/7, height/7, temp, i) {
         @Override
           public void action() {
-          if (game == null) {
-            if (sm != null) {
-              game = new Game(levels.get(buttonNumber), sm.settings);
-            } else {
-              game = new Game(levels.get(buttonNumber), new Settings(1));
-            }
+          if (sm != null) {
+            game = new Game(levels.get(buttonNumber), sm.settings);
+          } else {
+            game = new Game(levels.get(buttonNumber), new Settings(1));
           }
           for (int b = 0; b < buttons.size(); b++) {
             if (b != buttonNumber) {
@@ -46,25 +44,24 @@ public class LevelSelectionMenu {
         delay(50);
       }
     };
-    
+
     backToMM = new Button(squaresX+(width-squaresX)-(width-squaresX)/4, (height-squaresY)/4, (width-squaresX)/6, (height-squaresY)/8, "Main Menu", "", "") {
       @Override
         public void action() {
         gameState = 0;
       }
     };
-    
   }
 
   public void update() {
     for (int i = 0; i < buttons.size(); i++) {
       buttons.get(i).pressed();
-      toGame.pressed();
-      backToMM.pressed();
     }
+    toGame.pressed();
+    backToMM.pressed();
   }
 
-  public void render() {
+  public void render() {    
     background(255);
     for (int i = 0; i < buttons.size(); i++) {
 
@@ -77,8 +74,8 @@ public class LevelSelectionMenu {
       }
 
       buttons.get(i).render();
-      toGame.render();
-      backToMM.render();
     }
+    toGame.render();
+    backToMM.render();
   }
 }

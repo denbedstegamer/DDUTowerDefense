@@ -78,6 +78,7 @@ public class Projectile {
           if (distToEnemy < radius/2 + game.wave.enemies.get(i).radius/2) {
             game.wave.enemies.get(i).reduceLife(damage);
             collided = true;
+            break;
           }
         }
       }

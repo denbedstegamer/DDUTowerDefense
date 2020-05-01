@@ -1,6 +1,6 @@
 import processing.sound.*;
-SoundFile mainMenuMusic, magicShoot, arrowShoot, bladeSwing, rockThrow, death, victory, buttonClick, ingameMusic;
 
+private SoundFile mainMenuMusic, magicShoot, arrowShoot, bladeSwing, rockThrow, death, victory, buttonClick, ingameMusic;
 public int squaresX, squaresY, gameState = 0;  // 0 = MainMenu, 1 = SettingsMenu, 2 = Game, 3 = LevelCreator, 4 = LevelSelectionMenu
 private MainMenu mm;
 private SettingsMenu sm;
@@ -9,7 +9,7 @@ private LevelCreator lc;
 private LevelSelectionMenu lsm;
 
 public void setup() {
-  fullScreen();
+  fullScreen(P2D);
   frameRate(60);
 
   ingameMusic = new SoundFile(this, dataPath("") + "/Sound/glorious_morning.aiff");
@@ -21,10 +21,7 @@ public void setup() {
   bladeSwing = new SoundFile(this, dataPath("") + "/Sound/AttackSounds/bladeSwing_1.aiff");
   mainMenuMusic = new SoundFile(this, dataPath("") + "/Sound/medieval.aiff");
   buttonClick = new SoundFile(this, dataPath("") + "/Sound/button_click.aiff");
-  
-  mainMenuMusic.amp(0.5);
-  ingameMusic.amp(0.5);
-  
+
   squaresX = 1000;
   squaresY = 700;
 
@@ -37,21 +34,19 @@ public void draw() {
     mm.update();
     mm.render();
     if (!mainMenuMusic.isPlaying()) {
-      mainMenuMusic.amp(0.2);
+      mainMenuMusic.amp(0.1);
       mainMenuMusic.loop();
     }
-    noOverlappingMusic();
     break;
 
   case 1:
     sm.update();
     sm.render();
-    noOverlappingMusic();
     break;
 
   case 2:
     if (!ingameMusic.isPlaying()) {
-      ingameMusic.amp(0.2);
+      ingameMusic.amp(0.1);
       ingameMusic.loop();
     }
     if (game != null) {
@@ -60,21 +55,20 @@ public void draw() {
         game.render();
       }
     }
-    noOverlappingMusic();
     break;
 
   case 3:
     lc.update();
     lc.render();
-    noOverlappingMusic();
     break;
 
   case 4:
     lsm.update();
     lsm.render();
-    noOverlappingMusic();
     break;
   }
+  noOverlappingMusic();
+  //println(frameRate);
 }
 
 public void mousePressed() {
@@ -97,36 +91,10 @@ public void stopAllMusic() {
 }
 
 public void noOverlappingMusic() {
-  switch(gameState) {
-  case 0:
-  if (ingameMusic.isPlaying()) {
+  if (gameState != 2 && ingameMusic.isPlaying()) {
     ingameMusic.stop();
-  }
-    break;
-
-  case 1:
-  if (ingameMusic.isPlaying()) {
-    ingameMusic.stop();
-  }
-    break;
-
-  case 2:
-  if (mainMenuMusic.isPlaying()) {
+  } else if (mainMenuMusic.isPlaying() && gameState == 2) {
     mainMenuMusic.stop();
-  }
-    break;
-
-  case 3:
-  if (ingameMusic.isPlaying()) {
-    ingameMusic.stop();
-  }
-    break;
-
-  case 4:
-  if (ingameMusic.isPlaying()) {
-    ingameMusic.stop();
-  }
-    break;
   }
 }
 

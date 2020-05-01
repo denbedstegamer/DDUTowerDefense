@@ -41,15 +41,6 @@ public class Tower {
   }
 
   public void render() {
-    /*
-    non-sprite rendering
-     ellipseMode(CENTER);
-     stroke(0);
-     strokeWeight(1);
-     fill(0, 255, 0);
-     ellipse(x, y, radius*2, radius*2);
-     */
-
     pushMatrix();
     imageMode(CENTER);
     translate(pos.x, pos.y);

@@ -19,7 +19,8 @@ public class Game {
   private PImage hearts;
   private PImage coins;
   private PImage endground;
-  private PImage marble, marble2;
+  private PImage marble;
+  private Thread t = new CheckProjectilesThread();
 
   public Game(File f, Settings s) {
     this.f = f;
@@ -27,11 +28,8 @@ public class Game {
     hearts = loadImage(dataPath("") + "/Particles/Heart.png");
     coins = loadImage(dataPath("") + "/Particles/Coin.png");
     marble = loadImage(dataPath("") + "/Backgrounds/MainMenuBackgrounds/marble.png");
-    image(marble, 0, 0);
-    marble2 = get();
     level = new Level(f);
     level.background = null;
-    level.background2 = null;
     player = new Player(s.life, s.startMoney);
     wave = new Wave();
     upgrades = new ArrayList<Button>();
@@ -65,8 +63,8 @@ public class Game {
     healthMultiplier = s.healthMultiplier;
   }
 
-  public void update() {
-    if (!gameOver) {
+  class CheckProjectilesThread extends Thread {
+    public void run() {
       if (gaming) {
         wave.update();
         if (wave.timeSinceWaveStarted >= 2) {
@@ -77,6 +75,12 @@ public class Game {
           removeCollidedProjectiles();
         }
       }
+    }
+  }
+
+  public void update() {
+    if (!gameOver) {
+      t.run();    
       startRound.pressed();
       buyPeasant.pressed();
       backToMM.pressed();
@@ -107,6 +111,12 @@ public class Game {
           }
         };
       }
+
+      try {
+        t.join();
+      } 
+      catch (Exception e) {
+      }
     } else {
       retry.pressed();
       endToMM.pressed();
@@ -125,7 +135,6 @@ public class Game {
 
   public void render() {
     if (!gameOver) {
-      image(marble2, 0, 0);
       level.render(false);
       if (gaming) {
         wave.render();

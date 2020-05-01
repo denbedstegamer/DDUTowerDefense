@@ -41,6 +41,9 @@ public class Projectile {
       }
     } else {
       nonHomingProjectile();
+      if(pos.x + radius > squaresX || pos.y + radius > squaresY){
+        collided = true;
+      }
     }
     detectCollision();
   }

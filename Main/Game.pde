@@ -19,12 +19,16 @@ public class Game {
   private PImage hearts;
   private PImage coins;
   private PImage endground;
+  private PImage marble, marble2;
 
   public Game(File f, Settings s) {
     this.f = f;
     this.s = s;
     hearts = loadImage(dataPath("") + "/Particles/Heart.png");
     coins = loadImage(dataPath("") + "/Particles/Coin.png");
+    marble = loadImage(dataPath("") + "/Backgrounds/MainMenuBackgrounds/marble.png");
+    image(marble, 0, 0);
+    marble2 = get();
     level = new Level(f);
     level.background = null;
     level.background2 = null;
@@ -121,6 +125,7 @@ public class Game {
 
   public void render() {
     if (!gameOver) {
+      image(marble2, 0, 0);
       level.render(false);
       if (gaming) {
         wave.render();
@@ -194,7 +199,6 @@ public class Game {
     strokeWeight(1);
     fill(231, 202, 0);
     text(round(player.getMoney()), squaresX+(width-squaresX)-(width-squaresX)/4-(width-squaresX)/12, height/16*2);
-
     renderBuyables();
 
     // rendering details of the level

@@ -120,7 +120,7 @@ public class Wave {
         }
       }
       break;
-      
+
       //wave 12
     case 12:
       timeTillNextEnemy = 5;
@@ -133,77 +133,82 @@ public class Wave {
         queueTimes.add(timeTillNextEnemy);
       }
       break;
-      
+
       //wave 13
     case 13:
-      timeTillNextEnemy = 20;
-      for (int i = 0; i < 30; i++) {
-        queue.add(new Enemy(3, game.level.track.points.get(0)));
+      timeTillNextEnemy = 300;
+      for (int i = 0; i < 2; i++) {
+        queue.add(new Enemy(4, game.level.track.points.get(0)));
         queueTimes.add(timeTillNextEnemy);
       }
       break;
-      
+
       //wave 14
     case 14:
-      timeTillNextEnemy = 20;
-      for (int i = 0; i < 30; i++) {
-        queue.add(new Enemy(3, game.level.track.points.get(0)));
+      timeTillNextEnemy = 1;
+      for (int i = 0; i < 100; i++) {
+        queue.add(new Enemy(0, game.level.track.points.get(0)));
+        queueTimes.add(timeTillNextEnemy);
+        queue.add(new Enemy(1, game.level.track.points.get(0)));
         queueTimes.add(timeTillNextEnemy);
       }
       break;
-      
+
       //wave 15
     case 15:
-      timeTillNextEnemy = 20;
-      for (int i = 0; i < 30; i++) {
+      timeTillNextEnemy = 2;
+      for (int i = 0; i < 100; i++) {
         queue.add(new Enemy(3, game.level.track.points.get(0)));
         queueTimes.add(timeTillNextEnemy);
       }
       break;
-      
+
       //wave 16
     case 16:
-      timeTillNextEnemy = 20;
-      for (int i = 0; i < 30; i++) {
-        queue.add(new Enemy(3, game.level.track.points.get(0)));
+      timeTillNextEnemy = 200;
+      for (int i = 0; i < 3; i++) {
+        queue.add(new Enemy(4, game.level.track.points.get(0)));
         queueTimes.add(timeTillNextEnemy);
       }
       break;
-      
+
       //wave 17
     case 17:
-      timeTillNextEnemy = 20;
-      for (int i = 0; i < 30; i++) {
-        queue.add(new Enemy(3, game.level.track.points.get(0)));
+      for (int i = 0; i < 2; i++) {
+        timeTillNextEnemy = 120;
+        queue.add(new Enemy(4, game.level.track.points.get(0)));
         queueTimes.add(timeTillNextEnemy);
+        for (int j = 0; j < 50; j++) {
+          timeTillNextEnemy = 4;
+          queue.add(new Enemy(3, game.level.track.points.get(0)));
+          queueTimes.add(timeTillNextEnemy);
+        }
       }
       break;
-      
+
       //wave 18
     case 18:
-      timeTillNextEnemy = 20;
-      for (int i = 0; i < 30; i++) {
-        queue.add(new Enemy(3, game.level.track.points.get(0)));
+      timeTillNextEnemy = 5;
+      for (int i = 0; i < 50; i++) {
+        queue.add(new Enemy(2, game.level.track.points.get(0)));
         queueTimes.add(timeTillNextEnemy);
       }
       break;
-      
+
       //wave 19
     case 19:
-      timeTillNextEnemy = 20;
-      for (int i = 0; i < 30; i++) {
-        queue.add(new Enemy(3, game.level.track.points.get(0)));
+      timeTillNextEnemy = 240;
+      for (int i = 0; i < 5; i++) {
+        queue.add(new Enemy(4, game.level.track.points.get(0)));
         queueTimes.add(timeTillNextEnemy);
       }
       break;
-      
+
       //wave 20
     case 20:
       timeTillNextEnemy = 100;
-      for (int i = 0; i < 5; i++) {
-        queue.add(new Enemy(5, game.level.track.points.get(0)));
-        queueTimes.add(timeTillNextEnemy);
-      }
+      queue.add(new Enemy(5, game.level.track.points.get(0)));
+      queueTimes.add(timeTillNextEnemy);
       break;
     }
     totalEnemiesCount = queue.size();
@@ -231,8 +236,8 @@ public class Wave {
       }
     }
     boolean allEnemiesDead = true;
-    for(int i = 0; i < enemies.size(); i++){
-      if(enemies.get(i) != null){
+    for (int i = 0; i < enemies.size(); i++) {
+      if (enemies.get(i) != null) {
         allEnemiesDead = false;
       }
     }

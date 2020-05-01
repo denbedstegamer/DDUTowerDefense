@@ -39,7 +39,9 @@ public class LevelSelectionMenu {
     toGame = new Button(width/2-width/12, height/4+height/2, width/6, height/10, "Play", "", "") {
       @Override
         public void action() {
-        gameState = 2;
+        if (game != null) {
+          gameState = 2;
+        }
         delay(25);
       }
     };
@@ -55,7 +57,7 @@ public class LevelSelectionMenu {
   public void render() {
     background(255);
     for (int i = 0; i < buttons.size(); i++) {
-      
+
       if (buttons.get(i).pressed) {
         fill(0, 240, 0, 30);
         stroke(0, 240, 0);
@@ -63,7 +65,7 @@ public class LevelSelectionMenu {
         rect(buttons.get(i).pos.x, buttons.get(i).pos.y, buttons.get(i).size.x, buttons.get(i).size.y);
         stroke(2);
       }
-      
+
       buttons.get(i).render();
       toGame.render();
     }

@@ -27,6 +27,7 @@ public class MainMenu {
           sm = new SettingsMenu();
         }
         gameState = 1;
+        delay(100);
       }
     };
 
@@ -37,6 +38,7 @@ public class MainMenu {
           lc = new LevelCreator();
         }
         gameState = 3;
+        delay(100);
       }
     };
     

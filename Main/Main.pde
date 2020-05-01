@@ -12,7 +12,7 @@ private boolean mainMenuSound, noArrowSound, noMagicSound, noBladeSound, noRockS
 public void setup() {
   fullScreen();
   frameRate(60);
-  
+
   victory = new SoundFile(this, dataPath("") + "/Sound/win_screen.aiff");
   death = new SoundFile(this, dataPath("") + "/Sound/death_screen.aiff");
   rockThrow = new SoundFile(this, dataPath("") + "/Sound/AttackSounds/rocks_hit.aiff");

@@ -31,11 +31,12 @@ public class Projectile {
     if (homingProjectile) {
       if (enemyId < game.wave.enemies.size()) {
         if (game.wave.enemies.get(enemyId) != null) {
-          if (homingProjectile) {
-            homingProjectile();
-          }
+          homingProjectile();
         } else {
-          collided = true;
+          if (retarget()) {
+          } else {
+            collided = true;
+          }
         }
       }
     } else {
@@ -80,8 +81,45 @@ public class Projectile {
     }
   }
 
+  private boolean retarget() {
+    if (game.wave.enemies.size() == 0) {
+      return false;
+    } else {
+      boolean allEnemmiesAreNull = true;
+      for (int i = 0; i < game.wave.enemies.size(); i++) {
+        if (game.wave.enemies.get(i) != null) {
+          allEnemmiesAreNull = false;
+        }
+      }
+      if (!allEnemmiesAreNull) {
+        Enemy closestEnemy = game.wave.enemies.get(enemyId);
+        for (int i = 0; i < game.wave.enemies.size(); i++) {
+          if (game.wave.enemies.get(i) != null) {
+            if (game.wave.enemies.get(i) != null) {
+              closestEnemy = game.wave.enemies.get(i);
+              enemyId = i;
+              break;
+            }
+          }
+        }
+        for (int i = 0; i < game.wave.enemies.size(); i++) {
+          if (game.wave.enemies.get(i) != null) {
+            if (dist(pos.x, pos.y, closestEnemy.pos.x, closestEnemy.pos.y) > dist(pos.x, pos.y, game.wave.enemies.get(i).pos.x, game.wave.enemies.get(i).pos.y)) {
+              enemyId = i;
+            }
+          }
+        }
+      } else {
+        return false;
+      }
+    }
+    return true;
+  }
+
   private void homingProjectile() {
-    dir = game.wave.enemies.get(enemyId).pos.copy().sub(pos).copy().setMag(vel);
+    if (game.wave.enemies.get(enemyId) != null) {
+      dir = game.wave.enemies.get(enemyId).pos.copy().sub(pos).copy().setMag(vel);
+    }
     pos.add(dir);
   }
 
@@ -144,14 +182,14 @@ public class Projectile {
       vel = 7;
       homingProjectile = true;
       break;
-      
+
       //void summon
     case 111:
       damage = 10;
       vel = 5;
       homingProjectile = true;
       break;
-      
+
       //Knight line damage in Tower class
     }
   }

@@ -135,6 +135,8 @@ public class Game {
 
   public void render() {
     if (!gameOver) {
+      imageMode(CORNER);
+      image(marble, 0, 0);
       level.render(false);
       if (gaming) {
         wave.render();

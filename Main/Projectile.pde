@@ -119,8 +119,13 @@ public class Projectile {
   private void homingProjectile() {
     if (game.wave.enemies.get(enemyId) != null) {
       dir = game.wave.enemies.get(enemyId).pos.copy().sub(pos).copy().setMag(vel);
+      pos.add(dir);
+    } else {
+      if (retarget()) {
+      } else {
+        collided = true;
+      }
     }
-    pos.add(dir);
   }
 
   private void nonHomingProjectile() {

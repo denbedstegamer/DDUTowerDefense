@@ -200,8 +200,10 @@ public class Enemy {
         Enemy tempEnemy = new Enemy(1, pos.copy().add(temp));
         game.wave.enemies.add(tempEnemy);
         for (int j = 0; j < game.wave.enemies.size(); j++) {
-          if (game.wave.enemies.get(j).equals(tempEnemy)) {
-            game.wave.enemies.get(j).markCount = markCount;
+          if (game.wave.enemies.get(j) != null) {
+            if (game.wave.enemies.get(j).equals(tempEnemy)) {
+              game.wave.enemies.get(j).markCount = markCount;
+            }
           }
         }
         temp.rotate(PI*2/5);

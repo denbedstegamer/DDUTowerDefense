@@ -1,5 +1,5 @@
 public class Wave {
-  public int waveCount = 13, maxWaves = 20, timeTillNextEnemy, timeSinceWaveStarted, enemyCount, totalEnemiesCount;
+  public int waveCount = 1, maxWaves = 20, timeTillNextEnemy, timeSinceWaveStarted, enemyCount, totalEnemiesCount;
   private ArrayList<Enemy> enemies, queue;
   private ArrayList<Integer> queueTimes;
 

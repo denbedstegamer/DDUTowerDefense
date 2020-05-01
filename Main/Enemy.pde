@@ -104,11 +104,11 @@ public class Enemy {
       rotate(PVector.angleBetween(dir, new PVector(-1, 0)));
     }
     if (burnTime > 0 && slowTime > 0) {
-      tint(255,0,255);
+      tint(255, 0, 255);
     } else if (burnTime > 0) {
-      tint(255,0,0);
+      tint(255, 0, 0);
     } else if (slowTime > 0) {
-      tint(0,0,255);
+      tint(0, 0, 255);
     }
     image(sprite, 0, 0);
     noTint();
@@ -140,6 +140,9 @@ public class Enemy {
 
   public void reduceLife(int damageTaken) {
     life = life - damageTaken;
+    if (life <= 0) {
+      onDeath();
+    }
   }
 
   public void givePlayerMoney() {
@@ -148,5 +151,40 @@ public class Enemy {
 
   public void dealDamageToPlayer() {
     game.player.takeDamage(damageWhenGoalIsReached);
+  }
+
+  private void onDeath() {
+    println("hej");
+    switch(id) {
+      //normal enemy
+    case 0:
+      break;
+
+      //bulky enemy
+    case 1:
+      break;
+
+      //bulkiest enemy
+    case 2:
+      PVector temp = new PVector(5, 0);
+      for (int i = 0; i < 5; i++) {
+        game.wave.enemies.add(new Enemy(1, pos.copy().add(temp)));
+        temp.rotate(PI*2/5);
+      }
+      break;
+
+      //speedy enemy
+    case 3:
+      break;
+
+      //boss
+    case 4:
+      temp = new PVector(5, 0);
+      for (int i = 0; i < 5; i++) {
+        game.wave.enemies.add(new Enemy(2, pos.copy().add(temp)));
+        temp.rotate(PI*2/5);
+        game.wave.enemyCount ++;
+      }
+    }
   }
 }

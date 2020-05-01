@@ -240,7 +240,13 @@ public class Wave {
         temp = false;
       }
     }
-    if (temp && enemyCount == totalEnemiesCount && timeSinceWaveStarted >= 2) {
+    boolean allEnemiesDead = true;
+    for(int i = 0; i < enemies.size(); i++){
+      if(enemies.get(i) != null){
+        allEnemiesDead = false;
+      }
+    }
+    if (temp && enemyCount == totalEnemiesCount && timeSinceWaveStarted >= 2 && allEnemiesDead) {
       enemies.clear();
     }
     if (enemies.size() == 0) {

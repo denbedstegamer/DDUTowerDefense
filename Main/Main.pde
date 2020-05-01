@@ -19,7 +19,7 @@ public void setup() {
   magicShoot = new SoundFile(this, dataPath("") + "/Sound/AttackSounds/magicShoot_1.aiff");
   arrowShoot = new SoundFile(this, dataPath("") + "/Sound/AttackSounds/arrowShoot_1.aiff");
   bladeSwing = new SoundFile(this, dataPath("") + "/Sound/AttackSounds/bladeSwing_1.aiff");
-  mainMenuMusic = new SoundFile(this, dataPath("") + "/Sound/Medieval.aiff");
+  mainMenuMusic = new SoundFile(this, dataPath("") + "/Sound/medieval.aiff");
   buttonClick = new SoundFile(this, dataPath("") + "/Sound/button_click.aiff");
 
   squaresX = 1000;

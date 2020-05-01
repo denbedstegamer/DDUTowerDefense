@@ -154,7 +154,6 @@ public class Enemy {
   }
 
   private void onDeath() {
-    println("hej");
     switch(id) {
       //normal enemy
     case 0:
@@ -166,9 +165,17 @@ public class Enemy {
 
       //bulkiest enemy
     case 2:
-      PVector temp = new PVector(5, 0);
+      PVector temp = new PVector(25, 0);
       for (int i = 0; i < 5; i++) {
-        game.wave.enemies.add(new Enemy(1, pos.copy().add(temp)));
+        Enemy tempEnemy = new Enemy(1, pos.copy().add(temp));
+        game.wave.enemies.add(tempEnemy);
+        for (int j = 0; j < game.wave.enemies.size(); j++) {
+          if (game.wave.enemies.get(j) != null) {
+            if (game.wave.enemies.get(j).equals(tempEnemy)) {
+              game.wave.enemies.get(j).markCount = markCount;
+            }
+          }
+        }
         temp.rotate(PI*2/5);
       }
       break;
@@ -179,12 +186,18 @@ public class Enemy {
 
       //boss
     case 4:
-      temp = new PVector(5, 0);
+      temp = new PVector(25, 0);
       for (int i = 0; i < 5; i++) {
-        game.wave.enemies.add(new Enemy(2, pos.copy().add(temp)));
+        Enemy tempEnemy = new Enemy(1, pos.copy().add(temp));
+        game.wave.enemies.add(tempEnemy);
+        for (int j = 0; j < game.wave.enemies.size(); j++) {
+          if (game.wave.enemies.get(j).equals(tempEnemy)) {
+            game.wave.enemies.get(j).markCount = markCount;
+          }
+        }
         temp.rotate(PI*2/5);
-        game.wave.enemyCount ++;
       }
+      break;
     }
   }
 }

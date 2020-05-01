@@ -55,7 +55,7 @@ public class MainMenu {
       }
     };
     
-    exit = new Button(width-width/12, height/48, width/14, height/16, "Exit", "", "") {
+    exit = new Button(width/64, height/48, width/14, height/16, "Exit", "", "") {
       @Override
         public void action() {
         exit();

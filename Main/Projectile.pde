@@ -200,19 +200,21 @@ public class Projectile {
   }
 
   public void specializedProjectileEffect() {
-    switch(id) {
-      //frostbolt
-    case 10:
-      game.wave.enemies.get(enemyId).slowTime = 180;
-      break;
-      //fireball
-    case 11:
-      game.wave.enemies.get(enemyId).burnTime = 240;
-      break;
-      //lightningbolt
-    case 12:
-      game.wave.enemies.get(enemyId).stunTime = 5;
-      break;
+    if (game.wave.enemies.get(enemyId).id != 5) {
+      switch(id) {
+        //frostbolt
+      case 10:
+        game.wave.enemies.get(enemyId).slowTime = 180;
+        break;
+        //fireball
+      case 11:
+        game.wave.enemies.get(enemyId).burnTime = 240;
+        break;
+        //lightningbolt
+      case 12:
+        game.wave.enemies.get(enemyId).stunTime = 5;
+        break;
+      }
     }
   }
 }

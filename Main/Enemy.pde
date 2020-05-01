@@ -56,14 +56,14 @@ public class Enemy {
     case 4:
       life = 8000;
       vel = 1;
-      moneyOnKill = 5000;
+      moneyOnKill = 100;
       damageWhenGoalIsReached = 100;
       break;
 
       //dragon
     case 5:
-      life = 8000;
-      vel = 1;
+      life = 25000;
+      vel = 1.3;
       moneyOnKill = 5000;
       damageWhenGoalIsReached = 100;
       break;
@@ -79,29 +79,22 @@ public class Enemy {
         reachedGoal = true;
       }
     }
-    if (stunTime > 0) {
-      dir = game.level.track.points.get(markCount).copy().sub(pos).copy().setMag(0.001);
-    } else if (slowTime > 0) {
-      dir = game.level.track.points.get(markCount).copy().sub(pos).copy().setMag(vel*slowPercent);
-    } else {
-      dir = game.level.track.points.get(markCount).copy().sub(pos).copy().setMag(vel);
-    }
-    pos.add(dir);
-
-    if (slowTime > 0) {
-      slowTime--;
-    }
-
     if (burnTime > 0) {
       if (burnTime % 60 == 0) {
         reduceLife(burnDamage);
       }
       burnTime--;
     }
-
     if (stunTime > 0) {
+      dir = game.level.track.points.get(markCount).copy().sub(pos).copy().setMag(0.001);
       stunTime--;
+    } else if (slowTime > 0) {
+      dir = game.level.track.points.get(markCount).copy().sub(pos).copy().setMag(vel*slowPercent);
+      slowTime--;
+    } else {
+      dir = game.level.track.points.get(markCount).copy().sub(pos).copy().setMag(vel);
     }
+    pos.add(dir);
   }
 
   public void render() {

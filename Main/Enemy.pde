@@ -3,6 +3,7 @@ public class Enemy {
   private int id, markCount = 0, life, radius = 30, totalLife, moneyOnKill, damageWhenGoalIsReached, burnDamage, slowTime, burnTime, stunTime;
   private PImage sprite;
   private float vel, remainingLife, slowPercent;
+  private int frame;
   public boolean reachedGoal;
 
   public Enemy(int id, PVector pos) {
@@ -57,6 +58,15 @@ public class Enemy {
       vel = 1;
       moneyOnKill = 5000;
       damageWhenGoalIsReached = 100;
+      break;
+
+      //dragon
+    case 5:
+      life = 8000;
+      vel = 1;
+      moneyOnKill = 5000;
+      damageWhenGoalIsReached = 100;
+      break;
     }
   }
 
@@ -110,17 +120,23 @@ public class Enemy {
     } else if (slowTime > 0) {
       tint(0, 0, 255);
     }
+    if (id == 5) {
+      frame ++;
+      if (frame >= 0 && frame < 18) {
+        sprite = loadImage(dataPath("") + "/Enemies/" + (id+0) + ".png");
+      } else if (frame >= 18 && frame < 36) {
+        sprite = loadImage(dataPath("") + "/Enemies/" + (id+1) + ".png");
+      } else {
+        sprite = loadImage(dataPath("") + "/Enemies/" + (id+2) + ".png");
+      }
+      if (frame == 60) {
+        frame = 0;
+      }
+    }
     image(sprite, 0, 0);
     noTint();
     popMatrix();
     renderHealthbar();
-
-    /*stroke(0);
-     strokeWeight(1);
-     fill(0, 0, 255);
-     rectMode(CENTER);
-     rect(pos.x, pos.y, radius, radius);
-     renderHealthbar();*/
   }
 
   public void renderHealthbar() {

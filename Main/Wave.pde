@@ -1,5 +1,5 @@
 public class Wave {
-  public int waveCount = 1, maxWaves = 10, timeTillNextEnemy, timeSinceWaveStarted, enemyCount, totalEnemiesCount;
+  public int waveCount = 1, maxWaves = 20, timeTillNextEnemy, timeSinceWaveStarted, enemyCount, totalEnemiesCount;
   private ArrayList<Enemy> enemies, queue;
   private ArrayList<Integer> queueTimes;
 
@@ -199,9 +199,9 @@ public class Wave {
       
       //wave 20
     case 20:
-      timeTillNextEnemy = 20;
-      for (int i = 0; i < 30; i++) {
-        queue.add(new Enemy(3, game.level.track.points.get(0)));
+      timeTillNextEnemy = 100;
+      for (int i = 0; i < 5; i++) {
+        queue.add(new Enemy(5, game.level.track.points.get(0)));
         queueTimes.add(timeTillNextEnemy);
       }
       break;

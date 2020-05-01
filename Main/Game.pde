@@ -136,6 +136,7 @@ public class Game {
         ellipse(selectedTower.pos.x, selectedTower.pos.y, selectedTower.range*2, selectedTower.range*2);
       }
     } else {
+      imageMode(CORNER);
       if (player.life <= 0) {
         if (tintDeathFade >= 50) {
           tintDeathFade -= 3;

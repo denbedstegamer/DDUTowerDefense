@@ -1,5 +1,5 @@
 public class MainMenu {
-  private Button toGame, toSettings, toLevelCreator, reset;
+  private Button toGame, toSettings, toLevelCreator, reset, exit;
   private PImage background, background2;
   private boolean hasDrawnBackground;
 
@@ -54,6 +54,14 @@ public class MainMenu {
         game = null;
       }
     };
+    
+    exit = new Button(width-width/12, height/48, width/14, height/16, "Exit", "", "") {
+      @Override
+        public void action() {
+        exit();
+      }
+    };
+    
   }
 
   public void update() {
@@ -61,6 +69,7 @@ public class MainMenu {
     toSettings.pressed();
     toLevelCreator.pressed();
     reset.pressed();
+    exit.pressed();
   }
 
   public void render() {
@@ -76,5 +85,6 @@ public class MainMenu {
     toSettings.render();
     toLevelCreator.render();
     reset.render();
+    exit.render();
   }
 }

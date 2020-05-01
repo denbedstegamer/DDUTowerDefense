@@ -1,7 +1,7 @@
 public class LevelSelectionMenu {
   ArrayList<File> levels;
   ArrayList<Button> buttons;
-  private Button toGame;
+  private Button toGame, backToMM;
 
   public LevelSelectionMenu() {
     levels = new ArrayList<File>();
@@ -46,12 +46,21 @@ public class LevelSelectionMenu {
         delay(50);
       }
     };
+    
+    backToMM = new Button(squaresX+(width-squaresX)-(width-squaresX)/4, (height-squaresY)/4, (width-squaresX)/6, (height-squaresY)/8, "Main Menu", "", "") {
+      @Override
+        public void action() {
+        gameState = 0;
+      }
+    };
+    
   }
 
   public void update() {
     for (int i = 0; i < buttons.size(); i++) {
       buttons.get(i).pressed();
       toGame.pressed();
+      backToMM.pressed();
     }
   }
 
@@ -69,6 +78,7 @@ public class LevelSelectionMenu {
 
       buttons.get(i).render();
       toGame.render();
+      backToMM.render();
     }
   }
 }

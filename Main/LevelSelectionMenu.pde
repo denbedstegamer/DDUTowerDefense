@@ -42,6 +42,7 @@ public class LevelSelectionMenu {
         if (game != null) {
           gameState = 2;
         }
+        stopAllMusic();
         delay(25);
       }
     };

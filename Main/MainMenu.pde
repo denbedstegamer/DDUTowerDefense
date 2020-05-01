@@ -14,7 +14,13 @@ public class MainMenu {
           if (lsm == null) {
             lsm = new LevelSelectionMenu();
           }
+          for (int b = 0; b < lsm.buttons.size(); b++) {
+            if (lsm.buttons.get(b).pressed) {
+              lsm.buttons.get(b).action();
+            }
+          }
           gameState = 4;
+          stopAllMusic();
           delay(100);
         }
       }

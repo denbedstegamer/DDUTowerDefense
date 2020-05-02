@@ -135,3 +135,11 @@ public void attackSound(int id) {
     break;
   }
 }
+
+public void keyPressed() {
+  if (key == 'p' || key == 'P') {
+    if (game != null && gameState == 2) {
+      game.buyPeasant.action();
+    }
+  }
+}

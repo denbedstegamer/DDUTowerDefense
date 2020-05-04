@@ -18,7 +18,7 @@ public class Tower {
   }
 
   public void update() {
-    spotEnemy();
+    setEyesOnEnemy();
     if (game.boost) {
       extend = 3;
     } else {
@@ -28,7 +28,7 @@ public class Tower {
       readyToAttack = true;
     }
     if (readyToAttack) {
-      if(attack()){
+      if (attack()) {
         timeSinceLastAttacked = 0;
         readyToAttack = false;
       }
@@ -181,7 +181,7 @@ public class Tower {
     return upgrades;
   }
 
-  private void spotEnemy() {
+  private void setEyesOnEnemy() {
     for (int i = 0; i < game.wave.enemies.size(); i++) {
       if (game.wave.enemies.get(i) != null) {
         if (PVector.dist(pos, game.wave.enemies.get(i).pos) < range) {
@@ -193,6 +193,10 @@ public class Tower {
         }
       }
     }
+  }
+
+  private void checkIfEnemyExists() {
+    setEyesOnEnemy();
     boolean temp = true;
     for (int i = 0; i < game.wave.enemies.size(); i++) {
       if (game.wave.enemies.get(i) != null) {
@@ -205,6 +209,7 @@ public class Tower {
   }
 
   private boolean attack() {
+    checkIfEnemyExists();
     if (targetEnemy > -1) {
       switch(id) {
 

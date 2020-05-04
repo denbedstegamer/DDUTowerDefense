@@ -18,6 +18,7 @@ public class Tower {
   }
 
   public void update() {
+    spotEnemy();
     if (game.boost) {
       extend = 3;
     } else {
@@ -204,7 +205,6 @@ public class Tower {
   }
 
   private boolean attack() {
-    spotEnemy();
     if (targetEnemy > -1) {
       switch(id) {
 

@@ -22,41 +22,69 @@ public class Enemy {
     switch(id) {
       //normal enemy
     case 0:
-      life = 30;
-      vel = 1.5;
-      moneyOnKill = 6;
-      damageWhenGoalIsReached = 1;
+      if (game.wave.waveCount < 10) {
+        life = 30;
+        vel = 1.5;
+        moneyOnKill = 6;
+        damageWhenGoalIsReached = 1;
+      } else {
+        life = 50+(game.wave.waveCount*2);
+        vel = 1.5;
+        moneyOnKill = 1;
+        damageWhenGoalIsReached = 2;
+      }
       break;
 
       //bulky enemy
     case 1:
+    if (game.wave.waveCount < 10) {
       life = 100;
       vel = 1.2;
-      moneyOnKill = 8;
+      moneyOnKill = 6;
       damageWhenGoalIsReached = 4;
+    } else{
+      life = 100+(game.wave.waveCount*5);
+      vel = 1.2;
+      moneyOnKill = 3;
+      damageWhenGoalIsReached = 10;
+    }
       break;
 
       //bulkiest enemy
     case 2:
+    if (game.wave.waveCount < 10) {
       life = 300;
       vel = 1;
-      moneyOnKill = 12;
+      moneyOnKill = 4;
       damageWhenGoalIsReached = 10;
+    } else{
+      life = 300+(game.wave.waveCount*10);
+      vel = 1;
+      moneyOnKill = 3;
+      damageWhenGoalIsReached = 20;
+    }
       break;
 
       //speedy enemy
     case 3:
+    if (game.wave.waveCount < 10) {
       life = 100;
       vel = 2.8;
-      moneyOnKill = 12;
-      damageWhenGoalIsReached = 2;
+      moneyOnKill = 10;
+      damageWhenGoalIsReached = 6;
+    } else{
+      life = 100+(game.wave.waveCount*5);
+      vel = 2.8+(game.wave.waveCount/100);
+      moneyOnKill = round(10-(game.wave.waveCount/2));
+      damageWhenGoalIsReached = 10;
+    }
       break;
 
       //boss
     case 4:
-      life = 8000;
+      life = 7000+(game.wave.waveCount*100);
       vel = 1;
-      moneyOnKill = 100;
+      moneyOnKill = 40;
       damageWhenGoalIsReached = 100;
       break;
 
@@ -64,8 +92,8 @@ public class Enemy {
     case 5:
       life = 25000;
       vel = 1.3;
-      moneyOnKill = 5000;
-      damageWhenGoalIsReached = 100;
+      moneyOnKill = 10000;
+      damageWhenGoalIsReached = 999;
       break;
     }
   }
@@ -175,7 +203,7 @@ public class Enemy {
       //bulkiest enemy
     case 2:
       PVector temp = new PVector(25, 0);
-      for (int i = 0; i < 5; i++) {
+      for (int i = 0; i < 2; i++) {
         Enemy tempEnemy = new Enemy(1, pos.copy().add(temp));
         game.wave.enemies.add(tempEnemy);
         for (int j = 0; j < game.wave.enemies.size(); j++) {
@@ -191,13 +219,28 @@ public class Enemy {
 
       //speedy enemy
     case 3:
+    temp = new PVector(25, 0);
+    if(game.wave.waveCount > 10){
+      for (int i = 0; i < 2; i++) {
+        Enemy tempEnemy = new Enemy(1, pos.copy().add(temp));
+        game.wave.enemies.add(tempEnemy);
+        for (int j = 0; j < game.wave.enemies.size(); j++) {
+          if (game.wave.enemies.get(j) != null) {
+            if (game.wave.enemies.get(j).equals(tempEnemy)) {
+              game.wave.enemies.get(j).markCount = markCount;
+            }
+          }
+        }
+        temp.rotate(PI*2/5);
+      }
+    }
       break;
 
       //boss
     case 4:
       temp = new PVector(25, 0);
       for (int i = 0; i < 5; i++) {
-        Enemy tempEnemy = new Enemy(1, pos.copy().add(temp));
+        Enemy tempEnemy = new Enemy(2, pos.copy().add(temp));
         game.wave.enemies.add(tempEnemy);
         for (int j = 0; j < game.wave.enemies.size(); j++) {
           if (game.wave.enemies.get(j) != null) {

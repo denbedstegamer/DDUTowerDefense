@@ -90,8 +90,8 @@ public class Tower {
 
       //mage
     case 4:
-      as = 11;
-      range = 250;
+      as = 10;
+      range = 300;
       break;
 
       //arrowflinger

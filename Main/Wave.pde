@@ -252,7 +252,12 @@ public class Wave {
       game.projectiles.clear();
       timeSinceWaveStarted = 0;
       game.gaming = false;
-      game.player.addMoney(15+waveCount*2);
+      //Give player money on round end
+      if (waveCount <= 10) {
+        game.player.addMoney(20+waveCount);
+      } else {
+        game.player.addMoney(30);
+      }
       enemyCount = 0;
     }
   }

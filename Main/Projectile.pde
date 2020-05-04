@@ -154,31 +154,31 @@ public class Projectile {
       //archer
     case 2:
       damage = 14;
-      vel = 16;
+      vel = 18;
       break;
 
       //mage
     case 4:
-      damage = 24;
-      vel = 3;
+      damage = 28;
+      vel = 4;
       homingProjectile = true;
       break;
 
       //arrowflinger
     case 5:
       damage = 14;
-      vel = 14;
+      vel = 16;
       break;
 
       //sniper
     case 6:
-      damage = 45;
+      damage = 75;
       vel = 40;
       break;
 
       //summoner
     case 9:
-      damage = 10;
+      damage = 12;
       vel = 4;
       homingProjectile = true;
       break;
@@ -187,15 +187,15 @@ public class Projectile {
     case 10:
     case 11:
     case 12:
-      damage = 24;
-      vel = 7;
+      damage = 20;
+      vel = 8;
       homingProjectile = true;
       break;
 
       //void summon
     case 111:
       damage = 10;
-      vel = 5;
+      vel = 6;
       homingProjectile = true;
       break;
 

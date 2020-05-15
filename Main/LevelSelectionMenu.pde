@@ -1,6 +1,7 @@
 public class LevelSelectionMenu {
-  ArrayList<File> levels;
-  ArrayList<Button> buttons;
+  private ArrayList<File> levels;
+  private ArrayList<Button> buttons;
+  
   private Button toGame, backToMM;
 
   public LevelSelectionMenu() {

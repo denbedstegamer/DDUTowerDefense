@@ -63,7 +63,7 @@ public class Game {
     healthMultiplier = s.healthMultiplier;
   }
 
-  class CheckProjectilesThread extends Thread {
+  private class CheckProjectilesThread extends Thread {
     public void run() {
       if (gaming) {
         wave.update();

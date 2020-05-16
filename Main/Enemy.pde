@@ -1,6 +1,6 @@
 public class Enemy {
   private PVector pos, dir;
-  private int id, markCount = 0, life, radius = 30, totalLife, moneyOnKill, damageWhenGoalIsReached, burnDamage, slowTime, burnTime, stunTime;
+  private int id, markCount = 0, life, radius = 18, totalLife, moneyOnKill, damageWhenGoalIsReached, burnDamage, slowTime, burnTime, stunTime;
   private PImage sprite;
   private float vel, remainingLife, slowPercent;
   private int frame;
@@ -30,22 +30,28 @@ public class Enemy {
       } else {
         life = 50+(game.wave.waveCount*2);
         vel = 1.5;
-        moneyOnKill = 1;
+        moneyOnKill = 0;
         damageWhenGoalIsReached = 2;
       }
       break;
 
       //bulky enemy
     case 1:
-    if (game.wave.waveCount < 10) {
+    if (game.wave.waveCount < 8) {
       life = 100;
       vel = 1.2;
       moneyOnKill = 6;
       damageWhenGoalIsReached = 4;
-    } else{
+    } 
+    if (game.wave.waveCount < 10) {
+      life = 100;
+      vel = 1.2;
+      moneyOnKill = 4;
+      damageWhenGoalIsReached = 4;
+    }else{
       life = 100+(game.wave.waveCount*5);
       vel = 1.2;
-      moneyOnKill = 3;
+      moneyOnKill = 1;
       damageWhenGoalIsReached = 10;
     }
       break;
@@ -60,7 +66,7 @@ public class Enemy {
     } else{
       life = 300+(game.wave.waveCount*10);
       vel = 1;
-      moneyOnKill = 3;
+      moneyOnKill = 2;
       damageWhenGoalIsReached = 20;
     }
       break;
@@ -84,7 +90,7 @@ public class Enemy {
     case 4:
       life = 7000+(game.wave.waveCount*100);
       vel = 1;
-      moneyOnKill = 40;
+      moneyOnKill = 30;
       damageWhenGoalIsReached = 100;
       break;
 

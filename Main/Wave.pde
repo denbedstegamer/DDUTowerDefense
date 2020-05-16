@@ -62,7 +62,7 @@ public class Wave {
       //wave 6
     case 6:
       timeTillNextEnemy = 40;
-      for (int i = 0; i < 25; i++) {
+      for (int i = 0; i < 18; i++) {
         queue.add(new Enemy(3, game.level.track.points.get(0)));
         queueTimes.add(timeTillNextEnemy);
       }
@@ -70,16 +70,17 @@ public class Wave {
 
       //wave 7
     case 7:
-      for (int i = 0; i < 4; i++) {
-        timeTillNextEnemy = 120;
+      for (int i = 0; i < 5; i++) {
+        timeTillNextEnemy = 60;
         queue.add(new Enemy(2, game.level.track.points.get(0)));
         queueTimes.add(timeTillNextEnemy);
-        for (int j = 0; j < 4; j++) {
-          timeTillNextEnemy = 20;
+      }
+      queueTimes.add(450);
+      for (int j = 0; j < 12; j++) {
+          timeTillNextEnemy = 35;
           queue.add(new Enemy(3, game.level.track.points.get(0)));
           queueTimes.add(timeTillNextEnemy);
         }
-      }
       break;
 
       //wave 8
